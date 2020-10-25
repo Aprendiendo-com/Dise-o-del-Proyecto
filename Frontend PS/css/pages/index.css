@@ -1,0 +1,80 @@
+:root {
+    --fuentePrincipal: 'Staatliches', cursive;
+    --primario: #d3dfd4;
+    --primarioOscuro:#48D1CC;
+}
+
+
+/* apply a natural box layout model to all elements, but allowing components to change */
+
+html {
+    font-size: 62.5%;
+    box-sizing: border-box;
+}
+
+*,
+*:before,
+*:after {
+    box-sizing: inherit;
+}
+
+img {
+    max-width: 100%;
+}
+
+body {
+    background-color: var(--primario);
+    line-height: 2;
+    font-size: 2rem;
+}
+#nav_bar
+{
+    background-color: #48D1CC;
+
+}
+#class
+{
+    background-color: #48D1CC;
+    width: 80%;
+    margin-top: 10%;
+    margin-left: 3%;
+
+    -webkit-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.3);
+    -moz-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.3);
+    box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.3);
+}
+#nav
+{
+    background-color: #48D1CC;
+}
+.barra {
+    background-color: var(--primarioOscuro);
+    padding: 1rem 0;
+}
+
+.barra .nav {
+    text-align: center;
+}
+
+.barra .nav a {
+    font-family: var(--fuentePrincipal);
+    font-size: 3rem;
+    text-align: center;
+    color: #ffffff;
+    text-decoration: none;
+    padding-left: 5rem;
+}
+
+.barra .nav a:hover {
+    color: var(--secundario)
+}
+#seccion
+{
+    margin-top: 3%;
+    background-color: #48D1CC;
+}
+.footer {
+    background-color: var(--primarioOscuro);
+    padding: 0rem 0;
+    margin-top: 10rem;
+}

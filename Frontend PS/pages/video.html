@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+ <meta charset="utf-8">
+ <title>Video en el Lienzo</title> 
+<style>
+    section {
+    float: left;
+    }
+    </style>
+    <script>
+    var canvas, video;
+    function iniciar() {
+    var elemento = document.getElementById("canvas");
+    canvas = elemento.getContext("2d");
+    video = document.getElementById("medio");
+    canvas.translate(483, 0);
+    canvas.scale(-1, 1);
+    setInterval(procesarcuadros, 33);
+    }
+    function procesarcuadros() {
+    canvas.drawImage(video, 0, 0);
+    }
+    window.addEventListener("load", iniciar);
+    </script>
+   </head>
+   <body>
+    <section>
+    <video id="medio" width="483" height="272" autoplay>
+    <source src="trailer.mp4">
+    <source src="trailer.ogg">
+    </video>
+    </section>
+    <section>
+    <canvas id="canvas" width="483" height="272"></canvas>
+    </section>
+   </body>
+   </html> 
