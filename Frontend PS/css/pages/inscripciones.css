@@ -17,7 +17,15 @@ body
     background-color: #48D1CC;
     height: 10%;
 }
-
+.card
+{
+    margin-top: 1%;
+    margin-right: 2%;
+}
+.copyright
+{
+    font: 150% sans-serif;
+}
 .ins
 {
     --fuentePrincipal: 'Staatliches', cursive;
@@ -37,8 +45,7 @@ body
 {
     font-size:30px;
 }
-
-.copyright
+.tramite
 {
-    font: 150% sans-serif;
+    margin-top: 15%;
 }
