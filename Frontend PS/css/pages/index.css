@@ -43,9 +43,10 @@ body {
     -moz-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.3);
     box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.3);
 }
-#nav
+.nav
 {
     background-color: #48D1CC;
+    margin-top: 2rem;
 }
 .barra {
     background-color: var(--primarioOscuro);
@@ -70,9 +71,15 @@ body {
 }
 #seccion
 {
-    margin-top: 3%;
-    background-color: #48D1CC;
+    margin-top: 2rem;
+    background-color: #ffffff;
 }
+#seccionListado
+{
+    margin-top: 2rem;
+    background-color: #ffffff;
+}
+
 .footer {
     background-color: var(--primarioOscuro);
     padding: 0rem 0;
