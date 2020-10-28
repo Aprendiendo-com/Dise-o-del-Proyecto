@@ -2,53 +2,164 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>listadoEstudiantes</title>
-    <link rel="stylesheet" href="https://necolas.github.io/normalize.css/8.0.1/normalize.css">
+    <title>Lista de Estudiantes</title>
+    <!--<link rel="stylesheet" href="https://necolas.github.io/normalize.css/8.0.1/normalize.css">-->
     <link href="https://fonts.googleapis.com/css?family=Staatliches" rel="stylesheet">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"> -->
     <link rel="stylesheet" href="/css/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/css/pages/index.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="/css/pages/curso.css">
     <script src="https://kit.fontawesome.com/3dc5764727.js" crossorigin="anonymous"></script>
 </head>
 <body>
     <header>
 
-        <nav class="navbar navbar-expand-lg navbar-light"  id="nav_bar">
-            <div class="barra">
+    </header>
+
+    <div class="conteiner-fluid">
+        <nav class="navbar navbar-expand-lg navbar-light row"  id="nav_bar">
+            <div class="barra col-xl-3 col-lg-3 col-md-3 col-sm-12">
                 <div class="nav">
-                    <a href="index.html">E-Learning.com</a>
+                    <a class="ins" href="index.html">Aprendiendo.com</a>
                 </div>
+                
+            </div>
+
+            <div class="col-xl-9 col-lg-9 col-md-9 col-sm-12">
+                <!--<ul class="nav">
+                    <li class="secciones nav-item">
+                        <a class="nav-link text-dark" href="#">Dar baja</a>
+                    </li>
+                    <li class="secciones nav-item">
+                        <a class="nav-link text-dark" href="#">Cursos</a>
+                    </li>
+                </ul>-->
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#"> Dar Baja </span></a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Cursos</a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item bg-light" href="#">Curso 1</a>
+                                <a class="dropdown-item bg-light" href="#">Curso 2</a>
+                                <a class="dropdown-item bg-light" href="#">Curso 3</a>
+                            </div>
+                        </li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <button type="button" class="btn"> <i class="fas fa-user"></i> User </button>
+                    </ul>
+                </div>
+
+
             </div>
         </nav>
-
-    </header>
+    </div>
 
     <section >
         <div class="container-fluid">
             <div class="row">
                 <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12" id="body">
+                    
+
+                    <div id="class">
+                        <p style="text-align: center"> <i class="fas fa-book-open"></i> Clases</p>
+                        
+                        <ul class="nav flex-column">
+                            <li class="nav-item">
+                                <a href="#" class="nav-link text-dark bg-light">
+                                    <i class="fas fa-pencil-alt"></i>
+                                    Clase 1
+                                </a>
+                            </li>
+                            
+                            <li class="nav-item">
+                                <a href="#" class="nav-link text-dark bg-light">
+                                    <i class="fas fa-pencil-alt"></i>
+                                    Clase 2
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#" class="nav-link text-dark bg-light">
+                                    <i class="fas fa-pencil-alt"></i>
+                                    Clase 3
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#" class="nav-link text-dark bg-light">
+                                    <i class="fas fa-pencil-alt"></i>
+                                    Clase 4
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
 
                 </div>
+
                 <div class="col-xl-9 col-lg-9 col-md-9 col-sm-12" id="main">
-                    
+
+                    <div id="seccionListados" style="margin-top: 2rem; background-color: #48D1CC;">
+                        <ul class="nav">
+                            <li class="secciones nav-item">
+                                <a class="nav-link text-dark" href="#">Contenido</a>
+                            </li>
+                            <li class="secciones nav-item">
+                                <a class="nav-link text-dark" href="#">Actividades</a>
+                            </li>
+                            <li class="secciones nav-item">
+                                <a class="nav-link text-dark" href="#">Ir a foro</a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="contenidoClase bg-light">
+
+                        <div class="centro" style="box-sizing: border-box">
+                            <br>
+                            <div class="texto" style="margin-top: 1rem !important; margin: 1rem; border-bottom-style: double; border-width: 1px;"">
+                                
+                                <h4>Listado de alumnos</h4>
+                            </div>   
+                        </div>
+                        
+                    </div>
+
                 </div>
             </div>
         </div>
     </section>
 
-    <footer>
+    <div class="container-fluid">
+        <footer class="row footer" id="footer">
 
-    </footer>
+            <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                <br>
+                <p class="copyright d-inline-block">Siguenos en: </p>
+                <i class="ifooter fab fa-facebook-f"></i>
+                <i class="ifooter fab fa-youtube"></i>
+                <i class="ifooter fab fa-twitter"></i>
+            </div>
+
+            <div class="col-xl-9 col-lg-9 col-md-9 col-sm-12">
+                <br>
+                <p class="copyright">
+                    E-Learning. Integrantes: Derecho reservados 2020.Universidad Nacional Arturo Jauretche
+                </p>
+            </div>
+            
+        </footer>
+
+    </div>
+
 
     <script src="/js/jQuery/jquery-3.5.1.min.js"></script>
-    <script src="/js/jQuery/popper.min.js"></script>
     <script src="/js/bootstrap/js/bootstrap.min.js"></script>
-
-    <script src="/js/pages/index.js"></script>
-    <script src="/js/pages/listadoEstudiantes.js"></script>
     <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
-
+    <script src="/js/pages/listadoEstudiantes.js"></script>
     
+
 </body>
 </html>

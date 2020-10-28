@@ -1,35 +1,37 @@
 $(document).ready(function () {
     
-    var seccionList = $('#main');
+    var seccionList = $('.centro');
 
-    var cursoLista = `<div id="seccionListado">
+    var cursoLista = `<div id="seccionListado" style="margin: 2rem">
                         <label>Ingrese el ID del curso</label>
                         <input id="inputCurso" type="number"/>
-                        <button id="Listar">Listar</button>
-                        
-                    </div>`;
+                        <button id="Listar">Listar</button>                        
+                    </div>
+                    <br>`;
                     
     seccionList.append(cursoLista);
 
     
     $("#Listar").on("click",function (){    
         
-        if ($.fn.DataTable.isDataTable("#example")) 
+        if ($.fn.DataTable.isDataTable("#listaAlumnos")) 
         {
-            $('#example').DataTable().destroy();
-            $('#example').empty();
+            $('#listaAlumnos').DataTable().destroy();
+            $('#listaAlumnos').empty();
         }
         else
         {
             $("#seccionListado").append(
-                `<table id="example" class="display" style="width:80%">
-            </table>`
+                `<div style="margin: 1.5rem">
+                    <table id="listaAlumnos" class="display" style="width:100%">
+                    </table>
+                </div>`
             )
         }
 
         let cursoId = $("#inputCurso").val();
         
-        $('#example').DataTable( {
+        $('#listaAlumnos').DataTable( {
             "ajax": {
                 "url": "https://127.0.0.1:5001/api/EstudianteCurso/estudiante/"+cursoId,
                 "dataSrc": ""
