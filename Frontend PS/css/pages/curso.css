@@ -6,6 +6,7 @@
     -webkit-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.3);
     -moz-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.3);
     box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.3);
+    
 }
 .secciones
 {
@@ -68,4 +69,10 @@ body
     -webkit-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.3);
     -moz-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.3);
     box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.3);
+}
+#clases
+{
+    background-color: #ffffff;
+    height: 30%;
+    overflow: hidden;
 }
