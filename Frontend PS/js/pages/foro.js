@@ -11,11 +11,6 @@ $(document).ready(function () {
 
             $("tr:has(td)").remove();
             $.each(data, function(i, item) {
-
-                // var text = document.createElement("p");
-                // text.innerHTML = item.estado;
-                // document.getElementById("forum-get-coment").appendChild(text);
-                // document.getElementById("forum-get-coment").appendChild(text);
                 
                 var tr = document.createElement('tr');
                 var td = document.createElement('td');
@@ -36,19 +31,19 @@ $(document).ready(function () {
 
 
 
-//Seteo de envio de comentarios
+//Configuracion de envio de comentarios
     
     var seccionForo = $('#forum-send-coment');
 
     var claseComentar = `<textarea id="inputComentario" maxlength="200" placeholder="Solo se permiten 200 caracteres "></textarea> 
-                        <button id="Enviar" style="float: right;">Enviar</button>`;
+                        <button id="EnviarComentario" style="float: right;">Enviar</button>`;
                     
     seccionForo.append(claseComentar);
 
     var comentario = $("#inputComentario").val();
     var foroId = 1;
 
-    $("#Enviar").on("click",function (){    
+    $("#EnviarComentario").on("click",function (){    
         $.ajax({
             url: 'https://localhost:44xxx/api/Comentario?'+foroId,
             data: JSON.stringify(comentario),
