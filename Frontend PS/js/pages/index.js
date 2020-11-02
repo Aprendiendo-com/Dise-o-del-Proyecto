@@ -47,41 +47,41 @@ $(document).ready(function() {
 
     nav.append(html);
 
-    // var body = $('#body');
+    var body = $('#body');
 
-    // var text = `
-    // <div id="class">
-    //     <p style="text-align: center"> <i class="fas fa-book-open"></i> Clases</p>
+    var text = `
+    <div id="class">
+        <p style="text-align: center"> <i class="fas fa-book-open"></i> Clases</p>
         
-    //     <ul class="nav flex-column">
-    //         <li class="nav-item">
-    //             <a href="#" class="nav-link text-dark bg-light">
-    //                 <i class="fas fa-pencil-alt"></i>
-    //                 Tema Clase
-    //             </a>
-    //         </li>
+        <ul class="nav flex-column">
+            <li class="nav-item">
+                <a href="#" class="nav-link text-dark bg-light">
+                    <i class="fas fa-pencil-alt"></i>
+                    Tema Clase
+                </a>
+            </li>
             
-    //         <li class="nav-item">
-    //             <a href="#" class="nav-link text-dark bg-light">
-    //                 <i class="fas fa-pencil-alt"></i>
-    //                 Tema Clase
-    //             </a>
-    //         </li>
-    //         <li class="nav-item">
-    //             <a href="#" class="nav-link text-dark bg-light">
-    //                 <i class="fas fa-pencil-alt"></i>
-    //                 Tema Clase
-    //             </a>
-    //         </li>
-    //         <li class="nav-item">
-    //             <a href="#" class="nav-link text-dark bg-light">
-    //                 <i class="fas fa-pencil-alt"></i>
-    //                 Tema Clase
-    //             </a>
-    //         </li>
-    //     </ul>
-    // </div>`;
-    // body.append(text);
+            <li class="nav-item">
+                <a href="#" class="nav-link text-dark bg-light">
+                    <i class="fas fa-pencil-alt"></i>
+                    Tema Clase
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link text-dark bg-light">
+                    <i class="fas fa-pencil-alt"></i>
+                    Tema Clase
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link text-dark bg-light">
+                    <i class="fas fa-pencil-alt"></i>
+                    Tema Clase
+                </a>
+            </li>
+        </ul>
+    </div>`;
+    body.append(text);
 
 
     var main = $('#main');
@@ -98,5 +98,6 @@ $(document).ready(function() {
                     </div>`;
                     
     main.append(texthtml);
+
 
   });

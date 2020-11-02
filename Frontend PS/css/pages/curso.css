@@ -69,9 +69,106 @@ body
     -moz-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.3);
     box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.3);
 }
+
 #clases
 {
     background-color: #ffffff;
     height: 30%;
     overflow: hidden;
 }
+
+
+
+
+/* FORO */
+.container-foro{margin-top:20px;
+    background:#eee;
+    }
+    
+    .white-bg {
+        background-color: #ffffff;
+    }
+    .page-heading {
+        border-top: 0;
+        padding: 0 10px 20px 10px;
+    }
+    .mid-icon {
+      font-size: 66px;
+    }
+    .forum-item {
+      margin: 10px 0;
+      padding: 10px 0 20px;
+      border-bottom: 1px solid #f1f1f1;
+    }
+    .forum-container,
+    .forum-post-container {
+      padding: 30px !important;
+    }
+    .forum-item small {
+      color: #999;
+    }
+    #forum-get-coment {
+      color: #999;
+      margin: 1rem;
+      height: auto;
+      padding-left: 2rem;
+    }
+    #forum-send-coment {
+        color: #999;
+        margin: 1rem;
+        float: left;
+        width: 100%;
+        height: auto;
+        padding-left: 2.3rem;
+    }
+    #inputComentario{
+        width: 100%;
+        margin-bottom: 1rem;
+    }
+    .forum-title {
+      margin: 15px 0 15px 0;
+    }
+    .forum-icon {
+      float: left;
+      width: 30px;
+      margin-right: 20px;
+      text-align: center;
+    }
+    .forum-icon .fa {
+      font-size: 30px;
+      margin-top: 8px;
+      color: #9b9b9b;
+    }
+    #tb_comentarios {
+        margin-right: 10px;
+        text-align: left;
+    }
+    
+    
+    .ibox {
+      clear: both;
+      margin-bottom: 25px;
+      margin-top: 0;
+      padding: 0;
+    }
+    .ibox-content {
+      background-color: #ffffff;
+      color: inherit;
+      padding: 15px 20px 20px 20px;
+      border-color: #e7eaec;
+      border-image: none;
+      border-style: solid solid none;
+      border-width: 1px 0;
+    }
+    .text-navy {
+        color: #1ab394;
+    }
+    .mid-icon {
+        float: left;
+        margin-right: 2rem;
+        font-size: 3.5rem !important;
+    }
+    .m-b-sm {
+        margin-bottom: 10px;
+    }
+
