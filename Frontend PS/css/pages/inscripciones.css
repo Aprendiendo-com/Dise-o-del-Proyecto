@@ -49,3 +49,20 @@ body
 {
     margin-top: 15%;
 }
+.boton {
+    background-color: var(--secundario);
+    font-size: 2rem;
+    font-family: var(--fuentePrincipal);
+    border: none;
+    transition: background-color .3s ease;
+    grid-column: 1/4;
+}
+
+.boton {
+    background-color: var(--secundario);
+    font-size: 2rem;
+    font-family: var(--fuentePrincipal);
+    border: none;
+    transition: background-color .3s ease;
+    grid-column: 1/4;
+}
