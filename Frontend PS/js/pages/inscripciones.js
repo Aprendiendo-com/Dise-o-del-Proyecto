@@ -56,9 +56,13 @@ let objeto = {
     "estudianteID": 1,
     "estado": "aprobado"
 }
+var contenido = document.querySelector('#contenido')
+
 function PostInscripcion() {
         fetch(`https://localhost:44326/api/EstudianteCurso`, {
                 method: 'POST',
+                body: JSON.stringify(objeto), // data can be `string` or {object}!
+
                 mode: 'cors',
                 headers: {
                     'Content-Type': 'application/json'
