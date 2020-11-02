@@ -1,11 +1,17 @@
 $(document).ready(function () {
 
-
+    let foroID = 2;
+    var json = JSON.parse(localStorage.getItem('claseU'));
+    if (json)
+    {
+        foroID=json.foro.foroId;
+    }
+    
 //Configuracion de carga de comentarios
 
     $.ajax({
         type: "GET",
-        url: "https://localhost:5001/api/EstudianteCurso/cursos/2", //ruta de ejemplo
+        url: "https://localhost:5001/api/EstudianteCurso/cursos/"+foroID, //ruta de ejemplo
         dataType: "json",
         success: function(data) {
 

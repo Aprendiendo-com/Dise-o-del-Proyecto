@@ -33,7 +33,7 @@ $(document).on('click','.dropdown-item', function(){
     // guardo las clases en el local
 
     localStorage.setItem('clases', JSON.stringify(clases));
-
+    localStorage.setItem('cursos', JSON.stringify(cursos));
     var elemento = $('#clases');
     elemento.empty();
 
@@ -53,7 +53,7 @@ $(document).on('click','.dropdown-item', function(){
 $(document).on('click','.Nclases', function(){
 
     var listaClases = JSON.parse(localStorage.getItem('clases')).find(x => x.descripcion == this.id);
-
+    localStorage.setItem('claseU', JSON.stringify(listaClases));
     var contenido = $('.centro');
 
     contenido.empty();

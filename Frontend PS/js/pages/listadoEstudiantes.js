@@ -46,5 +46,11 @@ $(document).ready(function () {
             ]
         })
     });
-
+    
+    var json = JSON.parse(localStorage.getItem('cursos'));
+    if (json)
+    {
+        $("#inputCurso").val(json.cursoId);
+        $("#Listar").click();
+    }
 })

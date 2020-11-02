@@ -5,7 +5,6 @@
     <title>Foro</title>
     <!--<link rel="stylesheet" href="https://necolas.github.io/normalize.css/8.0.1/normalize.css">-->
     <link href="https://fonts.googleapis.com/css?family=Staatliches" rel="stylesheet">
-    <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"> -->
     <link rel="stylesheet" href="/css/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css">
     <link rel="stylesheet" href="/css/pages/curso.css">
@@ -39,10 +38,7 @@
                             </li>
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Cursos</a>
-                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item bg-light" href="#">Curso 1</a>
-                                    <a class="dropdown-item bg-light" href="#">Curso 2</a>
-                                    <a class="dropdown-item bg-light" href="#">Curso 3</a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown" id="cursos">
                                 </div>
                             </li>
                         </ul>
@@ -64,34 +60,11 @@
     
                         <div id="class">
                             <p style="text-align: center"> <i class="fas fa-book-open"></i> Clases</p>
-                            
-                            <ul class="nav flex-column">
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link text-dark bg-light">
-                                        <i class="fas fa-pencil-alt"></i>
-                                        Clase 1
-                                    </a>
-                                </li>
-                                
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link text-dark bg-light">
-                                        <i class="fas fa-pencil-alt"></i>
-                                        Clase 2
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link text-dark bg-light">
-                                        <i class="fas fa-pencil-alt"></i>
-                                        Clase 3
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link text-dark bg-light">
-                                        <i class="fas fa-pencil-alt"></i>
-                                        Clase 4
-                                    </a>
-                                </li>
+                        
+                            <ul class="nav flex-column" id="clases">
                             </ul>
+                            
+                            
                         </div>
     
                     </div>
@@ -104,10 +77,10 @@
                                     <a class="nav-link text-dark" href="#">Contenido</a>
                                 </li>
                                 <li class="secciones nav-item">
-                                    <a class="nav-link text-dark" href="#">Actividades</a>
+                                    <a class="nav-link text-dark" href="#"><i class="far fa-edit"></i>Actividades</a>
                                 </li>
                                 <li class="secciones nav-item">
-                                    <a class="nav-link text-dark" href="Foro.html">Ir a foro</a>
+                                    <a class="nav-link text-dark" href="Foro.html"><i class="far fa-comment-dots"></i>Ir a foro</a>
                                 </li>
                                 <li class="secciones nav-item">
                                     <a class="nav-link text-dark" href="listadoEstudiantes.html">Listar Estudiantes</a>
@@ -173,6 +146,7 @@
     <script src="/js/bootstrap/js/bootstrap.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
     <script src="/js/pages/foro.js"></script>
+    <script src="/js/pages/curso.js"></script>
     
 
 </body>
