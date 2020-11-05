@@ -61,7 +61,7 @@ $(document).on('click', '.alta', function(){
         "estado": "En curso"
     }
     debugger
-    fetch('https://localhost:44326/api/EstudianteCurso', {
+    fetch('https://localhost:5001/api/EstudianteCurso', {
         method: 'POST',
         body: JSON.stringify(objeto), // data can be `string` or {object}!
         mode: 'cors',
