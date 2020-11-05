@@ -5,7 +5,7 @@ $(document).ready(function(){
 
 function traerDatos_del_alumno() {
 
-    fetch('/data/dato_prueba.json')
+    fetch('/data/paraJueves.json')
     .then(responce => responce.json())
     .then(data => {
 
@@ -67,7 +67,7 @@ $(document).on('click','.Nclases', function(){
 
                     <div class="texto" >
                                <div class="embed-responsive embed-responsive-16by9">
-                               <iframe width="560" height="315" src="https://www.youtube.com/embed/ZPs3URGs0KQ" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                    <iframe width="560" height="315" src="${listaClases.video.link}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                                 </div>
                            </div>
                     `;
