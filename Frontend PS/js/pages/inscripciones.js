@@ -27,7 +27,7 @@ function CargarCursos() {
                             <span class="badge badge-success"> Cupos: ${cursos.cantidad}</span>
                             <div class = "tramite">
                                 
-                                <button type="button" class="btn btn-light btn-sm" >Inscribirse</button>
+                                <button type="button" class="alta btn btn-light btn-sm" id = "${cursos.cursoId}">Inscribirse</button>
                                 <button type="button" class="detalles btn btn-primary btn-sm"  data-toggle="modal" data-target="#exampleModal" value = "${cursos.descripcion}"> Ver detalles</button>
                             </div>
                         </div>
@@ -51,34 +51,32 @@ $(document).on('click', '.detalles', function()
     contenido.append(text);
 });
 
-let objeto = {
-    "cursoID": 1, //valor preseteado
-    "estudianteID": 1,
-    "estado": "aprobado"
-}
-var contenido = document.querySelector('#contenido')
 
-function PostInscripcion() {
-        fetch(`https://localhost:44326/api/EstudianteCurso`, {
-                method: 'POST',
-                body: JSON.stringify(objeto), // data can be `string` or {object}!
 
-                mode: 'cors',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-            })
-            .then(response => {
-                return response.json()
-            })
-            .then(function(objeto) {
-                alert('Incripcion realizada');
-                
-            })
-            .catch(err => console.log('ERROR: ' + err));
+$(document).on('click', '.alta', function(){
 
-  
-}
+    let objeto = {
+        "cursoID": this.id, //valor preseteado
+        "estudianteID": 1,
+        "estado": "En curso"
+    }
+    debugger
+    fetch('https://localhost:44326/api/EstudianteCurso', {
+        method: 'POST',
+        body: JSON.stringify(objeto), // data can be `string` or {object}!
+        mode: 'cors',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+    })
+    .then(response => {
+        return response.json()
+    })
+    .then(function(objeto) {
+        alert('Incripcion realizada');
+    })
+    .catch(err => console.log('ERROR: ' + err));
+});
 
 // myform.submit((event) => {
 //     event.preventDefault();
