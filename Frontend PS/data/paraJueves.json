@@ -1,5 +1,6 @@
 [
     {
+      "cursoId": 1,
       "nombre": "Algoritmos y programacion.",
       "descripcion": " Introducir a los estudiantes al paradigma de la programacion orientada a objetos para que puedan utilizar dicho paradigma en la realizacion de programas. Los estudiantesrecibiran una introduccion a los conceptos de TAD, recursion, manejos de excepciones y estructuras de datos compuestas.",
       "cantidad": 40,
@@ -229,6 +230,7 @@
       ]
     },
     {
+      "cursoId": 2,
       "nombre": "Ingles aplicado",
       "descripcion": "Que los alumnos puedan familiarizarse con los patrones retóricos principales de la lengua inglesa en los usos y contextos de la comunicación académica,teniendo en cuenta el objetivo / complejidad / especificidad de cada situación comunicativa y la demanda de los interlocutores.",
       "cantidad": 40,

@@ -11,7 +11,7 @@ $(document).ready(function () {
 
     $.ajax({
         type: "GET",
-        url: "https://localhost:5001/api/EstudianteCurso/cursos/"+foroID, //ruta de ejemplo
+        url: "https://localhost:44308/api/Comentario/GetByForoId?ForoId="+foroID,
         dataType: "json",
         success: function(data) {
 
@@ -22,7 +22,7 @@ $(document).ready(function () {
                 var td = document.createElement('td');
 
                 var td1 = document.createElement('td');
-                td1.textContent = item.estado;
+                td1.textContent = item.texto;
                 tr.append(td);
                 tr.append(td1);
                 $('#tb_comentarios').append(tr);
@@ -46,13 +46,19 @@ $(document).ready(function () {
                     
     seccionForo.append(claseComentar);
 
-    var comentario = $("#inputComentario").val();
-    var foroId = 1;
+    
 
-    $("#EnviarComentario").on("click",function (){    
+    $("#EnviarComentario").on("click",function (){  
+        var comentario = $("#inputComentario").val();
+
+        let Bodycomentario = { //valor preseteado
+            "foroId": foroID,
+            "texto": comentario
+        }
+        
         $.ajax({
-            url: 'https://localhost:44xxx/api/Comentario?'+foroId,
-            data: JSON.stringify(comentario),
+            url: 'https://localhost:44308/api/Comentario',
+            data: JSON.stringify(Bodycomentario),
             type: "POST",
             dataType: 'JSON',
             contentType: "application/json",
