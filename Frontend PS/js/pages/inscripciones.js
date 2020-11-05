@@ -18,7 +18,7 @@ function CargarCursos() {
             <div class="card mb-3 d-inline-block" style="max-width: 540px;">
                 <div class="row no-gutters">
                     <div class="col-md-4">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/2/24/Unaj.jpg" class="card-img" alt="Imagen de un curso">
+                        <img src="https://www.subitus.com/wp-content/uploads/2020/05/iconos-e-learning-planos_1284-3950.jpg" class="card-img" alt="Imagen de un curso">
                     </div>
                     <div class="col-md-8">
                         <div class="card-body">
@@ -28,7 +28,7 @@ function CargarCursos() {
                             <div class = "tramite">
                                 
                                 <button type="button" class="alta btn btn-light btn-sm" id = "${cursos.cursoId}">Inscribirse</button>
-                                <button type="button" class="detalles btn btn-primary btn-sm"  data-toggle="modal" data-target="#exampleModal" value = "${cursos.descripcion}"> Ver detalles</button>
+                                <button type="button" id = "${cursos.nombre}" class="detalles btn btn-primary btn-sm"  data-toggle="modal" data-target="#exampleModal" value = "${cursos.descripcion}"> Ver detalles</button>
                             </div>
                         </div>
                     </div>
@@ -46,6 +46,7 @@ $(document).on('click', '.detalles', function()
     $('.modal-body').empty();
     var contenido = $('.modal-body');
 
+    $('#exampleModalLabel').text(this.id);
     var text = `<p> ${this.value}</p>`;
 
     contenido.append(text);
