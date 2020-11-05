@@ -7,7 +7,7 @@ function CargarCursos() {
 
     var main = $('#main');
 
-    fetch('https://localhost:44308/api/Curso/GetAll')
+    fetch('https://localhost:44308/api/Curso/GetAll') 
     .then(responce => responce.json())
     .then(data => {
 
@@ -27,9 +27,10 @@ function CargarCursos() {
                             <span class="badge badge-success"> Cupos: ${cursos.cantidad}</span>
                             <div class = "tramite">
                                 
-                                <button type="button" class="btn btn-light btn-sm" >Inscribirse</button>
-                                <button type="button" class="detalles btn btn-primary btn-sm"  data-toggle="modal" data-target="#exampleModal" value = "${cursos.descripcion}"> Ver detalles</button>
-                            </div>
+                            <button onclick="Inscripcion();" type="button" class="inscribirse btn btn-light btn-sm" id="${cursos.cursoId}">Inscripcion</button>
+
+                                <button type="button" class="detalles btn btn-primary btn-sm"  data-toggle="modal" data-target="#exampleModal" value = "${cursos.descripcion}id="${cursos.cursoId}"> Ver detalles</button>
+                            </div> 
                         </div>
                     </div>
                 </div>
@@ -51,19 +52,20 @@ $(document).on('click', '.detalles', function()
     contenido.append(text);
 });
 
-let objeto = {
-    "cursoID": 1, //valor preseteado
-    "estudianteID": 1,
-    "estado": "aprobado"
-}
-var contenido = document.querySelector('#contenido')
 
-function PostInscripcion() {
-        fetch(`https://localhost:44326/api/EstudianteCurso`, {
+
+function Inscripcion() {
+     let objeto = {
+         "cursoId":10,
+         "estudianteID": 5,
+         "estado": "recursa"
+ }
+ debugger
+        fetch('https://localhost:44326/api/EstudianteCurso', {
                 method: 'POST',
-                body: JSON.stringify(objeto), // data can be `string` or {object}!
+                body: JSON.stringify(objeto),
 
-                mode: 'cors',
+                 mode: 'cors',
                 headers: {
                     'Content-Type': 'application/json'
                 },
@@ -71,12 +73,13 @@ function PostInscripcion() {
             .then(response => {
                 return response.json()
             })
+            
             .then(function(objeto) {
                 alert('Incripcion realizada');
                 
             })
             .catch(err => console.log('ERROR: ' + err));
-
+            console.log(objeto); alert("Incripcion realizada");
   
 }
 
