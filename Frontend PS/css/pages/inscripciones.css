@@ -1,7 +1,3 @@
-body
-{
-    background-color: #d3dfd4;
-}
 
 #footer {
     background-color: #48D1CC;
@@ -19,7 +15,7 @@ body
 }
 .card
 {
-    margin-top: 1%;
+    margin-top: 4%;
     margin-right: 2%;
 }
 .copyright
@@ -49,7 +45,27 @@ body
 {
     margin-top: 15%;
 }
-.boton {
+.btn{
+    margin-right: 2%;
+}
+.centrar{
+    margin-top: 3%;
+}
+.cont{
+    margin-top: 10%;
+}
+.encabezado{
+    margin-top: 3%;
+    margin-left: 1%;
+}
+.texto{
+    margin-top: 4%;
+}
+.pie{
+    margin: 3%;
+}
+
+/*.boton {
     background-color: var(--secundario);
     font-size: 2rem;
     font-family: var(--fuentePrincipal);
@@ -65,4 +81,4 @@ body
     border: none;
     transition: background-color .3s ease;
     grid-column: 1/4;
-}
+}*/
