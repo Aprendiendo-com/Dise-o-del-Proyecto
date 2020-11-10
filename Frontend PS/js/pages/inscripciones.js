@@ -2,43 +2,88 @@ $(document).ready(function() {
     CargarCursos();
   });
 
-
 function CargarCursos() {
 
-    var main = $('#main');
+    var c1 = $('#home');
+    var c2 = $('#profile');
+    var c3 = $('#contact');
 
     fetch('https://localhost:44308/api/Curso/GetAll')
     .then(responce => responce.json())
     .then(data => {
 
-
         $.each(data, function(index, cursos) {
 
-            var card = `
-            <div class="card mb-3 d-inline-block" style="max-width: 540px;">
-                <div class="row no-gutters">
-                    <div class="col-md-4">
-                        <img src="https://www.subitus.com/wp-content/uploads/2020/05/iconos-e-learning-planos_1284-3950.jpg" class="card-img" alt="Imagen de un curso">
-                    </div>
-                    <div class="col-md-8">
-                        <div class="card-body">
-                            <h4 class="card-title"> ${cursos.nombre} </h4>
+            if(cursos.categoria == "Programacion")
+            {
+                var text = `<div class="card d-inline-block" style="width: 18rem;">
+                                <img src="${cursos.imagen}" class="card-img-top" alt="...">
+                                <div class="card-body">
+                                    <h5 class="card-title"> ${cursos.nombre} </h5>
 
-                            <span class="badge badge-success"> Cupos: ${cursos.cantidad}</span>
-                            <div class = "tramite">
-                                
-                                <button type="button" class="alta btn btn-light btn-sm" id = "${cursos.cursoId}">Inscribirse</button>
-                                <button type="button" id = "${cursos.nombre}" class="detalles btn btn-primary btn-sm"  data-toggle="modal" data-target="#exampleModal" value = "${cursos.descripcion}"> Ver detalles</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>`;
-                    
-            main.append(card);
+                                    <div class = "cont">
+                                        <span class="badge badge-success"> Capacidad: ${cursos.cantidad}</span>
+                                        <p> Profesor: ${cursos.profesor}</p>
+                                        <div>
+                                            <button type="button" class="alta btn btn-light btn-sm" id = "${cursos.cursoId}"> Inscribirse </button>
+                                            <button type="button" class="detalles btn btn-primary btn-sm" data-toggle="modal" data-target="#exampleModal" id = "${cursos.nombre}" value = "${cursos.descripcion}"> detalles </button>
+                                        </div>
 
+                                    </div>
+                                    
+                                </div>
+                            </div>`;
+                c1.append(text);
+            }
+            if(cursos.categoria == "Idiomas")
+            {
+                var text = `<div class="card d-inline-block" style="width: 18rem;">
+                                <img src="${cursos.imagen}" class="card-img-top" alt="...">
+                                <div class="card-body">
+                                    <h5 class="card-title"> ${cursos.nombre} </h5>
+
+                                    <div class = "cont">
+                                        <span class="badge badge-success"> Capacidad: ${cursos.cantidad}</span>
+                                        <p> Profesor: ${cursos.profesor}</p>
+                                        <div>
+                                            <button type="button" class="alta btn btn-light btn-sm" id = "${cursos.cursoId}"> Inscribirse </button>
+                                            <button type="button" class="detalles btn btn-primary btn-sm" data-toggle="modal" data-target="#exampleModal" id = "${cursos.nombre}" value = "${cursos.descripcion}"> detalles </button>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            </div>`;
+                c2.append(text);
+            }
+            if(cursos.categoria == "Ciencias exactas")
+            {
+                var text = `<div class="card d-inline-block" style="width: 18rem;">
+                                <img src="${cursos.imagen}" class="card-img-top" alt="...">
+                                <div class="card-body">
+                                    <h5 class="card-title"> ${cursos.nombre} </h5>
+
+
+                                    <div class = "cont">
+                                        <span class="badge badge-success"> Capacidad: ${cursos.cantidad}</span>
+                                        <p> Profesor: ${cursos.profesor}</p>
+                                        <div>
+                                            <button type="button" class="alta btn btn-light btn-sm" id = "${cursos.cursoId}"> Inscribirse </button>
+                                            <button type="button" class="detalles btn btn-primary btn-sm" data-toggle="modal" data-target="#exampleModal" id = "${cursos.nombre}" value = "${cursos.descripcion}"> detalles </button>
+                                        </div>
+
+                                </div>
+
+
+
+
+
+                                </div>
+                            </div>`;
+                c3.append(text);
+            }
         });
-    })
+    });
 }
 
 $(document).on('click', '.detalles', function()
@@ -55,7 +100,7 @@ $(document).on('click', '.detalles', function()
 
 
 $(document).on('click', '.alta', function(){
-
+    debugger
     let objeto = {
         "cursoID": this.id, //valor preseteado
         "estudianteID": 1,
