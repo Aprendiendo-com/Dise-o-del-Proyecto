@@ -98,12 +98,15 @@ $(document).on('click', '.detalles', function()
 });
 
 
+// evento de inscribirse
 
 $(document).on('click', '.alta', function(){
-    debugger
+
+    var token = DecodeToken(localStorage.getItem('Token'));
+
     let objeto = {
         "cursoID": this.id, //valor preseteado
-        "estudianteID": 1,
+        "estudianteID": parseInt(token.UsuarioId),
         "estado": "En curso"
     }
     debugger
@@ -160,3 +163,8 @@ $(document).on('click', '.alta', function(){
 
 // });
 
+function DecodeToken(token) {
+    var base64Url = (token).split('.')[1];
+    var base64 = base64Url.replace('-', '+').replace('_', '/');
+    return JSON.parse(window.atob(base64));
+}
