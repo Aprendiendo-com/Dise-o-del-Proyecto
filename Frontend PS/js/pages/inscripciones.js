@@ -102,11 +102,11 @@ $(document).on('click', '.detalles', function()
 
 $(document).on('click', '.alta', function(){
 
-    var token = DecodeToken(localStorage.getItem('Token'));
+    //var token = DecodeToken(localStorage.getItem('Token'));
 
     let objeto = {
         "cursoID": this.id, //valor preseteado
-        "estudianteID": parseInt(token.UsuarioId),
+        "estudianteID": parseInt( localStorage.getItem('EstudianteId')),
         "estado": "En curso"
     }
     debugger

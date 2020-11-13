@@ -63,6 +63,30 @@ function AutoLoguear(correo, contrasenia) {
       .then(json => {
 
           localStorage.setItem('Token', json);
+         
+          var token = DecodeToken(localStorage.getItem('Token'));
+          var estudiante =
+          {
+            "nombre": $('#nombre').val(),
+            "apellido": $('#apellido').val(),
+            "email": $('#correo'),
+            "usuarioId": parseInt(token.UsuarioId),
+          };
+          var options = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                //"Authorization": "Bearer" + localStorage.getItem("token")
+            },
+            body: JSON.stringify(estudiante),
+            mode: 'cors'
+        };
+          fetch('https://localhost:44326/api/Estudiante', options)
+          .then(response => response.json())
+          .then(data => {
+            localStorage.setItem('EstudianteId', data[0].estudianteId);
+          });
+
           DerivarUsuario();
           
           return json;
