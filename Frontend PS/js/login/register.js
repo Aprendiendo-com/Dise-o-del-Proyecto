@@ -1,11 +1,13 @@
 
-
-
 $('#registrar').on("click", Registrar);
 
+
+
 //EN LA VALIDACION COMPROBAR QUE EL CORREO NO ESTÉ REGISTRADO EN LA BD
-function Registrar() {
-  debugger
+async function Registrar() {
+
+  // funcion de registrar
+
   var _nombre = document.getElementById("nombre").value;
   var _apellido = document.getElementById("apellido").value;
   var _email = document.getElementById("correo").value;
@@ -22,90 +24,76 @@ function Registrar() {
     body: JSON.stringify(usuario),
     mode: 'cors'
   };
-  fetch('https://localhost:44351/api/Usuario', options)
-    .then(response => {
-      if (response.status == 201) {
-        AutoLoguear(_email, _contrasenia);
-        return response.json();
-      }
-      else {
-        console.log("Se realizo la peticion pero no devolvio un 201");
-      }
+   await fetch('https://localhost:44351/api/Usuario', options)
+    .then(response => response.json())
+    .then(data =>{
+      console.log("se registro correctamente");
     })
     .catch(err => {
       console.log("Ha ocurrido un error con el registro:" + err);
     });
-}
 
-function AutoLoguear(correo, contrasenia) {
 
-  var usuario = new RequestUsuarioLogin(correo,contrasenia);
 
-  var options = {
+
+     // funcion de login
+
+    var usuario = new RequestUsuarioLogin(_email,_contrasenia);
+
+    var options = {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            //"Authorization": "Bearer" + localStorage.getItem("token")
+        },
+        body: JSON.stringify(usuario),
+        mode: 'cors'
+    };
+    
+    await fetch('https://localhost:44351/api/Usuario/usuario', options)
+    .then((response) => response.json())
+    .then(json => {
+      localStorage.setItem('Token', json);
+      console.log("se logueo correctamente")
+    })
+    .catch(err => console.log('Ha ocurrido un error:' + err));
+
+
+
+
+
+    // funcion de crear un alumno 
+
+    var token = DecodeToken(localStorage.getItem('Token'));
+    var estudiante =
+    {
+      "nombre": $('#nombre').val(),
+      "apellido": $('#apellido').val(),
+      "email": $('#correo').val(),
+      "usuarioId": parseInt(token.UsuarioId),
+    };
+    var options = {
       method: 'POST',
       headers: {
-          'Content-Type': 'application/json',
-          //"Authorization": "Bearer" + localStorage.getItem("token")
-      },
-      body: JSON.stringify(usuario),
-      mode: 'cors'
-  };
-
-
-  fetch('https://localhost:44351/api/Usuario/usuario', options)
-      .then((response) => {
-          if (response.status == 200) {
-            return response.json();
-          } else {
-              console.log("Ha ocurrido un error al loguearse");
-          }
-      })
-      .then(json => {
-
-          localStorage.setItem('Token', json);
-         
-          var token = DecodeToken(localStorage.getItem('Token'));
-          var estudiante =
-          {
-            "nombre": $('#nombre').val(),
-            "apellido": $('#apellido').val(),
-            "email": $('#correo').val(),
-            "usuarioId": parseInt(token.UsuarioId),
-          };
-          var options = {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
+        'Content-Type': 'application/json',
                 //"Authorization": "Bearer" + localStorage.getItem("token")
-            },
-            body: JSON.stringify(estudiante),
-            mode: 'cors'
-        };
-          fetch('http://localhost:51148/api/Estudiante', options)
-          .then(response => response.json())
-          .then(data => {
-            localStorage.setItem('EstudianteId', data.estudianteID);
-            DerivarUsuario();
-          });
-          
-          return json;
-      })
-      .catch(err => console.log('Ha ocurrido un error:' + err));
-}
+              },
+      body: JSON.stringify(estudiante),
+      mode: 'cors'
+      };
+      
+      await fetch('http://localhost:51148/api/Estudiante', options)
+      .then(response => response.json())
+      .then(data => {
+        localStorage.setItem('EstudianteId', data.estudianteID);
+        console.log("el alumno se creo");
+      });
 
-function DerivarUsuario(){
-  var object_token = DecodeToken(localStorage.getItem('Token'));
-  //localStorage.setItem('token', json);
-  //sessionStorage.setItem("NombreToken",object_token.Nombre);
-  //sessionStorage.setItem("ApellidoToken",object_token.Apellido);
-  //sessionStorage.setItem("RolToken",object_token.Rol);
-  //sessionStorage.setItem("UsuarioIdToken",object_token.UsuarioId);
 
-  if(object_token.Rol == "2") {
-
-      window.location.href='./Inscripcion.html'
-      //a curso 1
-  }
+      if(token.Rol == "2") {
+    
+          window.location.href='./Inscripcion.html'
+      }
 }
 
 function DecodeToken(token) {
