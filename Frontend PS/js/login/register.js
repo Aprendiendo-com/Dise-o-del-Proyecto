@@ -69,7 +69,7 @@ function AutoLoguear(correo, contrasenia) {
           {
             "nombre": $('#nombre').val(),
             "apellido": $('#apellido').val(),
-            "email": $('#correo'),
+            "email": $('#correo').val(),
             "usuarioId": parseInt(token.UsuarioId),
           };
           var options = {
@@ -85,9 +85,8 @@ function AutoLoguear(correo, contrasenia) {
           .then(response => response.json())
           .then(data => {
             localStorage.setItem('EstudianteId', data[0].estudianteId);
+            DerivarUsuario();
           });
-
-          DerivarUsuario();
           
           return json;
       })
