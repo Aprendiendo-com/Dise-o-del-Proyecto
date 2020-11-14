@@ -105,7 +105,7 @@ $(document).on('click', '.alta', function(){
     //var token = DecodeToken(localStorage.getItem('Token'));
 
     let objeto = {
-        "cursoID": this.id, //valor preseteado
+        "cursoID": parseInt( this.id), //valor preseteado
         "estudianteID": parseInt( localStorage.getItem('EstudianteId')),
         "estado": "En curso"
     }
