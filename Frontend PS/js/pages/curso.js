@@ -1,11 +1,12 @@
 $(document).ready(function(){
-
     traerDatos_del_alumno();
 });
 
 function traerDatos_del_alumno() {
+    debugger
+    var id = parseInt( localStorage.getItem('EstudianteId'));
 
-    fetch('/data/paraJueves.json')
+    fetch(`http://localhost:51148/api/EstudianteCurso/GetDetalleCursos/${id}`)
     .then(responce => responce.json())
     .then(data => {
 
@@ -74,3 +75,11 @@ $(document).on('click','.Nclases', function(){
 
     contenido.append(principal);
 });
+
+
+
+function DecodeToken(token) {
+    var base64Url = (token).split('.')[1];
+    var base64 = base64Url.replace('-', '+').replace('_', '/');
+    return JSON.parse(window.atob(base64));
+}

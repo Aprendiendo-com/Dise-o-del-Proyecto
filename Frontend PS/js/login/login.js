@@ -1,6 +1,6 @@
-window.onload = () => {
+
     $('#ingresar').on("click", Ingresar);
-}
+
 /*
 window.onunload = () =>{ 
     window.localStorage.clear;
@@ -28,12 +28,10 @@ function Ingresar() {
 
     fetch('https://localhost:44351/api/Usuario/usuario', options)
         .then((response) => {
-            if (response.status === 200) {
+            if (response.status == 200) {
                 return response.json();
             } else {
                 console.log("ERROR");
-                const error = new Error(response.error);
-                throw error;
             }
         })
         .then(json => {
@@ -47,21 +45,29 @@ function Ingresar() {
 
 function DerivarUsuario(){
     var object_token = DecodeToken(localStorage.getItem('Token'));
+
+    var usuarioId = parseInt(object_token.UsuarioId);
+
+    fetch(`http://localhost:51148/api/Estudiante/ObtenerIdEstudiante/${usuarioId}`)
+        .then(response => response.json())
+        .then( data => {
+            localStorage.setItem('EstudianteId', data);
+            if(object_token.Rol == "1") {
+                console.log("Es un profesor");
+                //window.location.href= './listadoEstudiantes.html'
+            }
+            else if(object_token.Rol == "2") {
+        
+                window.location.href='./Curso1.html'
+                //a curso 1
+            }
+        })
     //localStorage.setItem('token', json);
-    sessionStorage.setItem("NombreToken",object_token.Nombre);
-    sessionStorage.setItem("ApellidoToken",object_token.Apellido);
-    sessionStorage.setItem("RolToken",object_token.Rol);
-    sessionStorage.setItem("UsuarioIdToken",object_token.UsuarioId);
+    //sessionStorage.setItem("NombreToken",object_token.Nombre);
+    //sessionStorage.setItem("ApellidoToken",object_token.Apellido);
+    //sessionStorage.setItem("RolToken",object_token.Rol);
+    //sessionStorage.setItem("UsuarioIdToken",object_token.UsuarioId);
     //console.log(object_token);
-    if(object_token.Rol == "Profesor") {
-        console.log("Es un profesor");
-        //window.location.href= './listadoEstudiantes.html'
-    }
-    else if(object_token.Rol == "Estudiante") {
-        console.log("Es un alumno");
-        window.location.href='./Inscripcion.html'
-        //a curso 1
-    }
 }
 
 function DecodeToken(token) {
