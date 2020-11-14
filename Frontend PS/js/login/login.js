@@ -10,7 +10,10 @@ window.onunload = () =>{
 window.onbeforeunload = function() { 
     window.localStorage.removeItem('token');
 };*/
-function Ingresar() {
+async function Ingresar() {
+
+    // funcion de login
+
     var correo = document.getElementById("correo-login").value;
     var contrasenia = document.getElementById("contrasenia-login").value;
     var usuario = new RequestUsuarioLogin(correo,contrasenia);
@@ -24,50 +27,42 @@ function Ingresar() {
         body: JSON.stringify(usuario),
         mode: 'cors'
     };
-    //console.log(usuario);
 
-    fetch('https://localhost:44351/api/Usuario/usuario', options)
-        .then((response) => {
-            if (response.status == 200) {
-                return response.json();
-            } else {
-                console.log("ERROR");
-            }
-        })
+    await fetch('https://localhost:44351/api/Usuario/usuario', options)
+        .then((response) => response.json())
         .then(json => {
+
             localStorage.setItem('Token', json);
-            DerivarUsuario();
-            return json;
+            console.log("el login fue correcto");
         })
         .catch(err => console.log('ERROR:' + err));
-        
-}
 
-function DerivarUsuario(){
-    var object_token = DecodeToken(localStorage.getItem('Token'));
 
-    var usuarioId = parseInt(object_token.UsuarioId);
 
-    fetch(`http://localhost:51148/api/Estudiante/ObtenerIdEstudiante/${usuarioId}`)
+
+        // funcion de buscar la id del estudiante o alumno
+
+        var object_token = DecodeToken(localStorage.getItem('Token'));
+
+        var usuarioId = parseInt(object_token.UsuarioId);
+
+        await fetch(`http://localhost:51148/api/Estudiante/ObtenerIdEstudiante/${usuarioId}`)
         .then(response => response.json())
         .then( data => {
+            
             localStorage.setItem('EstudianteId', data);
-            if(object_token.Rol == "1") {
-                console.log("Es un profesor");
-                //window.location.href= './listadoEstudiantes.html'
-            }
-            else if(object_token.Rol == "2") {
-        
-                window.location.href='./Curso1.html'
-                //a curso 1
-            }
         })
-    //localStorage.setItem('token', json);
-    //sessionStorage.setItem("NombreToken",object_token.Nombre);
-    //sessionStorage.setItem("ApellidoToken",object_token.Apellido);
-    //sessionStorage.setItem("RolToken",object_token.Rol);
-    //sessionStorage.setItem("UsuarioIdToken",object_token.UsuarioId);
-    //console.log(object_token);
+
+
+        // se lo manda a la pagina correspondiente
+        if(object_token.Rol == "1") {
+
+            console.log("Es un profesor");
+        }
+        if(object_token.Rol == "2") {
+    
+            window.location.href='./Curso1.html'
+        }
 }
 
 function DecodeToken(token) {

@@ -2,11 +2,11 @@ $(document).ready(function(){
     traerDatos_del_alumno();
 });
 
-function traerDatos_del_alumno() {
-    debugger
+async function traerDatos_del_alumno() {
+    
     var id = parseInt( localStorage.getItem('EstudianteId'));
 
-    fetch(`http://localhost:51148/api/EstudianteCurso/GetDetalleCursos/${id}`)
+    await fetch(`http://localhost:51148/api/EstudianteCurso/GetDetalleCursos/${id}`)
     .then(responce => responce.json())
     .then(data => {
 
