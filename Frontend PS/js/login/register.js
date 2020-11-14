@@ -5,7 +5,7 @@ $('#registrar').on("click", Registrar);
 
 //EN LA VALIDACION COMPROBAR QUE EL CORREO NO ESTÉ REGISTRADO EN LA BD
 function Registrar() {
-
+  debugger
   var _nombre = document.getElementById("nombre").value;
   var _apellido = document.getElementById("apellido").value;
   var _email = document.getElementById("correo").value;
@@ -81,10 +81,10 @@ function AutoLoguear(correo, contrasenia) {
             body: JSON.stringify(estudiante),
             mode: 'cors'
         };
-          fetch('https://localhost:44326/api/Estudiante', options)
+          fetch('http://localhost:51148/api/Estudiante', options)
           .then(response => response.json())
           .then(data => {
-            localStorage.setItem('EstudianteId', data[0].estudianteId);
+            localStorage.setItem('EstudianteId', data.estudianteID);
             DerivarUsuario();
           });
           
