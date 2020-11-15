@@ -14,8 +14,10 @@ window.onload = () => {
 }
 
 function CargarCuestionario() {
+
+    var idClase = JSON.parse(localStorage.getItem('claseU')).claseId;
     //CuestionarioService.default(10).then(x => LoadCuestionario(x));
-    CuestionarioService.default(3).then(x => LoadCuestionario(x));
+    CuestionarioService.default( idClase ).then(x => LoadCuestionario(x));
 }
 
 function LoadCuestionario(CuestionarioTodoDTO) {
