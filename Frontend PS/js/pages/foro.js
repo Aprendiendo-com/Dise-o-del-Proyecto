@@ -6,6 +6,8 @@ $(document).ready(function () {
     {
         foroID=json.foro.foroId;
     }
+
+    $(".descripcionClase").text(json.foro.texto);
     
 //Configuracion de carga de comentarios
 
@@ -22,7 +24,7 @@ $(document).ready(function () {
                 var td = document.createElement('td');
 
                 var td1 = document.createElement('td');
-                td1.textContent = item.texto;
+                td1.textContent = item.nombre +" "+ item.apellido + ": " + item.texto;
                 tr.append(td);
                 tr.append(td1);
                 $('#tb_comentarios').append(tr);
@@ -51,9 +53,13 @@ $(document).ready(function () {
     $("#EnviarComentario").on("click",function (){  
         var comentario = $("#inputComentario").val();
 
+        var token = DecodeToken(localStorage.getItem('Token'));
+
         let Bodycomentario = { //valor preseteado
             "foroId": foroID,
-            "texto": comentario
+            "texto": comentario,
+            "nombre": token.Nombre,
+            "apellido": token.Apellido
         }
         
         $.ajax({
@@ -73,3 +79,11 @@ $(document).ready(function () {
 
 
 });
+
+
+
+function DecodeToken(token) {
+    var base64Url = (token).split('.')[1];
+    var base64 = base64Url.replace('-', '+').replace('_', '/');
+    return JSON.parse(window.atob(base64));
+}
