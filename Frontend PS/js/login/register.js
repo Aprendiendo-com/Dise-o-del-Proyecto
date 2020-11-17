@@ -53,7 +53,7 @@ async function Registrar() {
     await fetch('https://localhost:44351/api/Usuario/usuario', options)
     .then((response) => response.json())
     .then(json => {
-      localStorage.setItem('Token', json);
+      localStorage.setItem('Token_estudiante', json);
       console.log("se logueo correctamente")
     })
     .catch(err => console.log('Ha ocurrido un error:' + err));
@@ -64,7 +64,7 @@ async function Registrar() {
 
     // funcion de crear un alumno 
 
-    var token = DecodeToken(localStorage.getItem('Token'));
+    var token = DecodeToken(localStorage.getItem('Token_estudiante'));
     var estudiante =
     {
       "nombre": $('#nombre').val(),

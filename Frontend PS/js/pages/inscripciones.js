@@ -127,6 +127,13 @@ $(document).on('click', '.alta', function(){
     .catch(err => console.log('ERROR: ' + err));
 });
 
+$(document).on('click', '#ACursos', function(){
+    
+    window.location.href = "./Curso1.html";
+})
+
+
+
 // myform.submit((event) => {
 //     event.preventDefault();
 

@@ -29,11 +29,12 @@ $(document).ready(function () {
             )
         }
 
-        let cursoId = $("#inputCurso").val();
+        //let cursoId = $("#inputCurso").val();
+        var cursoId = JSON.parse(localStorage.getItem('cursosProfesor')).cursoId;
         
         $('#listaAlumnos').DataTable( {
             "ajax": {
-                "url": "https://127.0.0.1:5001/api/EstudianteCurso/estudiante/"+cursoId,
+                "url": "http://localhost:51148/api/EstudianteCurso/estudiante/"+cursoId,
                 "dataSrc": ""
             },
             "columns": [
