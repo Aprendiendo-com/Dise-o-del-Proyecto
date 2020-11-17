@@ -32,37 +32,42 @@ async function Ingresar() {
         .then((response) => response.json())
         .then(json => {
 
-            localStorage.setItem('Token', json);
-            console.log("el login fue correcto");
+            var token = DecodeToken(json);
+            var usuarioId = parseInt(token.UsuarioId);
+
+            if(token.Rol == "1")
+            {
+                localStorage.setItem('Token_profesor', json);
+                console.log("el login profesor exitoso");
+
+
+                 fetch(`http://localhost:51148/api/Profesor/ObtenerIdProfesor?usuarioId= ${usuarioId}`)
+                .then(response => response.json())
+                .then( data => {
+                    
+                    localStorage.setItem('ProfesorId', data);
+                    window.location.href = './VistaProfesorCurso.html';
+                })
+
+            }
+            else
+            {
+                localStorage.setItem('Token_estudiante', json);
+                console.log("el login estudiante exitoso");
+
+
+                 fetch(`http://localhost:51148/api/Estudiante/ObtenerIdEstudiante/${usuarioId}`)
+                .then(response => response.json())
+                .then( data => {
+
+                    localStorage.setItem('EstudianteId', data);
+                    window.location.href='./Curso1.html'
+                })
+               
+            }
         })
         .catch(err => console.log('ERROR:' + err));
 
-
-
-
-        // funcion de buscar la id del estudiante o alumno
-
-        var object_token = DecodeToken(localStorage.getItem('Token'));
-
-        var usuarioId = parseInt(object_token.UsuarioId);
-
-        await fetch(`http://localhost:51148/api/Estudiante/ObtenerIdEstudiante/${usuarioId}`)
-        .then(response => response.json())
-        .then( data => {
-            
-            localStorage.setItem('EstudianteId', data);
-        })
-
-
-        // se lo manda a la pagina correspondiente
-        if(object_token.Rol == "1") {
-
-            console.log("Es un profesor");
-        }
-        if(object_token.Rol == "2") {
-    
-            window.location.href='./Curso1.html'
-        }
 }
 
 function DecodeToken(token) {

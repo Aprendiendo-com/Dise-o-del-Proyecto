@@ -1,16 +1,18 @@
 $(document).ready(function(){
-    traerDatos_del_alumno();
+
+    traerDatos_del_profesor();
+
 });
 
-async function traerDatos_del_alumno() {
+async function traerDatos_del_profesor() {
     
-    var id = parseInt( localStorage.getItem('EstudianteId'));
+    var id = parseInt( localStorage.getItem('ProfesorId'));
 
-    await fetch(`http://localhost:51148/api/EstudianteCurso/GetDetalleCursos/${id}`)
+    await fetch(`http://localhost:51148/api/Profesor/${id}`)
     .then(responce => responce.json())
     .then(data => {
 
-        localStorage.setItem('datos', JSON.stringify(data));
+        localStorage.setItem('datosProfesor', JSON.stringify(data));
 
         var lcursos = $('#cursos');
 
@@ -25,7 +27,7 @@ async function traerDatos_del_alumno() {
 
 $(document).on('click','.dropdown-item', function(){
 
-    var json = JSON.parse(localStorage.getItem('datos'));
+    var json = JSON.parse(localStorage.getItem('datosProfesor'));
 
     var cursos = json.find(x => x.nombre == this.id);
 
@@ -33,8 +35,8 @@ $(document).on('click','.dropdown-item', function(){
 
     // guardo las clases en el local
 
-    localStorage.setItem('clases', JSON.stringify(clases));
-    localStorage.setItem('cursos', JSON.stringify(cursos));
+    localStorage.setItem('clasesProfesor', JSON.stringify(clases));
+    localStorage.setItem('cursosProfesor', JSON.stringify(cursos));
     var elemento = $('#clases');
     elemento.empty();
 
@@ -53,14 +55,14 @@ $(document).on('click','.dropdown-item', function(){
 
 $(document).on('click','.Nclases', function(){
 
-    var listaClases = JSON.parse(localStorage.getItem('clases')).find(x => x.descripcion == this.id);
-    localStorage.setItem('claseU', JSON.stringify(listaClases));
+    var listaClases = JSON.parse(localStorage.getItem('clasesProfesor')).find(x => x.descripcion == this.id);
+    localStorage.setItem('claseUProfesor', JSON.stringify(listaClases));
     var contenido = $('.centro');
 
     contenido.empty();
 
     var principal = `<div class="texto" style="border-bottom-style: double; border-width: 1px;">
-                        <h4> ${listaClases.descripcion} </h4>
+                        <h4> Este es el titulo de la clase </h4>
                     </div>
 
                     <div class = "texto principal" style= "margin-top: 5%;"> <p> ${listaClases.tema} </p> </div>
