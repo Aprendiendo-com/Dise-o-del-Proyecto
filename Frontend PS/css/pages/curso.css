@@ -161,7 +161,7 @@ body
       border-width: 1px 0;
     }
     .text-navy {
-        color: #1ab394;
+        color: #1e1f1e;
     }
     .mid-icon {
         float: left;
@@ -172,3 +172,34 @@ body
         margin-bottom: 10px;
     }
 
+
+
+
+    .accordion .card {
+        border: none;
+        margin-bottom: 2px;
+    }
+    .accordion .card-header {
+        background: #48D1CC;
+        padding-top: 7px;
+        padding-bottom: 7px;
+    }
+    .accordion .card-header h2 {
+        color: #fff;
+        font-size: 1rem;
+        font-family: "Roboto", sans-serif;
+        font-weight: 500;
+    }
+    .accordion .card-header h2 span {
+        float: left;
+        margin-top: 10px;
+    }
+    .accordion .card-header button {
+        color: #fff;
+        font-size: 1.3rem;
+        line-height: 1.3rem;
+        float: right;
+    }
+    .accordion .card-header button:hover {
+        color: #23384e;
+    }
