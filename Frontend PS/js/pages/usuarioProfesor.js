@@ -1,14 +1,16 @@
 
+
+
 login();
 
 $('#cerrar_sesion').on("click", function(){
 
-    localStorage.removeItem('Token_estudiante');
-    localStorage.removeItem('datos');
-    localStorage.removeItem('EstudianteId');
-    localStorage.removeItem('clases');
-    localStorage.removeItem('cursos');
-    localStorage.removeItem('claseU');
+    localStorage.removeItem('Token_profesor');
+    localStorage.removeItem('datosProfesor');
+    localStorage.removeItem('ProfesorId');
+    localStorage.removeItem('clasesProfesor');
+    localStorage.removeItem('cursosProfesor');
+    localStorage.removeItem('claseUProfesor');
 
 
     window.location.href = "./Login.html";
@@ -16,7 +18,7 @@ $('#cerrar_sesion').on("click", function(){
 });
 
 function login() {
-    var token = DecodeToken(localStorage.getItem('Token_estudiante'));
+    var token = DecodeToken(localStorage.getItem('Token_profesor'));
 
 
     $('#usuario').empty();

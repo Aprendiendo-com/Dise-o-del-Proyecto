@@ -53,7 +53,7 @@ $(document).ready(function () {
     $("#EnviarComentario").on("click",function (){  
         var comentario = $("#inputComentario").val();
 
-        var token = DecodeToken(localStorage.getItem('Token'));
+        var token = DecodeToken(localStorage.getItem('Token_estudiante'));
 
         let Bodycomentario = { //valor preseteado
             "foroId": foroID,
