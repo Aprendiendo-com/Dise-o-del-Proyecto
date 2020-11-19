@@ -1,6 +1,55 @@
 $(document).ready(function(){
 
-    traerDatos_del_profesor();
+    if(localStorage.getItem('datosProfesor') == null)
+    {
+        traerDatos_del_profesor();
+    }
+    else
+    {
+        debugger
+    
+        
+        var elemento = $('#clases');
+        elemento.empty();
+    
+        $.each( JSON.parse( localStorage.getItem('clasesProfesor')) , function(index, cla){
+    
+            var text = `<li class="nav-item">
+                        <a href="#" class="Nclases nav-link text-dark bg-light" id = "${cla.descripcion}">
+                            <i class="fas fa-pencil-alt"></i>
+                                ${cla.descripcion}
+                        </a>
+                    </li>`;
+    
+            elemento.append(text);
+        })
+
+        ///////////////////////////////
+
+
+        var listaClases = JSON.parse(localStorage.getItem('claseUProfesor'));
+        var contenido = $('.centro');
+    
+        contenido.empty();
+    
+        var principal = `<div class="texto" style="border-bottom-style: double; border-width: 1px;">
+                            <h4> ${listaClases.descripcion} </h4>
+                        </div>
+    
+                        <div class = "texto principal" style= "margin-top: 5%;"> <p> ${listaClases.tema} </p> </div>
+                        
+    
+                        <div class="texto" >
+                                   <div class="embed-responsive embed-responsive-16by9">
+                                        <iframe width="560" height="315" src="${listaClases.video.link}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                    </div>
+                               </div>
+                        `;
+    
+        contenido.append(principal);
+
+
+    }
 
 });
 
