@@ -50,7 +50,22 @@
                         </li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
-                        <button type="button" class="btn"> <i class="fas fa-user"></i> User </button>
+                        
+
+                        <div class="btn-group">
+                            <button type="button" id="usuario" class="btn btn-light dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                              <i class="far fa-user"></i>
+                            </button>
+                            <div class="dropdown-menu dropdown-menu-right">
+                              <button class="dropdown-item" type="button">Account Settings<i class="fas fa-users-cog" style="margin-left: 10%;"></i></button>
+                              <button class="dropdown-item" type="button" id="cerrar_sesion">Sign Out<i class="fas fa-sign-out-alt" style="margin-left: 10%;" ></i></button>
+                            </div>
+                          </div>
+
+
+
+
+
                     </ul>
                 </div>
 
@@ -280,6 +295,7 @@
     <script src="/js/jQuery/jquery-3.5.1.min.js"></script>
     <!--<script src="/Dise-o-del-Proyecto/Frontend PS/js/jQuery/popper.min.js"></script>-->
     <script src="/js/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/js/pages/usuario.js"></script>
     <script src="/js/pages/curso.js"></script>
 
 </body>
