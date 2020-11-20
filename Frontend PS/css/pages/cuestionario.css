@@ -72,6 +72,7 @@ section{
 }
 
 /*MODIFICADO*/
+/*
 .seccion-button{
     display: grid;
     font-family: cursive;
@@ -79,8 +80,11 @@ section{
     grid-template-columns: 43% 57%;
     grid-column: 1/5;
 }
-
-
+*/
+.seccion-button{
+    display: flex;
+    justify-content: center;
+}
 
 .info{
     background-color: #b3b9b8;

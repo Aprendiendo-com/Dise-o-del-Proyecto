@@ -1,5 +1,5 @@
 import * as Constant from "./Constant.js"
-debugger
+
 const GetCuestionario = (id) => {
 
     let url = "https://localhost:44326/api/Cuestionario/GetPorClase?idClase=" + id;

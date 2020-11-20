@@ -14,9 +14,12 @@ window.onload = () => {
 }
 
 function CargarCuestionario() {
-
-    var idClase = JSON.parse(localStorage.getItem('claseU')).claseId;
-    //CuestionarioService.default(10).then(x => LoadCuestionario(x));
+    if(localStorage.getItem('claseU')){
+        var idClase = JSON.parse(localStorage.getItem('claseU')).claseId;
+    }
+    else{
+        var idClase = 1;
+    }
     CuestionarioService.default( idClase ).then(x => LoadCuestionario(x));
 }
 
