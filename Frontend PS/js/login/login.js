@@ -12,6 +12,8 @@ window.onbeforeunload = function() {
 };*/
 async function Ingresar() {
 
+    debugger
+
     // funcion de login
 
     var correo = document.getElementById("correo-login").value;
@@ -40,8 +42,16 @@ async function Ingresar() {
                 localStorage.setItem('Token_profesor', json);
                 console.log("el login profesor exitoso");
 
+                var optionsGet = {
+                    method: 'GET',
+                    headers: {
+                      'Content-Type': 'application/json',
+                      "Authorization": "Bearer " + localStorage.getItem("Token_profesor")
+                            },
+                    mode: 'cors'
+                    };
 
-                 fetch(`http://localhost:51148/api/Profesor/ObtenerIdProfesor?usuarioId= ${usuarioId}`)
+                 fetch(`http://localhost:51148/api/Profesor/ObtenerIdProfesor?usuarioId= ${usuarioId}`, optionsGet)
                 .then(response => response.json())
                 .then( data => {
                     
@@ -56,7 +66,17 @@ async function Ingresar() {
                 console.log("el login estudiante exitoso");
 
 
-                 fetch(`http://localhost:51148/api/Estudiante/ObtenerIdEstudiante/${usuarioId}`)
+
+                var opt = {
+                    method: 'GET',
+                    headers: {
+                      'Content-Type': 'application/json',
+                      "Authorization": "Bearer " + localStorage.getItem("Token_estudiante")
+                            },
+                    mode: 'cors'
+                    };
+
+                 fetch(`http://localhost:51148/api/Estudiante/ObtenerIdEstudiante/${usuarioId}`,opt)
                 .then(response => response.json())
                 .then( data => {
 

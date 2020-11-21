@@ -121,7 +121,16 @@ async function traerDatos_del_alumno() {
     
     var id = parseInt( localStorage.getItem('EstudianteId'));
 
-    await fetch(`http://localhost:51148/api/EstudianteCurso/GetDetalleCursos/${id}`)
+    var options = {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            "Authorization": "Bearer " + localStorage.getItem("Token_estudiante")
+        },
+        mode: 'cors'
+    };
+
+    await fetch(`http://localhost:51148/api/EstudianteCurso/GetDetalleCursos/${id}`, options)
     .then(responce => responce.json())
     .then(data => {
 

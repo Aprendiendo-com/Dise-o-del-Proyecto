@@ -26,11 +26,12 @@ $(document).ready(function () {
             )
         }
 
-        let cursoId = JSON.parse(localStorage.getItem('cursos')).cursoId;
+        let cursoId = JSON.parse(localStorage.getItem('cursosProfesor')).cursoId;
         
         $('#listaAlumnos').DataTable( {
             "ajax": {
-                "url": "https://localhost:51148/api/EstudianteCurso/estudiante/"+cursoId,
+                "headers": {'Authorization': 'Bearer '+ localStorage.getItem('Token_profesor')},
+                "url": "http://localhost:51148/api/EstudianteCurso/estudiante/"+cursoId,
                 "dataSrc": ""
             },
             "columns": [
