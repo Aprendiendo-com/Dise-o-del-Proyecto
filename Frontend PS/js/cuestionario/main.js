@@ -85,6 +85,8 @@ function RevisarRegistro(registro, claseId, estudianteId) {
 }
 
 function EnviarCuestionario() {
+
+    debugger
     var lista = JSON.parse(localStorage.getItem("ListaDimensiones"));
     var cuestionario_respuestas = new CuestionarioACorregirDTO;
     cuestionario_respuestas.respuestas = [];

@@ -124,7 +124,17 @@ async function traerDatos_del_profesor() {
     
     var id = parseInt( localStorage.getItem('ProfesorId'));
 
-    await fetch(`http://localhost:51148/api/Profesor/${id}`)
+
+    var options = {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            "Authorization": "Bearer " + localStorage.getItem("Token_profesor")
+        },
+        mode: 'cors'
+    };
+
+    await fetch(`http://localhost:51148/api/Profesor/${id}`, options)
     .then(responce => responce.json())
     .then(data => {
 
