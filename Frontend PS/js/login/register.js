@@ -76,7 +76,7 @@ async function Registrar() {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        "Authorization": "Bearer" + localStorage.getItem("Token_estudiante")
+        "Authorization": "Bearer " + localStorage.getItem("Token_estudiante")
               },
       body: JSON.stringify(estudiante),
       mode: 'cors'

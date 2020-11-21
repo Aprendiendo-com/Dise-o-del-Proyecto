@@ -115,7 +115,8 @@ $(document).on('click', '.alta', function(){
         body: JSON.stringify(objeto), // data can be `string` or {object}!
         mode: 'cors',
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            "Authorization": "Bearer " + localStorage.getItem("Token_estudiante")
         },
     })
     .then(response => {
