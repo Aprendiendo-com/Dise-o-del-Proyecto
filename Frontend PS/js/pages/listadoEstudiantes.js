@@ -3,16 +3,13 @@ $(document).ready(function () {
     var seccionList = $('.centro');
 
     var cursoLista = `<div id="seccionListado" style="margin: 2rem">
-                        <label>Ingrese el ID del curso</label>
-                        <input id="inputCurso" type="number"/>
-                        <button id="Listar">Listar</button>                        
+                        <label>Listado de alumnos</label>                
                     </div>
                     <br>`;
                     
     seccionList.append(cursoLista);
 
-    
-    $("#Listar").on("click",function (){    
+        
         
         if ($.fn.DataTable.isDataTable("#listaAlumnos")) 
         {
@@ -29,12 +26,11 @@ $(document).ready(function () {
             )
         }
 
-        //let cursoId = $("#inputCurso").val();
-        var cursoId = JSON.parse(localStorage.getItem('cursosProfesor')).cursoId;
+        let cursoId = JSON.parse(localStorage.getItem('cursos')).cursoId;
         
         $('#listaAlumnos').DataTable( {
             "ajax": {
-                "url": "http://localhost:51148/api/EstudianteCurso/estudiante/"+cursoId,
+                "url": "https://localhost:51148/api/EstudianteCurso/estudiante/"+cursoId,
                 "dataSrc": ""
             },
             "columns": [
@@ -46,12 +42,5 @@ $(document).ready(function () {
                 { title: "Legajo",data: "legajo" }
             ]
         })
-    });
     
-    var json = JSON.parse(localStorage.getItem('cursos'));
-    if (json)
-    {
-        $("#inputCurso").val(json.cursoId);
-        $("#Listar").click();
-    }
 })
