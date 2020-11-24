@@ -134,7 +134,7 @@ async function traerDatos_del_profesor() {
         mode: 'cors'
     };
 
-    await fetch(`http://localhost:51148/api/Profesor/${id}`, options)
+    await fetch(`https://localhost:51148/api/Profesor/${id}`, options)
     .then(responce => responce.json())
     .then(data => {
 

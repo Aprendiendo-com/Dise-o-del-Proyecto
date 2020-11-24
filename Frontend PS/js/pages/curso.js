@@ -130,7 +130,7 @@ async function traerDatos_del_alumno() {
         mode: 'cors'
     };
 
-    await fetch(`http://localhost:51148/api/EstudianteCurso/GetDetalleCursos/${id}`, options)
+    await fetch(`https://localhost:51148/api/EstudianteCurso/GetDetalleCursos/${id}`, options)
     .then(responce => responce.json())
     .then(data => {
 
