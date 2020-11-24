@@ -3,12 +3,24 @@ login();
 
 $('#cerrar_sesion').on("click", function(){
 
-    localStorage.removeItem('Token_estudiante');
-    localStorage.removeItem('datos');
-    localStorage.removeItem('EstudianteId');
-    localStorage.removeItem('clases');
-    localStorage.removeItem('cursos');
-    localStorage.removeItem('claseU');
+    if(localStorage.getItem('Token_estudiante') == null)
+    {
+        localStorage.removeItem('Token_profesor');
+        localStorage.removeItem('datosProfesor');
+        localStorage.removeItem('ProfesorId');
+        localStorage.removeItem('clasesProfesor');
+        localStorage.removeItem('cursosProfesor');
+        localStorage.removeItem('claseUProfesor');
+    }
+    else
+    {
+        localStorage.removeItem('Token_estudiante');
+        localStorage.removeItem('datos');
+        localStorage.removeItem('EstudianteId');
+        localStorage.removeItem('clases');
+        localStorage.removeItem('cursos');
+        localStorage.removeItem('claseU');
+    }
 
 
     window.location.href = "./Login.html";
@@ -16,8 +28,16 @@ $('#cerrar_sesion').on("click", function(){
 });
 
 function login() {
-    var token = DecodeToken(localStorage.getItem('Token_estudiante'));
 
+    if(localStorage.getItem('Token_estudiante') == null)
+    {
+        var token = DecodeToken(localStorage.getItem('Token_profesor'));
+    }
+    else
+    {
+        var token = DecodeToken(localStorage.getItem('Token_estudiante'));
+    }
+    
 
     $('#usuario').empty();
     $('#usuario').append(`<i class="far fa-user"></i> ${token.Nombre + " " + token.Apellido}`);
