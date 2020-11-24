@@ -77,6 +77,21 @@ body
     overflow: hidden;
 }
 
+.btn-primary
+{
+    background-color: #13a6c0;
+    border-color: #085375;
+}
+.btn-primary:hover {
+    background-color: #0c788b;
+    border-color: #085375;
+}
+
+.card-footer-btn {
+    padding: .75rem 1.25rem;
+    background-color: rgba(0,0,0,.03);
+    border-bottom: 1px solid rgba(0,0,0,.125);
+}
 
 
 

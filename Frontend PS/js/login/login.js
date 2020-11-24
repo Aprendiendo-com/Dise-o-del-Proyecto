@@ -51,7 +51,7 @@ async function Ingresar() {
                     mode: 'cors'
                     };
 
-                 fetch(`http://localhost:51148/api/Profesor/ObtenerIdProfesor?usuarioId= ${usuarioId}`, optionsGet)
+                 fetch(`https://localhost:51148/api/Profesor/ObtenerIdProfesor?usuarioId= ${usuarioId}`, optionsGet)
                 .then(response => response.json())
                 .then( data => {
                     
@@ -76,7 +76,7 @@ async function Ingresar() {
                     mode: 'cors'
                     };
 
-                 fetch(`http://localhost:51148/api/Estudiante/ObtenerIdEstudiante/${usuarioId}`,opt)
+                 fetch(`https://localhost:51148/api/Estudiante/ObtenerIdEstudiante/${usuarioId}`,opt)
                 .then(response => response.json())
                 .then( data => {
 

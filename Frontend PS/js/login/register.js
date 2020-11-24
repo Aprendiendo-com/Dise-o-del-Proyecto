@@ -82,7 +82,7 @@ async function Registrar() {
       mode: 'cors'
       };
       
-      await fetch('http://localhost:51148/api/Estudiante', options)
+      await fetch('https://localhost:51148/api/Estudiante', options)
       .then(response => response.json())
       .then(data => {
         localStorage.setItem('EstudianteId', data.estudianteID);

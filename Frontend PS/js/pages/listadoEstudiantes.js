@@ -31,7 +31,7 @@ $(document).ready(function () {
         $('#listaAlumnos').DataTable( {
             "ajax": {
                 "headers": {'Authorization': 'Bearer '+ localStorage.getItem('Token_profesor')},
-                "url": "http://localhost:51148/api/EstudianteCurso/estudiante/"+cursoId,
+                "url": "https://localhost:51148/api/EstudianteCurso/estudiante/"+cursoId,
                 "dataSrc": ""
             },
             "columns": [

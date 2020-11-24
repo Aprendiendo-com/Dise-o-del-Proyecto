@@ -55,7 +55,7 @@ $(document).ready(function () {
 
         var token = DecodeToken(localStorage.getItem('Token_estudiante'));
 
-        let Bodycomentario = { //valor preseteado
+        let Bodycomentario = { 
             "foroId": foroID,
             "texto": comentario,
             "nombre": token.Nombre,
