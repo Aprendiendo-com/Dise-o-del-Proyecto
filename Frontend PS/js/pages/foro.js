@@ -1,28 +1,15 @@
 $(document).ready(function () {
     debugger
     let foroID = 2;
+    
+    var json = JSON.parse(localStorage.getItem('claseU'));
 
-
-    if(localStorage.getItem('claseU') == null)
+    if (json)
     {
-        var json = JSON.parse(localStorage.getItem('claseUProfesor'));
-        if (json)
-        {
-            foroID=json.foro.foroId;
-        }
-        $(".descripcionClase").text(json.foro.texto);
+        foroID=json.foro.foroId;
     }
-    else
-    {
+    $(".descripcionClase").text(json.foro.texto);
 
-        var json = JSON.parse(localStorage.getItem('claseU'));
-        if (json)
-        {
-            foroID=json.foro.foroId;
-        }
-        $(".descripcionClase").text(json.foro.texto);
-
-    }
     
 //Configuracion de carga de comentarios
 
@@ -67,16 +54,8 @@ $(document).ready(function () {
 
     $("#EnviarComentario").on("click",function (){  
         var comentario = $("#inputComentario").val();
-
-        debugger
-        if(localStorage.getItem('Token_estudiante') == null)
-        {
-            var token = DecodeToken(localStorage.getItem('Token_profesor'));
-        }
-        else
-        {
-            var token = DecodeToken(localStorage.getItem('Token_estudiante'));
-        }
+        
+        var token = DecodeToken(localStorage.getItem('Token'));
 
         let Bodycomentario = { 
             "foroId": foroID,
@@ -102,18 +81,6 @@ $(document).ready(function () {
 
 
 });
-
-$(document).on('click','#ir_contenido', function(){
-    if(localStorage.getItem('Token_estudiante') == null)
-    {
-        window.location.href = "./VistaProfesorCurso.html";
-    }
-    else
-    {
-        window.location.href = "./Curso1.html";
-    }
-})
-
 
 
 function DecodeToken(token) {

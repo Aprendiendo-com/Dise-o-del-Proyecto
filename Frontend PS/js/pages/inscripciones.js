@@ -25,8 +25,8 @@ function CargarCursos() {
                                         <span class="badge badge-success"> Capacidad: ${cursos.cantidad}</span>
                                         <p> Profesor: ${cursos.profesor}</p>
                                         <div>
-                                            <button type="button" class="alta btn btn-light btn-sm" id = "${cursos.cursoId}"> Inscribirse </button>
-                                            <button type="button" class="detalles btn btn-primary btn-sm" data-toggle="modal" data-target="#exampleModal" id = "${cursos.nombre}" value = "${cursos.descripcion}"> detalles </button>
+                                            <button type="button" class="alta btn btn-primary btn-sm" id = "${cursos.cursoId}"> Inscribirse </button>
+                                            <button type="button" class="detalles btn btn-light btn-sm" data-toggle="modal" data-target="#exampleModal" id = "${cursos.nombre}" value = "${cursos.descripcion}"> detalles </button>
                                         </div>
 
                                     </div>
@@ -46,8 +46,8 @@ function CargarCursos() {
                                         <span class="badge badge-success"> Capacidad: ${cursos.cantidad}</span>
                                         <p> Profesor: ${cursos.profesor}</p>
                                         <div>
-                                            <button type="button" class="alta btn btn-light btn-sm" id = "${cursos.cursoId}"> Inscribirse </button>
-                                            <button type="button" class="detalles btn btn-primary btn-sm" data-toggle="modal" data-target="#exampleModal" id = "${cursos.nombre}" value = "${cursos.descripcion}"> detalles </button>
+                                            <button type="button" class="alta btn btn-primary btn-sm" id = "${cursos.cursoId}"> Inscribirse </button>
+                                            <button type="button" class="detalles btn btn-light btn-sm" data-toggle="modal" data-target="#exampleModal" id = "${cursos.nombre}" value = "${cursos.descripcion}"> detalles </button>
                                         </div>
 
                                     </div>
@@ -68,16 +68,11 @@ function CargarCursos() {
                                         <span class="badge badge-success"> Capacidad: ${cursos.cantidad}</span>
                                         <p> Profesor: ${cursos.profesor}</p>
                                         <div>
-                                            <button type="button" class="alta btn btn-light btn-sm" id = "${cursos.cursoId}"> Inscribirse </button>
-                                            <button type="button" class="detalles btn btn-primary btn-sm" data-toggle="modal" data-target="#exampleModal" id = "${cursos.nombre}" value = "${cursos.descripcion}"> detalles </button>
+                                            <button type="button" class="alta btn btn-primary btn-sm" id = "${cursos.cursoId}"> Inscribirse </button>
+                                            <button type="button" class="detalles btn btn-light btn-sm" data-toggle="modal" data-target="#exampleModal" id = "${cursos.nombre}" value = "${cursos.descripcion}"> detalles </button>
                                         </div>
 
                                 </div>
-
-
-
-
-
                                 </div>
                             </div>`;
                 c3.append(text);
@@ -106,17 +101,17 @@ $(document).on('click', '.alta', function(){
 
     let objeto = {
         "cursoID": parseInt( this.id), //valor preseteado
-        "estudianteID": parseInt( localStorage.getItem('EstudianteId')),
+        "estudianteID": parseInt( localStorage.getItem('UsuarioId')),
         "estado": "En curso"
     }
     debugger
-    fetch('https://localhost:51148/api/EstudianteCurso', {
+    fetch('https://localhost:44302/api/EstudianteCurso', {
         method: 'POST',
         body: JSON.stringify(objeto), // data can be `string` or {object}!
         mode: 'cors',
         headers: {
             'Content-Type': 'application/json',
-            "Authorization": "Bearer " + localStorage.getItem("Token_estudiante")
+            "Authorization": "Bearer " + localStorage.getItem("Token")
         },
     })
     .then(response => {

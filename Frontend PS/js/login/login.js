@@ -13,7 +13,6 @@ window.onbeforeunload = function() {
 async function Ingresar() {
 
     debugger
-
     // funcion de login
 
     var correo = document.getElementById("correo-login").value;
@@ -36,52 +35,49 @@ async function Ingresar() {
 
             var token = DecodeToken(json);
             var usuarioId = parseInt(token.UsuarioId);
+            localStorage.setItem('Token', json);
 
             if(token.Rol == "1")
             {
-                localStorage.setItem('Token_profesor', json);
                 console.log("el login profesor exitoso");
 
                 var optionsGet = {
                     method: 'GET',
                     headers: {
                       'Content-Type': 'application/json',
-                      "Authorization": "Bearer " + localStorage.getItem("Token_profesor")
+                      "Authorization": "Bearer " + localStorage.getItem("Token")
                             },
                     mode: 'cors'
                     };
 
-                 fetch(`https://localhost:51148/api/Profesor/ObtenerIdProfesor?usuarioId= ${usuarioId}`, optionsGet)
+                 fetch(`https://localhost:44302/api/Profesor/ObtenerIdProfesor?usuarioId= ${usuarioId}`, optionsGet)
                 .then(response => response.json())
                 .then( data => {
                     
-                    localStorage.setItem('ProfesorId', data);
-                    window.location.href = './VistaProfesorCurso.html';
+                    localStorage.setItem('UsuarioId', data);
+                    window.location.href = "./Curso1.html";
                 })
 
             }
             else
             {
-                localStorage.setItem('Token_estudiante', json);
                 console.log("el login estudiante exitoso");
-
-
 
                 var opt = {
                     method: 'GET',
                     headers: {
                       'Content-Type': 'application/json',
-                      "Authorization": "Bearer " + localStorage.getItem("Token_estudiante")
+                      "Authorization": "Bearer " + localStorage.getItem("Token")
                             },
                     mode: 'cors'
                     };
 
-                 fetch(`https://localhost:51148/api/Estudiante/ObtenerIdEstudiante/${usuarioId}`,opt)
+                 fetch(`https://localhost:44302/api/Estudiante/ObtenerIdEstudiante/${usuarioId}`,opt)
                 .then(response => response.json())
                 .then( data => {
 
-                    localStorage.setItem('EstudianteId', data);
-                    window.location.href='./Curso1.html'
+                    localStorage.setItem('UsuarioId', data);
+                    window.location.href = "./Curso1.html";
                 })
                
             }

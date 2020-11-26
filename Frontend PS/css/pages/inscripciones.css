@@ -18,6 +18,11 @@
     margin-top: 4%;
     margin-right: 2%;
 }
+.card:hover{
+    background-color: #E6E6FA;
+    box-shadow: 2px 2px 10px #666;
+    transition: 0.5s;
+}
 .copyright
 {
     font: 150% sans-serif;
