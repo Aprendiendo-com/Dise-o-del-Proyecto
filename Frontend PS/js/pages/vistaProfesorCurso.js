@@ -222,16 +222,7 @@ async function traerDatos_del_profesor() {
                 });
 
             }
-
-           
-
         });
-
-
-
-
-
-
     })
 }
 

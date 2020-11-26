@@ -10,9 +10,30 @@ import * as CuestionarioService from "./CuestionarioService.js";
 import * as RegistroService from "./RegistroService.js";
 
 window.onload = () => {
+
+    var token = DecodeToken(localStorage.getItem('Token'));
+
+    if(token.Rol == "1")
+    {
+        var element = $('#cambiante');
+
+        var text = `<li class="secciones nav-item">
+                        <button type="button"  style="margin-top: 3%;" id = "editar" class="btn btn-light btn-sm" style="margin-top: 5%;"> <i class="fas fa-plus"></i> Editar cuestionario </button>
+                    </li>`;
+
+        element.append(text);
+    }
+
+
     CargarCuestionario();
     $('#enviar-cuestionario').on("click", EnviarCuestionario); //CUANDO RECIBE POR PARÁMETRO ENTRA DIRECTO
 }
+
+$(document).on('click', '#editar', function(){
+    window.location.href = "./editCuestionario.html";
+});
+
+
 const ALUMNOID = 1;
 
 function CargarCuestionario() {
@@ -194,4 +215,11 @@ function DeshabilitarOpciones() {
         i++;
     })
 
+}
+
+
+function DecodeToken(token) {
+    var base64Url = (token).split('.')[1];
+    var base64 = base64Url.replace('-', '+').replace('_', '/');
+    return JSON.parse(window.atob(base64));
 }
