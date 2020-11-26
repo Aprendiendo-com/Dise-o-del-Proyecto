@@ -314,3 +314,5 @@ $(document).ready(function(){
 		$(this).parent().find(".card-header .btn i").removeClass("fa-minus-circle").addClass("fa-plus-circle");
 	});
 });
+
+
