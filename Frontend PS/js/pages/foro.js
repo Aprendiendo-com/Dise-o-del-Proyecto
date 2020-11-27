@@ -19,17 +19,30 @@ $(document).ready(function () {
         dataType: "json",
         success: function(data) {
 
+            debugger
             $("tr:has(td)").remove();
             $.each(data, function(i, item) {
-                
-                var tr = document.createElement('tr');
-                var td = document.createElement('td');
 
-                var td1 = document.createElement('td');
-                td1.textContent = item.nombre +" "+ item.apellido + ": " + item.texto;
-                tr.append(td);
-                tr.append(td1);
-                $('#tb_comentarios').append(tr);
+                if(item.rol == "1")
+                {
+                    var html = `<tr>
+                                <td> <i class=" icono fas fa-user-check"></i>${item.nombre} ${item.apellido} : ${item.texto} </td>
+                            </tr>`;
+                }
+                else
+                {
+                    var html = `<tr>
+                                <td> <i class="icono fas fa-user-graduate"></i>${item.nombre} ${item.apellido} : ${item.texto} </td>
+                            </tr>`;
+                }
+                //var tr = document.createElement('tr');
+                //var td = document.createElement('td');
+
+                //var td1 = document.createElement('td');
+                //td1.textContent = item.nombre +" "+ item.apellido + ": " + item.texto;
+                //tr.append(td);
+                //tr.append(td1);
+                $('#tb_comentarios').append(html);
             });
         },
         error: function(error) {
@@ -45,8 +58,8 @@ $(document).ready(function () {
     
     var seccionForo = $('#forum-send-coment');
 
-    var claseComentar = `<textarea id="inputComentario" maxlength="200" placeholder="Solo se permiten 200 caracteres "></textarea> 
-                        <button id="EnviarComentario" style="float: right;">Enviar</button>`;
+    var claseComentar = `<textarea id="inputComentario" maxlength="200" placeholder="Solo se permiten 200 caracteres "></textarea>
+                        <button id="EnviarComentario" style="float: right;" type="button" class="btn btn-info"> Enviar </button> `;
                     
     seccionForo.append(claseComentar);
 
@@ -61,7 +74,8 @@ $(document).ready(function () {
             "foroId": foroID,
             "texto": comentario,
             "nombre": token.Nombre,
-            "apellido": token.Apellido
+            "apellido": token.Apellido,
+            "rol": token.Rol
         }
         
         $.ajax({
