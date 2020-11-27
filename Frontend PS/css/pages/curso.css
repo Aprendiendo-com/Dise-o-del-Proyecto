@@ -218,3 +218,7 @@ body
     .accordion .card-header button:hover {
         color: #23384e;
     }
+    .icono
+    {
+        margin-right: 2%;
+    }
