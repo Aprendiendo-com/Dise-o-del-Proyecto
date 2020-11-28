@@ -87,3 +87,30 @@
     transition: background-color .3s ease;
     grid-column: 1/4;
 }*/
+
+.modal-header{
+    background-color: #48D1CC;
+}
+.modal-title{
+    font-size: 22px;
+    text-align: center;
+    width: 100%;
+}
+
+.modal-video{
+    padding-left: 10px;
+    padding-right: 10px;
+}
+.modal-footer{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.modal-body{
+    padding-bottom: 0;
+}
+
+.inscripcion{
+    width: 40%;
+    font-size: 18px;
+}

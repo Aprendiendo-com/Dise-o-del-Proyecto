@@ -23,7 +23,7 @@ window.onload = () => {
 
         element.append(text);
     }
-
+    
 
     CargarCuestionario();
     $('#enviar-cuestionario').on("click", EnviarCuestionario); //CUANDO RECIBE POR PARÁMETRO ENTRA DIRECTO
@@ -34,14 +34,16 @@ $(document).on('click', '#editar', function(){
 });
 
 
-const ALUMNOID = 1;
 
 function CargarCuestionario() {
     if (localStorage.getItem('claseU')) {
         var idClase = JSON.parse(localStorage.getItem('claseU')).claseId;
+        idClase = 1;
     } else {
         var idClase = 1;
     }
+    console.log(parseInt(localStorage.getItem('UsuarioId')));
+    
     CuestionarioService.default(idClase).then(x => LoadCuestionario(x));
 }
 
@@ -58,13 +60,20 @@ function LoadCuestionario(CuestionarioTodoDTO) {
     CuestionarioTodoDTO.preguntas.forEach(preguntas => {
         lista_preguntas.push(preguntas);
         informacion.innerHTML += `<div class="filas">
-       <div class="info" id=${"info"+i} value=${preguntas.calificacionParcial}>${"Pregunta por: "+ preguntas.calificacionParcial + "pts."}</div>
        <div class="pregyresp-grid" id=${i}>
        <div class="pregunta" id=${"preguntaId"+i}>
+        <div class="info-valor">
        <label for="preg" id="preguntaLabelInicio"> ${("Pregunta "+ i + "- ")} </label>
-       <label for="preg" id="preguntaLabelDescripcion"> ${(preguntas.descripcion)} </label>
+       <label for="preg" id="preguntaLabelDescripcion"> ${(preguntas.descripcion)+" ("+preguntas.calificacionParcial+"Pts)"} </label>
+       </div>
+       <div class="estado" id=${"estado"+i}>
+        </div>
        </div>`;
+        /*class="estado"
+               <i class="false fas fa-times"></i>
+               <i class="correct fas fa-check-circle"></i>
 
+        */
         var j = 1;
         var lista_respuestas = [];
         preguntas.respuestas.forEach(respuestas => {
@@ -87,7 +96,7 @@ function LoadCuestionario(CuestionarioTodoDTO) {
     localStorage.setItem('ListaDimensiones', JSON.stringify(lista));
     sessionStorage.setItem('preguntas', JSON.stringify(lista_preguntas));
     //SETEAR DESDE EL LOCALSTORAGE
-    RegistroService.default().then(x => RevisarRegistro(x, CuestionarioTodoDTO.claseId, ALUMNOID));
+    RegistroService.default().then(x => RevisarRegistro(x, CuestionarioTodoDTO.claseId, parseInt(localStorage.getItem('UsuarioId'))));
     //LO ACABO DE COMENTAR
 }
 
@@ -106,15 +115,18 @@ function RevisarRegistro(registro, claseId, estudianteId) {
 }
 
 function EnviarCuestionario() {
-
     var cuestionario_respuestas = new CuestionarioACorregirDTO;
     cuestionario_respuestas.preguntas = [];
     cuestionario_respuestas.claseId = sessionStorage.getItem("idClase"); //CAMBIAR ESTO
     var lista_preguntas = [];
     var preguntas = JSON.parse(sessionStorage.getItem('preguntas'));
     var i = 1;
+    var respondido = true;
     preguntas.forEach(pregunta => {
         var respuesta_seleccion = new RespuestaAlumnoDTO($(`input[name=${"respuesta"+i}]:checked`).val())
+        if(respuesta_seleccion.descripcion == undefined){
+            respondido = false;
+        }
         var pregunta_con_respuesta = new PreguntaConRespuestaAlumnoDTO(
             pregunta.descripcion, pregunta.calificacionParcial, respuesta_seleccion);
         lista_preguntas.push(pregunta_con_respuesta);
@@ -127,28 +139,38 @@ function EnviarCuestionario() {
 
 
     //MANDAR EL CUESTIONARIO A LA API
-
-    var options = {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            "Authorization": "Bearer" + localStorage.getItem("token")
-        },
-        body: JSON.stringify(cuestionario_respuestas),
-        mode: 'cors'
-    };
-
-    fetch('https://localhost:44326/api/Cuestionario/Resolucion', options)
-        .then(response => {
-            return response.json()
+    if(respondido) {
+        var options = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                "Authorization": "Bearer" + localStorage.getItem("token")
+            },
+            body: JSON.stringify(cuestionario_respuestas),
+            mode: 'cors'
+        };
+    
+        fetch('https://localhost:44326/api/Cuestionario/Resolucion', options)
+            .then(response => {
+                return response.json()
+            })
+            .then(json => {
+                agregarCalificacion(json);
+                DeshabilitarOpciones();
+                DeshabilitarBoton();
+                return json;
+            })
+            .catch(err => console.log('ERROR: ' + err))
+    }
+    else{
+        Swal.fire({
+            type: 'error',
+            title: 'Responda a todas las preguntas',
+            /*text: 'Responda a todas las preguntas',*/
+            showConfirmButton: true,
+            confirmButtonColor: '#48D1CC'
         })
-        .then(json => {
-            agregarCalificacion(json);
-            DeshabilitarOpciones();
-            DeshabilitarBoton();
-            return json;
-        })
-        .catch(err => console.log('ERROR: ' + err))
+    }
 
 }
 
@@ -160,23 +182,26 @@ function agregarCalificacion(resolucion) {
     var i = 1;
     resolucion.respuestas.forEach(respuesta => {
         if (respuesta.respuestaAlumno == respuesta.respuestaCorrecta) {
-            var informacion = document.getElementById("info" + i);
-            informacion.innerHTML += `</br><div class="info-estado-correcto"> Estado: Correcta </div>`;
+            var informacion = document.getElementById("estado" + i);
+            informacion.innerHTML += `<i class="correct fas fa-check-circle"></i>`;
             console.log("CORRECTA");
         } else {
-            var informacion = document.getElementById("info" + i);
-            informacion.innerHTML += `</br><div class="info-estado-incorrecto"> Estado: Incorrecta </div>`;
+            var informacion = document.getElementById("estado" + i);
+            informacion.innerHTML += `<i class="false fas fa-times"></i>`;
             console.log("FALSA");
         }
         i++;
     })
     //END
     RegistrarCalificacion(resolucion);
+    
+    
+
 }
 
 function RegistrarCalificacion(resolucion) {
     var idClase = sessionStorage.getItem("idClase");
-    var registro = new Registro(ALUMNOID, idClase, resolucion.calificacionTotal);
+    var registro = new Registro(parseInt(localStorage.getItem('UsuarioId')), idClase, resolucion.calificacionTotal);
 
     var options = {
         method: 'POST',
