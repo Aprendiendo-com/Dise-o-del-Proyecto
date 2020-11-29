@@ -1,9 +1,8 @@
-$(document).ready(function(){
+$(document).ready(function () {
 
     var token = DecodeToken(localStorage.getItem('Token'));
 
-    if(token.Rol == "1")
-    {
+    if (token.Rol == "1") {
         var nav = $('#curso');
 
         var html = `<li class="nav-item">
@@ -24,32 +23,27 @@ $(document).ready(function(){
         elment.append(text);
 
 
-        if(localStorage.getItem('datos') == null)
-        {
+        if (localStorage.getItem('datos') == null) {
             traerDatos_del_profesor();
         }
-        else
-        {
+        else {
             mostrarCargado();
         }
     }
-    else
-    {
-        if(localStorage.getItem('datos') == null)
-        {
+    else {
+        if (localStorage.getItem('datos') == null) {
             traerDatos_del_alumno();
         }
-        else
-        {
+        else {
             mostrarCargado();
         }
     }
-    
+
 });
 
 async function traerDatos_del_alumno() {
-    
-    var id = parseInt( localStorage.getItem('UsuarioId'));
+
+    var id = parseInt(localStorage.getItem('UsuarioId'));
 
     var options = {
         method: 'GET',
@@ -61,19 +55,18 @@ async function traerDatos_del_alumno() {
     };
 
     await fetch(`https://localhost:44302/api/EstudianteCurso/GetDetalleCursos/${id}`, options)
-    .then(responce => responce.json())
-    .then(data => {
+        .then(responce => responce.json())
+        .then(data => {
 
-        localStorage.setItem('datos', JSON.stringify(data));
+            localStorage.setItem('datos', JSON.stringify(data));
 
-        var lcursos = $('#accordionExample');
+            var lcursos = $('#accordionExample');
 
-        $.each(data, function(index, cursos){
+            $.each(data, function (index, cursos) {
 
-            if(lcursos.children().lenght == 0)
-            {
+                if (lcursos.children().lenght == 0) {
 
-                var textCursos = `   <div class="card">
+                    var textCursos = `   <div class="card">
 
                 <div class="card-header" id="heading${index}">
                     <h2 class="clearfix mb-0">
@@ -94,26 +87,25 @@ async function traerDatos_del_alumno() {
                 
                 </div> `;
 
-                lcursos.append(textCursos);
+                    lcursos.append(textCursos);
 
-                var ul = $(`.${index}`);
+                    var ul = $(`.${index}`);
 
-                $.each(cursos.clasesNavegacion, function(index, clase){
+                    $.each(cursos.clasesNavegacion, function (index, clase) {
 
-                    var li = `<li class="nav-item">
-                            <a href="#" class="Nclases nav-link text-dark bg-light" id = "${clase.descripcion}" ><i class="fas fa-pencil-alt"></i> ${clase.descripcion} </a>
+                        var li = `<li class="nav-item">
+                            <a href="#" class="Nclases nav-link text-dark bg-light" id = "${clase.descripcion}" ><i class="fas fa-chalkboard-teacher"></i> Clase:  ${clase.descripcion} </a>
                         </li>`;
 
-                    ul.append(li);
-                    
-                });
+                        ul.append(li);
 
-            }
-            else
-            {
+                    });
+
+                }
+                else {
 
 
-                var texto = ` <div class="card">
+                    var texto = ` <div class="card">
                 <div class="card-header" id="heading${index}">
                     <h2 class="mb-0">
                         <span> ${cursos.nombre} </span>
@@ -131,31 +123,31 @@ async function traerDatos_del_alumno() {
                 </div>
                 </div>`;
 
-                lcursos.append(texto);
+                    lcursos.append(texto);
 
-                var ul = $(`.${index}`);
+                    var ul = $(`.${index}`);
 
-                $.each(cursos.clasesNavegacion, function(index, clase){
+                    $.each(cursos.clasesNavegacion, function (index, clase) {
 
-                    var li = `<li class="nav-item">
-                            <a href="#" class="Nclases nav-link text-dark bg-light" id = "${clase.descripcion}" ><i class="fas fa-pencil-alt"></i> ${clase.descripcion} </a>
+                        var li = `<li class="nav-item">
+                            <a href="#" class="Nclases nav-link text-dark bg-light" id = "${clase.descripcion}" ><i class="fas fa-chalkboard-teacher"></i> Clase:  ${clase.descripcion} </a>
                         </li>`;
 
-                    ul.append(li);
-                    
-                });
+                        ul.append(li);
 
-            }
-        });
-    })
+                    });
+
+                }
+            });
+        })
 }
 
 
 
 
 async function traerDatos_del_profesor() {
-    
-    var id = parseInt( localStorage.getItem('UsuarioId'));
+
+    var id = parseInt(localStorage.getItem('UsuarioId'));
 
 
     var options = {
@@ -168,21 +160,20 @@ async function traerDatos_del_profesor() {
     };
 
     await fetch(`https://localhost:44302/api/Profesor/${id}`, options)
-    .then(responce => responce.json())
-    .then(data => {
+        .then(responce => responce.json())
+        .then(data => {
 
 
 
-        localStorage.setItem('datos', JSON.stringify(data));
+            localStorage.setItem('datos', JSON.stringify(data));
 
-        var lcursos = $('#accordionExample');
+            var lcursos = $('#accordionExample');
 
-        $.each(data, function(index, cursos){
+            $.each(data, function (index, cursos) {
 
-            if(lcursos.children().lenght == 0)
-            {
+                if (lcursos.children().lenght == 0) {
 
-                var textCursos = `   <div class="card">
+                    var textCursos = `   <div class="card">
 
                 <div class="card-header" id="heading${index}">
                     <h2 class="clearfix mb-0">
@@ -203,26 +194,25 @@ async function traerDatos_del_profesor() {
                 
                 </div> `;
 
-                lcursos.append(textCursos);
+                    lcursos.append(textCursos);
 
-                var ul = $(`.${index}`);
+                    var ul = $(`.${index}`);
 
-                $.each(cursos.clasesNavegacion, function(index, clase){
+                    $.each(cursos.clasesNavegacion, function (index, clase) {
 
-                    var li = `<li class="nav-item">
-                            <a href="#" class="Nclases nav-link text-dark bg-light" id = "${clase.descripcion}" ><i class="fas fa-pencil-alt"></i> ${clase.descripcion} </a>
+                        var li = `<li class="nav-item">
+                            <a href="#" class="Nclases nav-link text-dark bg-light" id = "${clase.descripcion}" ><i class="fas fa-chalkboard-teacher"></i> Clase:  ${clase.descripcion} </a>
                         </li>`;
 
-                    ul.append(li);
-                    
-                });
+                        ul.append(li);
 
-            }
-            else
-            {
+                    });
+
+                }
+                else {
 
 
-                var texto = ` <div class="card">
+                    var texto = ` <div class="card">
                 <div class="card-header" id="heading${index}">
                     <h2 class="mb-0">
                         <span> ${cursos.nombre} </span>
@@ -240,22 +230,22 @@ async function traerDatos_del_profesor() {
                 </div>
                 </div>`;
 
-                lcursos.append(texto);
+                    lcursos.append(texto);
 
-                var ul = $(`.${index}`);
+                    var ul = $(`.${index}`);
 
-                $.each(cursos.clasesNavegacion, function(index, clase){
+                    $.each(cursos.clasesNavegacion, function (index, clase) {
 
-                    var li = `<li class="nav-item">
-                            <a href="#" class="Nclases nav-link text-dark bg-light" id = "${clase.descripcion}" ><i class="fas fa-pencil-alt"></i> ${clase.descripcion} </a>
+                        var li = `<li class="nav-item">
+                            <a href="#" class="Nclases nav-link text-dark bg-light" id = "${clase.descripcion}" ><i class="fas fa-chalkboard-teacher"></i> Clase:  ${clase.descripcion} </a>
                         </li>`;
 
-                    ul.append(li);
-                    
-                });
-            }
-        });
-    })
+                        ul.append(li);
+
+                    });
+                }
+            });
+        })
 }
 
 
@@ -269,23 +259,20 @@ async function traerDatos_del_profesor() {
 
 
 
-$(document).on('click','.Nclases', function(){
+$(document).on('click', '.Nclases', function () {
 
     var cursos = JSON.parse(localStorage.getItem('datos'));
     var encontrado = false;
     var i = 0;
-    while(!encontrado)
-    {
-        if(cursos[i].clasesNavegacion.find(x => x.descripcion == this.id) != null)
-        {
+    while (!encontrado) {
+        if (cursos[i].clasesNavegacion.find(x => x.descripcion == this.id) != null) {
             localStorage.setItem('clases', JSON.stringify(cursos[i].clasesNavegacion));
             localStorage.setItem('cursos', JSON.stringify(cursos[i]));
             encontrado = true;
         }
-        else
-        {
+        else {
             i++;
-        }        
+        }
     }
 
     var listaClases = JSON.parse(localStorage.getItem('clases')).find(x => x.descripcion == this.id);
@@ -294,18 +281,21 @@ $(document).on('click','.Nclases', function(){
 
     contenido.empty();
 
-    var principal = `<div class="texto" style="border-bottom-style: double; border-width: 1px;">
+    var principal = `
+                    <div class="texto" style="border-bottom-style: double; border-width: 1px;">
                         <h4> ${listaClases.descripcion} </h4>
                     </div>
 
-                    <div class = "texto principal" style= "margin-top: 5%;"> <p> ${listaClases.tema} </p> </div>
+                    <div class="texto" >
+                        <div class="embed-responsive embed-responsive-16by9">
+                            <iframe width="560" height="315" src="${listaClases.video.link}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        </div>
+                    </div>
+
+                    <div class = "texto principal" style= "margin-top: 2%;"> <p> ${listaClases.tema} </p> </div>
                     
 
-                    <div class="texto" >
-                               <div class="embed-responsive embed-responsive-16by9">
-                                    <iframe width="560" height="315" src="${listaClases.video.link}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                                </div>
-                           </div>
+                    
                     `;
 
     contenido.append(principal);
@@ -321,36 +311,35 @@ function DecodeToken(token) {
 
 
 
-$(document).ready(function(){
-	// Add minus icon for collapse element which is open by default
-	$(".collapse.show").each(function(){
-		$(this).siblings(".card-header").find(".btn i").addClass("fa-minus-circle").removeClass("fa-plus-circle");
-	});
-	
-	// Toggle plus minus icon on show hide of collapse element
-	$(document).on('show.bs.collapse', ".collapse", function(){
+$(document).ready(function () {
+    // Add minus icon for collapse element which is open by default
+    $(".collapse.show").each(function () {
+        $(this).siblings(".card-header").find(".btn i").addClass("fa-minus-circle").removeClass("fa-plus-circle");
+    });
 
-		$(this).parent().find(".card-header .btn i").removeClass("fa-plus-circle").addClass("fa-minus-circle");
-	}).on('hide.bs.collapse', function(){
+    // Toggle plus minus icon on show hide of collapse element
+    $(document).on('show.bs.collapse', ".collapse", function () {
+
+        $(this).parent().find(".card-header .btn i").removeClass("fa-plus-circle").addClass("fa-minus-circle");
+    }).on('hide.bs.collapse', function () {
         debugger
-		$(this).parent().find(".card-header .btn i").removeClass("fa-minus-circle").addClass("fa-plus-circle");
-	});
+        $(this).parent().find(".card-header .btn i").removeClass("fa-minus-circle").addClass("fa-plus-circle");
+    });
 });
 
 
-function mostrarCargado () {
+function mostrarCargado() {
 
 
     var data = JSON.parse(localStorage.getItem('datos'));
 
-        var lcursos = $('#accordionExample');
+    var lcursos = $('#accordionExample');
 
-        $.each(data, function(index, cursos){
+    $.each(data, function (index, cursos) {
 
-            if(lcursos.children().lenght == 0)
-            {
+        if (lcursos.children().lenght == 0) {
 
-                var textCursos = `   <div class="card">
+            var textCursos = `   <div class="card">
 
                 <div class="card-header" id="heading${index}">
                     <h2 class="clearfix mb-0">
@@ -371,26 +360,25 @@ function mostrarCargado () {
                 
                 </div> `;
 
-                lcursos.append(textCursos);
+            lcursos.append(textCursos);
 
-                var ul = $(`.${index}`);
+            var ul = $(`.${index}`);
 
-                $.each(cursos.clasesNavegacion, function(index, clase){
+            $.each(cursos.clasesNavegacion, function (index, clase) {
 
-                    var li = `<li class="nav-item">
-                            <a href="#" class="Nclases nav-link text-dark bg-light" id = "${clase.descripcion}" ><i class="fas fa-pencil-alt"></i> ${clase.descripcion} </a>
+                var li = `<li class="nav-item">
+                            <a href="#" class="Nclases nav-link text-dark bg-light" id = "${clase.descripcion}" ><i class="fas fa-chalkboard-teacher"></i> Clase:  ${clase.descripcion} </a>
                         </li>`;
 
-                    ul.append(li);
-                    
-                });
+                ul.append(li);
 
-            }
-            else
-            {
+            });
+
+        }
+        else {
 
 
-                var texto = ` <div class="card">
+            var texto = ` <div class="card">
                 <div class="card-header" id="heading${index}">
                     <h2 class="mb-0">
                         <span> ${cursos.nombre} </span>
@@ -408,48 +396,48 @@ function mostrarCargado () {
                 </div>
                 </div>`;
 
-                lcursos.append(texto);
+            lcursos.append(texto);
 
-                var ul = $(`.${index}`);
+            var ul = $(`.${index}`);
 
-                $.each(cursos.clasesNavegacion, function(index, clase){
+            $.each(cursos.clasesNavegacion, function (index, clase) {
 
-                    var li = `<li class="nav-item">
-                            <a href="#" class="Nclases nav-link text-dark bg-light" id = "${clase.descripcion}" ><i class="fas fa-pencil-alt"></i> ${clase.descripcion} </a>
+                var li = `<li class="nav-item">
+                            <a href="#" class="Nclases nav-link text-dark bg-light" id = "${clase.descripcion}" ><i class="fas fa-chalkboard-teacher"></i> Clase:  ${clase.descripcion} </a>
                         </li>`;
 
-                    ul.append(li);
-                    
-                });
+                ul.append(li);
 
-            }
-        });
+            });
 
-        ////////////////////
+        }
+    });
 
-        var listaClases = JSON.parse(localStorage.getItem('claseU'));
-        var contenido = $('.centro');
-    
-        contenido.empty();
-    
-        var principal = `<div class="texto" style="border-bottom-style: double; border-width: 1px;">
+    ////////////////////
+
+    var listaClases = JSON.parse(localStorage.getItem('claseU'));
+    var contenido = $('.centro');
+
+    contenido.empty();
+
+    var principal = `<div class="texto" style="border-bottom-style: double; border-width: 1px;">
                             <h4> ${listaClases.descripcion} </h4>
                         </div>
-    
-                        <div class = "texto principal" style= "margin-top: 5%;"> <p> ${listaClases.tema} </p> </div>
-                        
-    
+
                         <div class="texto" >
                                    <div class="embed-responsive embed-responsive-16by9">
                                         <iframe width="560" height="315" src="${listaClases.video.link}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                                     </div>
                                </div>
+    
+                        <div class = "texto principal" style= "margin-top: 2%;"> <p> ${listaClases.tema} </p> </div>
+                        
                         `;
-    
-        contenido.append(principal);
-    
+
+    contenido.append(principal);
+
 }
 
-$(document).on('click', '#crearClase', function(){
+$(document).on('click', '#crearClase', function () {
     alert("En proceso");
 });
