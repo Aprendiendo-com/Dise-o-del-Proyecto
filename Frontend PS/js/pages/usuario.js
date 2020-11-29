@@ -20,7 +20,7 @@ function login() {
     
 
     $('#usuario').empty();
-    $('#usuario').append(`<i class="far fa-user"></i> ${token.Nombre + " " + token.Apellido}`);
+    $('#usuario').append(`<i class="far fa-user"></i>`);
    
 }
 
