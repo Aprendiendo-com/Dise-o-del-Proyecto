@@ -40,7 +40,7 @@ $(document).ready(function () {
                 { title: "Apellido",data: "apellido" },
                 { title: "Mail",data: "email" },
                 { title: "Estado",data: "estado" },
-                { title: "Legajo",data: "legajo" }
+                { title: "Dni",data: "Dni" }
             ]
         })
     
