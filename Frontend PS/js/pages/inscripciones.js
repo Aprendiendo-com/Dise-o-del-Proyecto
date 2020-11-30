@@ -176,10 +176,9 @@ $(document).on('click', '.detalles', function()
     $('.modal-footer').empty();
     contenido = $('.modal-footer');
     texto = `
-    <button type="button" class="inscripcion btn btn-primary btn-sm" id = "${objeto_curso.cursoId}"> Inscribirse </button>
+    <button type="button" class="alta inscripcion btn btn-primary btn-sm" id = "${objeto_curso.cursoId}" value='${objeto_curso.cursoId}'> Inscribirse </button>
     `
     contenido.append(texto);
-
 });
 
 
