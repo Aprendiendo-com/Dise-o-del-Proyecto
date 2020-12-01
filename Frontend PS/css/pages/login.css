@@ -71,6 +71,11 @@ body{
     content: "\f007";
 }
 
+.form-group#dni-div::before{
+    content: "\f2bb";
+    font-size: 26px;
+}
+
 .form-group#contrasenia-div::before{
     content: "\f023";
 }
@@ -156,3 +161,7 @@ a.btn-light:hover{
 
 
 
+#incorrecto{
+    color: red;
+    font-weight: bold;
+}

@@ -1,62 +1,76 @@
-
 $('#registrar').on("click", Registrar);
 
 
 
 //EN LA VALIDACION COMPROBAR QUE EL CORREO NO ESTÉ REGISTRADO EN LA BD
-async function Registrar() {
+function cargando() {
+  return Swal.fire({
+    title: "Cargando...",
+    showConfirmButton: false,
+    allowOutsideClick: false,
+    imageUrl: "../imagenes/load.gif"
+  });
+}
 
+async function Registrar() {
   // funcion de registrar
 
   var _nombre = document.getElementById("nombre").value;
   var _apellido = document.getElementById("apellido").value;
+  var _dni = document.getElementById("dni").value;
   var _email = document.getElementById("correo").value;
   var _contrasenia = document.getElementById("contraseña").value;
-  
-  var usuario = new RequestUsuario(_nombre, _apellido, _email, 2,  _contrasenia);
- 
-  var options = {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      //"Authorization": "Bearer" + localStorage.getItem("token")
-    },
-    body: JSON.stringify(usuario),
-    mode: 'cors'
-  };
-   await fetch('https://localhost:44351/api/Usuario', options)
-    .then(response => response.json())
-    .then(data =>{
-      console.log("se registro correctamente");
-    })
-    .catch(err => {
-      console.log("Ha ocurrido un error con el registro:" + err);
-    });
+
+  var usuario = new RequestUsuario(_nombre, _apellido, _email, 2, _contrasenia);
 
 
+  if (validarTexto(_nombre) && validarTexto(_apellido) && validarDNI(_dni) && validarEmail(_email) && validarContrasenia(_contrasenia)) {
+    var carga = cargando();
 
-
-     // funcion de login
-
-    var usuario = new RequestUsuarioLogin(_email,_contrasenia);
+    $('#mensaje').empty();
 
     var options = {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            //"Authorization": "Bearer" + localStorage.getItem("token")
-        },
-        body: JSON.stringify(usuario),
-        mode: 'cors'
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        //"Authorization": "Bearer" + localStorage.getItem("token")
+      },
+      body: JSON.stringify(usuario),
+      mode: 'cors'
     };
-    
+    await fetch('https://localhost:44351/api/Usuario', options)
+      .then(response => response.json())
+      .then(data => {
+        console.log("se registro correctamente");
+      })
+      .catch(err => {
+        console.log("Ha ocurrido un error con el registro:" + err);
+      });
+
+
+
+
+    // funcion de login
+
+    var usuario = new RequestUsuarioLogin(_email, _contrasenia);
+
+    var options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        //"Authorization": "Bearer" + localStorage.getItem("token")
+      },
+      body: JSON.stringify(usuario),
+      mode: 'cors'
+    };
+
     await fetch('https://localhost:44351/api/Usuario/usuario', options)
-    .then((response) => response.json())
-    .then(json => {
-      localStorage.setItem('Token', json);
-      console.log("se logueo correctamente")
-    })
-    .catch(err => console.log('Ha ocurrido un error:' + err));
+      .then((response) => response.json())
+      .then(json => {
+        localStorage.setItem('Token', json);
+        console.log("se logueo correctamente")
+      })
+      .catch(err => console.log('Ha ocurrido un error:' + err));
 
 
 
@@ -65,8 +79,7 @@ async function Registrar() {
     // funcion de crear un alumno 
 
     var token = DecodeToken(localStorage.getItem('Token'));
-    var estudiante =
-    {
+    var estudiante = {
       "nombre": $('#nombre').val(),
       "apellido": $('#apellido').val(),
       "email": $('#correo').val(),
@@ -77,12 +90,12 @@ async function Registrar() {
       headers: {
         'Content-Type': 'application/json',
         "Authorization": "Bearer " + localStorage.getItem("Token")
-              },
+      },
       body: JSON.stringify(estudiante),
       mode: 'cors'
-      };
-      
-      await fetch('https://localhost:44302/api/Estudiante', options)
+    };
+
+    await fetch('https://localhost:44302/api/Estudiante', options)
       .then(response => response.json())
       .then(data => {
         localStorage.setItem('UsuarioId', data.estudianteID);
@@ -90,10 +103,12 @@ async function Registrar() {
       });
 
 
-      if(token.Rol == "2") {
-    
-          window.location.href='./Inscripcion.html'
-      }
+    if (token.Rol == "2") {
+
+      window.location.href = './Inscripcion.html'
+    }
+  }
+
 }
 
 function DecodeToken(token) {
@@ -115,7 +130,7 @@ class RequestUsuario {
 
 class RequestUsuarioLogin {
   constructor(email, contraseña) {
-      this.email = email,
-          this.contraseña = contraseña
+    this.email = email,
+      this.contraseña = contraseña
   }
 }

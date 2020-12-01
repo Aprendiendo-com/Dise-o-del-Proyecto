@@ -1,5 +1,4 @@
-
-    $('#ingresar').on("click", Ingresar);
+$('#ingresar').on("click", Ingresar);
 
 /*
 window.onunload = () =>{ 
@@ -12,78 +11,83 @@ window.onbeforeunload = function() {
 };*/
 async function Ingresar() {
 
-    debugger
+    //debugger
     // funcion de login
 
     var correo = document.getElementById("correo-login").value;
     var contrasenia = document.getElementById("contrasenia-login").value;
-    var usuario = new RequestUsuarioLogin(correo,contrasenia);
+    var usuario = new RequestUsuarioLogin(correo, contrasenia);
 
-    var options = {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            //"Authorization": "Bearer" + localStorage.getItem("token")
-        },
-        body: JSON.stringify(usuario),
-        mode: 'cors'
-    };
 
-    await fetch('https://localhost:44351/api/Usuario/usuario', options)
-        .then((response) => response.json())
-        .then(json => {
+    /*console.log(validarDNI(correo));
+    console.log(validarEmail(correo));*/
+    if (validarEmail(correo) && validarContrasenia(contrasenia)) {
+        $('#mensaje').empty();
 
-            var token = DecodeToken(json);
-            var usuarioId = parseInt(token.UsuarioId);
-            localStorage.setItem('Token', json);
+        var options = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                //"Authorization": "Bearer" + localStorage.getItem("token")
+            },
+            body: JSON.stringify(usuario),
+            mode: 'cors'
+        };
 
-            if(token.Rol == "1")
-            {
-                console.log("el login profesor exitoso");
+        await fetch('https://localhost:44351/api/Usuario/usuario', options)
+            .then((response) => response.json())
+            .then(json => {
 
-                var optionsGet = {
-                    method: 'GET',
-                    headers: {
-                      'Content-Type': 'application/json',
-                      "Authorization": "Bearer " + localStorage.getItem("Token")
-                            },
-                    mode: 'cors'
+                var token = DecodeToken(json);
+                var usuarioId = parseInt(token.UsuarioId);
+                localStorage.setItem('Token', json);
+
+                if (token.Rol == "1") {
+                    console.log("el login profesor exitoso");
+
+                    var optionsGet = {
+                        method: 'GET',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            "Authorization": "Bearer " + localStorage.getItem("Token")
+                        },
+                        mode: 'cors'
                     };
 
-                 fetch(`https://localhost:44302/api/Profesor/ObtenerIdProfesor?usuarioId= ${usuarioId}`, optionsGet)
-                .then(response => response.json())
-                .then( data => {
-                    
-                    localStorage.setItem('UsuarioId', data);
-                    window.location.href = "./Curso1.html";
-                })
+                    fetch(`https://localhost:44302/api/Profesor/ObtenerIdProfesor?usuarioId= ${usuarioId}`, optionsGet)
+                        .then(response => response.json())
+                        .then(data => {
 
-            }
-            else
-            {
-                console.log("el login estudiante exitoso");
+                            localStorage.setItem('UsuarioId', data);
+                            window.location.href = "./Curso1.html";
+                        })
 
-                var opt = {
-                    method: 'GET',
-                    headers: {
-                      'Content-Type': 'application/json',
-                      "Authorization": "Bearer " + localStorage.getItem("Token")
-                            },
-                    mode: 'cors'
+                } else {
+                    console.log("el login estudiante exitoso");
+
+                    var opt = {
+                        method: 'GET',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            "Authorization": "Bearer " + localStorage.getItem("Token")
+                        },
+                        mode: 'cors'
                     };
 
-                 fetch(`https://localhost:44302/api/Estudiante/ObtenerIdEstudiante/${usuarioId}`,opt)
-                .then(response => response.json())
-                .then( data => {
+                    fetch(`https://localhost:44302/api/Estudiante/ObtenerIdEstudiante/${usuarioId}`, opt)
+                        .then(response => response.json())
+                        .then(data => {
 
-                    localStorage.setItem('UsuarioId', data);
-                    window.location.href = "./Curso1.html";
-                })
-               
-            }
-        })
-        .catch(err => console.log('ERROR:' + err));
+                            localStorage.setItem('UsuarioId', data);
+                            window.location.href = "./Curso1.html";
+                        })
 
+                }
+            })
+            .catch(err => console.log('ERROR:' + err));
+    }
+
+    
 }
 
 function DecodeToken(token) {
