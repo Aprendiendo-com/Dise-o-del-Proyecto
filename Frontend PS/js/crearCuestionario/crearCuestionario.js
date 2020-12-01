@@ -69,7 +69,12 @@ function RegistrarCuestionario(cuestionario) {
     return fetch("https://localhost:44326/api/Cuestionario", options)
         .then(response => {
             if (response.status === 201) {
-                alert("El cuestionario se alojó correctamente");
+                Swal.fire({
+                    type: 'success',
+                    title: 'Cuestionario creado exitosamente!',
+                    showConfirmButton: true,
+                    confirmButtonColor: '#48D1CC'
+                })
             }
             return response.json();
         })
