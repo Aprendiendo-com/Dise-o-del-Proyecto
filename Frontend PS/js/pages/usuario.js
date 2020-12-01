@@ -3,27 +3,26 @@ login();
 
 $('#cerrar_sesion').on("click", function(){
 
-    localStorage.removeItem('Token_estudiante');
+    localStorage.removeItem('Token');
     localStorage.removeItem('datos');
-    localStorage.removeItem('EstudianteId');
+    localStorage.removeItem('UsuarioId');
     localStorage.removeItem('clases');
     localStorage.removeItem('cursos');
     localStorage.removeItem('claseU');
-
 
     window.location.href = "./Login.html";
 
 });
 
 function login() {
-    var token = DecodeToken(localStorage.getItem('Token_estudiante'));
-
+    
+    var token = DecodeToken(localStorage.getItem('Token'));
+    
 
     $('#usuario').empty();
-    $('#usuario').append(`<i class="far fa-user"></i> ${token.Nombre + " " + token.Apellido}`);
+    $('#usuario').append(`<i class="far fa-user"></i>`);
    
 }
-
 
 
 function DecodeToken(token) {

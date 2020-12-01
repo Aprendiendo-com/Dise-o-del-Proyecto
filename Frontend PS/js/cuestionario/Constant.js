@@ -24,9 +24,17 @@ export class RespuestaDescripcionDTO {
 
 // CUESTIONARIO A CORREGIR
 export class CuestionarioACorregirDTO {
-    constructor(claseId, respuestas) {
+    constructor(claseId, preguntas) {
         this.claseId = claseId,
-            this.respuestas = respuestas
+            this.preguntas = preguntas
+    }
+}
+
+export class PreguntaConRespuestaAlumnoDTO {
+    constructor(descripcion, calificacionParcial, respuesta) {
+        this.descripcion = descripcion,
+            this.calificacionParcial = calificacionParcial,
+            this.respuesta = respuesta
     }
 }
 
@@ -40,7 +48,7 @@ export class RespuestaAlumnoDTO {
 export class Registro {
     constructor(estudianteId, claseId, calificacion) {
         this.estudianteId = estudianteId,
-        this.claseId = claseId,
-        this.calificacion = calificacion
+            this.claseId = claseId,
+            this.calificacion = calificacion
     }
 }

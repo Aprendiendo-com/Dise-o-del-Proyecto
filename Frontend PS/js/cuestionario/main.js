@@ -2,25 +2,49 @@ import {
     CuestionarioTodoDTO,
     CuestionarioACorregirDTO,
     RespuestaAlumnoDTO,
-    Registro
+    Registro,
+    PreguntaConRespuestaAlumnoDTO
 } from "./Constant.js";
 
 import * as CuestionarioService from "./CuestionarioService.js";
 import * as RegistroService from "./RegistroService.js";
 
 window.onload = () => {
+
+    var token = DecodeToken(localStorage.getItem('Token'));
+
+    if(token.Rol == "1")
+    {
+        var element = $('#cambiante');
+
+        var text = `<li class="secciones nav-item">
+                        <button type="button"  style="margin-top: 3%;" id = "editar" class="btn btn-light btn-sm" style="margin-top: 5%;"> <i class="fas fa-plus"></i> Editar cuestionario </button>
+                    </li>`;
+
+        element.append(text);
+    }
+    
+
     CargarCuestionario();
     $('#enviar-cuestionario').on("click", EnviarCuestionario); //CUANDO RECIBE POR PARÁMETRO ENTRA DIRECTO
 }
 
+$(document).on('click', '#editar', function(){
+    window.location.href = "./editCuestionario.html";
+});
+
+
+
 function CargarCuestionario() {
-    if(localStorage.getItem('claseU')){
+    if (localStorage.getItem('claseU')) {
         var idClase = JSON.parse(localStorage.getItem('claseU')).claseId;
-    }
-    else{
+        idClase = 1;
+    } else {
         var idClase = 1;
     }
-    CuestionarioService.default( idClase ).then(x => LoadCuestionario(x));
+    console.log(parseInt(localStorage.getItem('UsuarioId')));
+    
+    CuestionarioService.default(idClase).then(x => LoadCuestionario(x));
 }
 
 function LoadCuestionario(CuestionarioTodoDTO) {
@@ -31,19 +55,26 @@ function LoadCuestionario(CuestionarioTodoDTO) {
 
     var i = 1;
     var lista = [];
-    
-    var valorPregunta = Math.round(10/CuestionarioTodoDTO.preguntas.length * 100) / 100;
+
+    var lista_preguntas = [];
     CuestionarioTodoDTO.preguntas.forEach(preguntas => {
-
-       informacion.innerHTML += `<div class="filas">
-       <div class="info" id=${"info"+i}>${"Pregunta por: "+ valorPregunta + "pts."}</div>
+        lista_preguntas.push(preguntas);
+        informacion.innerHTML += `<div class="filas">
        <div class="pregyresp-grid" id=${i}>
-       <div class="pregunta" id="preguntaId">
+       <div class="pregunta" id=${"preguntaId"+i}>
+        <div class="info-valor">
        <label for="preg" id="preguntaLabelInicio"> ${("Pregunta "+ i + "- ")} </label>
-       <label for="preg" id="preguntaLabelDescripcion"> ${(preguntas.descripcion)} </label>
+       <label for="preg" id="preguntaLabelDescripcion"> ${(preguntas.descripcion)+" ("+preguntas.calificacionParcial+"Pts)"} </label>
+       </div>
+       <div class="estado" id=${"estado"+i}>
+        </div>
        </div>`;
+        /*class="estado"
+               <i class="false fas fa-times"></i>
+               <i class="correct fas fa-check-circle"></i>
 
-       var j = 1;
+        */
+        var j = 1;
         var lista_respuestas = [];
         preguntas.respuestas.forEach(respuestas => {
             lista_respuestas.push(j);
@@ -63,16 +94,15 @@ function LoadCuestionario(CuestionarioTodoDTO) {
     })
 
     localStorage.setItem('ListaDimensiones', JSON.stringify(lista));
-
+    sessionStorage.setItem('preguntas', JSON.stringify(lista_preguntas));
     //SETEAR DESDE EL LOCALSTORAGE
-    var alumno = 1;
-    RegistroService.default().then(x => RevisarRegistro(x, CuestionarioTodoDTO.claseId, alumno));
+    RegistroService.default().then(x => RevisarRegistro(x, CuestionarioTodoDTO.claseId, parseInt(localStorage.getItem('UsuarioId'))));
     //LO ACABO DE COMENTAR
 }
 
 function RevisarRegistro(registro, claseId, estudianteId) {
     //TAMBIÉN DESHABILITAR SI NO HAY UN ESTUDIANTE
-    console.log(sessionStorage.getItem("UsuarioIdToken"));
+
     registro.forEach(reg => {
         if (reg.claseId == claseId && reg.estudianteId == estudianteId) {
             DeshabilitarOpciones();
@@ -85,72 +115,93 @@ function RevisarRegistro(registro, claseId, estudianteId) {
 }
 
 function EnviarCuestionario() {
-
-    debugger
-    var lista = JSON.parse(localStorage.getItem("ListaDimensiones"));
     var cuestionario_respuestas = new CuestionarioACorregirDTO;
-    cuestionario_respuestas.respuestas = [];
-    for (var i = 1, length = lista.length; i < length + 1; i++) {
-        //cuestionario_respuestas.cuestionarioId = 11; //CAMBIAR ESTO
-        cuestionario_respuestas.claseId = sessionStorage.getItem("idClase"); //CAMBIAR ESTO
-        var respuesta_descripcion = new RespuestaAlumnoDTO($(`input[name=${"respuesta"+i}]:checked`).val())
-        cuestionario_respuestas.respuestas.push(respuesta_descripcion);
-    }
+    cuestionario_respuestas.preguntas = [];
+    cuestionario_respuestas.claseId = sessionStorage.getItem("idClase"); //CAMBIAR ESTO
+    var lista_preguntas = [];
+    var preguntas = JSON.parse(sessionStorage.getItem('preguntas'));
+    var i = 1;
+    var respondido = true;
+    preguntas.forEach(pregunta => {
+        var respuesta_seleccion = new RespuestaAlumnoDTO($(`input[name=${"respuesta"+i}]:checked`).val())
+        if(respuesta_seleccion.descripcion == undefined){
+            respondido = false;
+        }
+        var pregunta_con_respuesta = new PreguntaConRespuestaAlumnoDTO(
+            pregunta.descripcion, pregunta.calificacionParcial, respuesta_seleccion);
+        lista_preguntas.push(pregunta_con_respuesta);
+        i++;
+    })
+
+    cuestionario_respuestas.preguntas = lista_preguntas;
+
+    /*console.log(JSON.stringify(cuestionario_respuestas));*/
+
 
     //MANDAR EL CUESTIONARIO A LA API
-    //console.log(JSON.stringify(cuestionario_respuestas));
-    var options = {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            "Authorization": "Bearer" + localStorage.getItem("token")
-        },
-        body: JSON.stringify(cuestionario_respuestas),
-        mode: 'cors'
-    };
+    if(respondido) {
+        var options = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                "Authorization": "Bearer" + localStorage.getItem("token")
+            },
+            body: JSON.stringify(cuestionario_respuestas),
+            mode: 'cors'
+        };
+    
+        fetch('https://localhost:44326/api/Cuestionario/Resolucion', options)
+            .then(response => {
+                return response.json()
+            })
+            .then(json => {
+                agregarCalificacion(json);
+                DeshabilitarOpciones();
+                DeshabilitarBoton();
+                return json;
+            })
+            .catch(err => console.log('ERROR: ' + err))
+    }
+    else{
+        Swal.fire({
+            type: 'error',
+            title: 'Responda a todas las preguntas',
+            /*text: 'Responda a todas las preguntas',*/
+            showConfirmButton: true,
+            confirmButtonColor: '#48D1CC'
+        })
+    }
 
-    fetch('https://localhost:44326/api/Cuestionario/Resolucion', options)
-        .then(response => {
-            return response.json()
-        })
-        .then(json => {
-            agregarCalificacion(json);
-            DeshabilitarOpciones();
-            DeshabilitarBoton();
-            return json;
-        })
-        .catch(err => console.log('ERROR: ' + err))
 }
 
 function agregarCalificacion(resolucion) {
-    console.log(resolucion);
     var informacion = document.getElementById("header-cuestionario");
     informacion.innerHTML += `<div class="calificacion"> ${("--> CALIFICACION: " + resolucion.calificacionTotal +"/10 <--")} </div>`;
-    
 
     //MODIFICADO
     var i = 1;
     resolucion.respuestas.forEach(respuesta => {
-        if(respuesta.respuestaAlumno == respuesta.respuestaCorrecta){
-            var informacion = document.getElementById("info"+i);
-            informacion.innerHTML += `</br><div class="info-estado-correcto"> Estado: Correcta </div>`;
+        if (respuesta.respuestaAlumno == respuesta.respuestaCorrecta) {
+            var informacion = document.getElementById("estado" + i);
+            informacion.innerHTML += `<i class="correct fas fa-check-circle"></i>`;
             console.log("CORRECTA");
-        }
-        else{
-            var informacion = document.getElementById("info"+i);
-            informacion.innerHTML += `</br><div class="info-estado-incorrecto"> Estado: Incorrecta </div>`;
+        } else {
+            var informacion = document.getElementById("estado" + i);
+            informacion.innerHTML += `<i class="false fas fa-times"></i>`;
             console.log("FALSA");
         }
         i++;
     })
     //END
     RegistrarCalificacion(resolucion);
+    
+    
+
 }
 
-function RegistrarCalificacion(resolucion){
+function RegistrarCalificacion(resolucion) {
     var idClase = sessionStorage.getItem("idClase");
-    var alumno = 1;
-    var registro = new Registro(alumno,idClase,resolucion.calificacionTotal);
+    var registro = new Registro(parseInt(localStorage.getItem('UsuarioId')), idClase, resolucion.calificacionTotal);
 
     var options = {
         method: 'POST',
@@ -167,13 +218,12 @@ function RegistrarCalificacion(resolucion){
             return response.json()
         })
         .then(json => {
-            
             return json;
         })
         .catch(err => console.log('ERROR: ' + err))
 }
 
-function DeshabilitarBoton(){
+function DeshabilitarBoton() {
     document.getElementById("enviar-cuestionario").disabled = true;
 }
 
@@ -189,8 +239,12 @@ function DeshabilitarOpciones() {
         })
         i++;
     })
-    
+
 }
 
 
-
+function DecodeToken(token) {
+    var base64Url = (token).split('.')[1];
+    var base64 = base64Url.replace('-', '+').replace('_', '/');
+    return JSON.parse(window.atob(base64));
+}

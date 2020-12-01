@@ -9,25 +9,31 @@ import * as CuestionarioService from "../cuestionario/CuestionarioService.js";
 const CLASEID = 1;
 
 window.onload = () => {
+
+
     sessionStorage.setItem("respuestas1", 2);
     sessionStorage.setItem("preguntas", 1);
     /* COMPROBAR SI YA TIENE ESTA UN CUESTIONARIO*/
     /* COMPROBAR SI EL PROFESOR TIENE A ESE CURSO*/
 
-    if (sessionStorage.getItem("ClaseId")) {
-        CLASEID = sessionStorage.getItem("ClaseId");
+
+    debugger
+
+    var id = 0;
+    if (localStorage.getItem("claseU") != null) {
+        id = JSON.parse( localStorage.getItem("claseU")).claseId;
     } else {
         /*DeshabilitarCuestionario();
         window.location.href='./index.html'*/
         console.log("No hay clase en el localstorage");
     }
-    CargarCuestionario();
+    CargarCuestionario(id);
 
 }
 
 
-function CargarCuestionario() {
-    CuestionarioService.default(CLASEID).then(x => LoadCuestionario(x));
+function CargarCuestionario(id) {
+    CuestionarioService.default(id).then(x => LoadCuestionario(x));
 }
 
 
@@ -169,6 +175,8 @@ $(document).on('click', '#enviar-cuestionario', function () {
 });
 
 function ActualizarCuestionario(cuestionario) {
+
+    debugger
     var options = {
         method: 'PUT',
         headers: {
@@ -177,9 +185,9 @@ function ActualizarCuestionario(cuestionario) {
         body: JSON.stringify(cuestionario),
         mode: 'cors'
     };
-    return fetch("https://localhost:44326/api/Cuestionario", options)
+     fetch("https://localhost:44326/api/Cuestionario", options)
         .then(response => {
-            if (response.status === 200) {
+            if (response.status == 200) {
                 alert("El cuestionario se actualizó correctamente");
             }
             return response.json();
@@ -190,3 +198,7 @@ function ActualizarCuestionario(cuestionario) {
         })
         .catch(err => console.log('ERROR: ' + err))
 }
+
+$('#atras').on('click', function(){
+    window.location.href = "./cuestionario.html";
+});

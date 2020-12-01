@@ -20,29 +20,19 @@ body
 {
     background-color: #d3dfd4;
 }
-#footer {
-    background-color: #48D1CC;
-    height: 10%;
-    margin-top: 5%;
-}
 .fab
 {
     margin-right: 3%;
-}
-.ifooter
-{
-    font-size:30px;
-}
-
-.copyright
-{
-    font: 150% sans-serif;
 }
 
 .navbar
 {
     background-color: #48D1CC;
     height: 10%;
+}
+.nav-link
+{
+    font-size: 1.1rem;
 }
 .ins
 {
@@ -61,10 +51,11 @@ body
 }
 .texto
 {
-    margin-top: 5%;
+    padding:2rem;
 }
 #seccion
 {
+    padding: 0.7rem;
     -webkit-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.3);
     -moz-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.3);
     box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.3);
@@ -77,12 +68,29 @@ body
     overflow: hidden;
 }
 
+.btn-primary
+{
+    background-color: #13a6c0;
+    border-color: #085375;
+}
+.btn-primary:hover {
+    background-color: #0c788b;
+    border-color: #085375;
+}
+
+.card-footer-btn {
+    padding: .75rem 1.25rem;
+    background-color: rgba(0,0,0,.03);
+    border-bottom: 1px solid rgba(0,0,0,.125);
+}
 
 
 
 /* FORO */
-.container-foro{margin-top:20px;
+.container-foro{
+    margin-top:20px;
     background:#eee;
+    margin-bottom: 3rem;
     }
     
     .white-bg {
@@ -202,4 +210,8 @@ body
     }
     .accordion .card-header button:hover {
         color: #23384e;
+    }
+    .icono
+    {
+        margin-right: 2%;
     }

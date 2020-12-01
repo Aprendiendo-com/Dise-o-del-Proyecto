@@ -2,12 +2,6 @@ body
 {
     background-color: #d3dfd4;
 }
-
-#footer {
-    background-color: #48D1CC;
-    height: 10%;
-    margin-top: 5%;
-}
 .fab
 {
     margin-right: 3%;
@@ -32,13 +26,4 @@ body
 .ins:hover
 {
     color: var(--secundario)
-}
-.ifooter
-{
-    font-size:30px;
-}
-
-.copyright
-{
-    font: 150% sans-serif;
 }
