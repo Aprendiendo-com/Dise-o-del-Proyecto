@@ -136,6 +136,7 @@ async function traerDatos_del_alumno() {
                         ul.append(li);
 
                     });
+                    $('#btnDarBaja').css('display', 'inline-block');
 
                 }
             });
@@ -261,6 +262,12 @@ async function traerDatos_del_profesor() {
 
 $(document).on('click', '.Nclases', function () {
 
+
+    var token = DecodeToken(localStorage.getItem('Token'));
+    if (token.Rol == "2") {
+        $('#btnDarBaja').css('display', 'inline-block');
+    }
+
     var cursos = JSON.parse(localStorage.getItem('datos'));
     var encontrado = false;
     var i = 0;
@@ -292,7 +299,7 @@ $(document).on('click', '.Nclases', function () {
                         </div>
                     </div>
 
-                    <div class = "texto principal" style= "margin-top: 2%;"> <p> ${listaClases.tema} </p> </div>
+                    <div class = "texto-principal"> <p> ${listaClases.tema} </p> </div>
                     
 
                     
@@ -329,7 +336,6 @@ $(document).ready(function () {
 
 
 function mostrarCargado() {
-
 
     var data = JSON.parse(localStorage.getItem('datos'));
 
@@ -409,7 +415,6 @@ function mostrarCargado() {
                 ul.append(li);
 
             });
-
         }
     });
 
@@ -430,7 +435,7 @@ function mostrarCargado() {
                                     </div>
                                </div>
     
-                        <div class = "texto principal" style= "margin-top: 2%;"> <p> ${listaClases.tema} </p> </div>
+                        <div class = "texto-principal"> <p> ${listaClases.tema} </p> </div>
                         
                         `;
 

@@ -1,21 +1,18 @@
-$(document).ready(function(){
+$(document).ready(function () {
 
-    if(localStorage.getItem('datosProfesor') == null)
-    {
+    if (localStorage.getItem('datosProfesor') == null) {
         traerDatos_del_profesor();
     }
-    else
-    {
+    else {
 
 
         var data = JSON.parse(localStorage.getItem('datosProfesor'));
 
         var lcursos = $('#accordionExample');
 
-        $.each(data, function(index, cursos){
+        $.each(data, function (index, cursos) {
 
-            if(lcursos.children().lenght == 0)
-            {
+            if (lcursos.children().lenght == 0) {
 
                 var textCursos = `   <div class="card">
 
@@ -42,19 +39,18 @@ $(document).ready(function(){
 
                 var ul = $(`.${index}`);
 
-                $.each(cursos.clasesNavegacion, function(index, clase){
+                $.each(cursos.clasesNavegacion, function (index, clase) {
 
                     var li = `<li class="nav-item">
                             <a href="#" class="Nclases nav-link text-dark bg-light" id = "${clase.descripcion}" ><i class="fas fa-pencil-alt"></i> ${clase.descripcion} </a>
                         </li>`;
 
                     ul.append(li);
-                    
+
                 });
 
             }
-            else
-            {
+            else {
 
 
                 var texto = ` <div class="card">
@@ -79,14 +75,14 @@ $(document).ready(function(){
 
                 var ul = $(`.${index}`);
 
-                $.each(cursos.clasesNavegacion, function(index, clase){
+                $.each(cursos.clasesNavegacion, function (index, clase) {
 
                     var li = `<li class="nav-item">
                             <a href="#" class="Nclases nav-link text-dark bg-light" id = "${clase.descripcion}" ><i class="fas fa-pencil-alt"></i> ${clase.descripcion} </a>
                         </li>`;
 
                     ul.append(li);
-                    
+
                 });
 
             }
@@ -96,14 +92,14 @@ $(document).ready(function(){
 
         var listaClases = JSON.parse(localStorage.getItem('claseUProfesor'));
         var contenido = $('.centro');
-    
+
         contenido.empty();
-    
+
         var principal = `<div class="texto" style="border-bottom-style: double; border-width: 1px;">
                             <h4> ${listaClases.descripcion} </h4>
                         </div>
     
-                        <div class = "texto principal" style= "margin-top: 5%;"> <p> ${listaClases.tema} </p> </div>
+                        <div class = "texto-principal"> <p> ${listaClases.tema} </p> </div>
                         
     
                         <div class="texto" >
@@ -112,7 +108,7 @@ $(document).ready(function(){
                                     </div>
                                </div>
                         `;
-    
+
         contenido.append(principal);
 
 
@@ -121,8 +117,8 @@ $(document).ready(function(){
 });
 
 async function traerDatos_del_profesor() {
-    
-    var id = parseInt( localStorage.getItem('ProfesorId'));
+
+    var id = parseInt(localStorage.getItem('ProfesorId'));
 
 
     var options = {
@@ -135,21 +131,20 @@ async function traerDatos_del_profesor() {
     };
 
     await fetch(`https://localhost:51148/api/Profesor/${id}`, options)
-    .then(responce => responce.json())
-    .then(data => {
+        .then(responce => responce.json())
+        .then(data => {
 
 
 
-        localStorage.setItem('datosProfesor', JSON.stringify(data));
+            localStorage.setItem('datosProfesor', JSON.stringify(data));
 
-        var lcursos = $('#accordionExample');
+            var lcursos = $('#accordionExample');
 
-        $.each(data, function(index, cursos){
+            $.each(data, function (index, cursos) {
 
-            if(lcursos.children().lenght == 0)
-            {
+                if (lcursos.children().lenght == 0) {
 
-                var textCursos = `   <div class="card">
+                    var textCursos = `   <div class="card">
 
                 <div class="card-header" id="heading${index}">
                     <h2 class="clearfix mb-0">
@@ -170,26 +165,25 @@ async function traerDatos_del_profesor() {
                 
                 </div> `;
 
-                lcursos.append(textCursos);
+                    lcursos.append(textCursos);
 
-                var ul = $(`.${index}`);
+                    var ul = $(`.${index}`);
 
-                $.each(cursos.clasesNavegacion, function(index, clase){
+                    $.each(cursos.clasesNavegacion, function (index, clase) {
 
-                    var li = `<li class="nav-item">
+                        var li = `<li class="nav-item">
                             <a href="#" class="Nclases nav-link text-dark bg-light" id = "${clase.descripcion}" ><i class="fas fa-pencil-alt"></i> ${clase.descripcion} </a>
                         </li>`;
 
-                    ul.append(li);
-                    
-                });
+                        ul.append(li);
 
-            }
-            else
-            {
+                    });
+
+                }
+                else {
 
 
-                var texto = ` <div class="card">
+                    var texto = ` <div class="card">
                 <div class="card-header" id="heading${index}">
                     <h2 class="mb-0">
                         <span> ${cursos.nombre} </span>
@@ -207,48 +201,45 @@ async function traerDatos_del_profesor() {
                 </div>
                 </div>`;
 
-                lcursos.append(texto);
+                    lcursos.append(texto);
 
-                var ul = $(`.${index}`);
+                    var ul = $(`.${index}`);
 
-                $.each(cursos.clasesNavegacion, function(index, clase){
+                    $.each(cursos.clasesNavegacion, function (index, clase) {
 
-                    var li = `<li class="nav-item">
+                        var li = `<li class="nav-item">
                             <a href="#" class="Nclases nav-link text-dark bg-light" id = "${clase.descripcion}" ><i class="fas fa-pencil-alt"></i> ${clase.descripcion} </a>
                         </li>`;
 
-                    ul.append(li);
-                    
-                });
+                        ul.append(li);
 
-            }
-        });
-    })
+                    });
+
+                }
+            });
+        })
 }
 
 
 
 
 
-$(document).on('click','.Nclases', function(){
+$(document).on('click', '.Nclases', function () {
 
 
 
     var cursos = JSON.parse(localStorage.getItem('datosProfesor'));
     var encontrado = false;
     var i = 0;
-    while(!encontrado)
-    {
-        if(cursos[i].clasesNavegacion.find(x => x.descripcion == this.id) != null)
-        {
+    while (!encontrado) {
+        if (cursos[i].clasesNavegacion.find(x => x.descripcion == this.id) != null) {
             localStorage.setItem('clasesProfesor', JSON.stringify(cursos[i].clasesNavegacion));
             localStorage.setItem('cursosProfesor', JSON.stringify(cursos[i]));
             encontrado = true;
         }
-        else
-        {
+        else {
             i++;
-        }        
+        }
     }
 
     var listaClases = JSON.parse(localStorage.getItem('clasesProfesor')).find(x => x.descripcion == this.id);
@@ -261,7 +252,7 @@ $(document).on('click','.Nclases', function(){
                         <h4> ${listaClases.descripcion} </h4>
                     </div>
 
-                    <div class = "texto principal" style= "margin-top: 5%;"> <p> ${listaClases.tema} </p> </div>
+                    <div class = "texto-principal"> <p> ${listaClases.tema} </p> </div>
                     
 
                     <div class="texto" >
@@ -290,20 +281,20 @@ function DecodeToken(token) {
 
 
 
-$(document).ready(function(){
-	// Add minus icon for collapse element which is open by default
-	$(".collapse.show").each(function(){
-		$(this).siblings(".card-header").find(".btn i").addClass("fa-minus-circle").removeClass("fa-plus-circle");
-	});
-	
-	// Toggle plus minus icon on show hide of collapse element
-	$(document).on('show.bs.collapse', ".collapse", function(){
+$(document).ready(function () {
+    // Add minus icon for collapse element which is open by default
+    $(".collapse.show").each(function () {
+        $(this).siblings(".card-header").find(".btn i").addClass("fa-minus-circle").removeClass("fa-plus-circle");
+    });
 
-		$(this).parent().find(".card-header .btn i").removeClass("fa-plus-circle").addClass("fa-minus-circle");
-	}).on('hide.bs.collapse', function(){
+    // Toggle plus minus icon on show hide of collapse element
+    $(document).on('show.bs.collapse', ".collapse", function () {
+
+        $(this).parent().find(".card-header .btn i").removeClass("fa-plus-circle").addClass("fa-minus-circle");
+    }).on('hide.bs.collapse', function () {
         debugger
-		$(this).parent().find(".card-header .btn i").removeClass("fa-minus-circle").addClass("fa-plus-circle");
-	});
+        $(this).parent().find(".card-header .btn i").removeClass("fa-minus-circle").addClass("fa-plus-circle");
+    });
 });
 
 

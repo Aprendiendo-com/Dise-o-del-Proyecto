@@ -87,7 +87,7 @@ async function Ingresar() {
             .catch(err => console.log('ERROR:' + err));
     }
 
-    
+
 }
 
 function DecodeToken(token) {
