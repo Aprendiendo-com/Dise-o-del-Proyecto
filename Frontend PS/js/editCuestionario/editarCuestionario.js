@@ -6,7 +6,6 @@ import {
 
 import * as CuestionarioService from "../cuestionario/CuestionarioService.js";
 
-const CLASEID = 1;
 
 window.onload = () => {
 
@@ -16,18 +15,16 @@ window.onload = () => {
     /* COMPROBAR SI YA TIENE ESTA UN CUESTIONARIO*/
     /* COMPROBAR SI EL PROFESOR TIENE A ESE CURSO*/
 
-
-    /* debugger */
-
-    var id = 0;
+    var id = 1;
     if (localStorage.getItem("claseU") != null) {
         id = JSON.parse(localStorage.getItem("claseU")).claseId;
+        CargarCuestionario(id);
     } else {
         /*DeshabilitarCuestionario();
         window.location.href='./index.html'*/
         console.log("No hay clase en el localstorage");
     }
-    CargarCuestionario(id);
+
 
 }
 
@@ -38,6 +35,7 @@ function CargarCuestionario(id) {
 
 
 function LoadCuestionario(CuestionarioTodoDTO) {
+    console.log(CuestionarioTodoDTO);
     window.sessionStorage.setItem("idClase", CuestionarioTodoDTO.claseId);
     var i = 1;
 
@@ -161,7 +159,8 @@ $(document).on('click', '#enviar-cuestionario', function () {
             document.getElementById("input-calificacion" + i).value, respuestas);
         preguntas.push(pregunta);
     }
-    cuestionario = new CuestionarioTodoDTO(document.getElementById("input-cuestionario").value, CLASEID, preguntas);
+    cuestionario = new CuestionarioTodoDTO(document.getElementById("input-cuestionario").value,
+        JSON.parse(localStorage.getItem("claseU")).claseId, preguntas);
     /*console.log(JSON.stringify(cuestionario));*/
     console.log(cuestionario);
 
@@ -188,7 +187,12 @@ function ActualizarCuestionario(cuestionario) {
     fetch("https://localhost:44326/api/Cuestionario", options)
         .then(response => {
             if (response.status == 200) {
-                alert("El cuestionario se actualizó correctamente");
+                Swal.fire({
+                    type: 'success',
+                    title: 'El cuestionario se actualizó correctamente',
+                    showConfirmButton: true,
+                    confirmButtonColor: '#48D1CC'
+                })
             }
             return response.json();
         })
