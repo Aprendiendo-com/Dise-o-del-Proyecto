@@ -99,7 +99,7 @@ $(document).ready(function () {
                             <h4> ${listaClases.descripcion} </h4>
                         </div>
     
-                        <div class = "texto principal" style= "margin-top: 5%;"> <p> ${listaClases.tema} </p> </div>
+                        <div class = "texto-principal"> <p> ${listaClases.tema} </p> </div>
                         
     
                         <div class="texto" >
@@ -252,7 +252,7 @@ $(document).on('click', '.Nclases', function () {
                         <h4> ${listaClases.descripcion} </h4>
                     </div>
 
-                    <div class = "texto principal" style= "margin-top: 5%;"> <p> ${listaClases.tema} </p> </div>
+                    <div class = "texto-principal"> <p> ${listaClases.tema} </p> </div>
                     
 
                     <div class="texto" >

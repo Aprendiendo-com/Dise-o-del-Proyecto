@@ -34,6 +34,11 @@ body
 {
     font-size: 1.1rem;
 }
+.nav-link:hover
+{
+    background-color:  rgba(36, 150, 158, 0.685);
+    border-radius: 1.3rem;
+}
 .ins
 {
     --fuentePrincipal: 'Staatliches', cursive;
@@ -52,6 +57,12 @@ body
 .texto
 {
     padding:2rem;
+}
+.texto-principal
+{
+    padding: 3rem;
+    font-size: 1.2rem;
+    text-align: justify;
 }
 .texto-modal
 {
@@ -85,6 +96,17 @@ body
     border-color: #085375;
 }
 
+.btn-warning
+{
+    color:white;
+    background-color: #ddb034;
+    border-color: #b1a53a;
+}
+.btn-warning:hover {
+    background-color: #afa43c;
+    border-color: #a7970f;
+}
+
 .card-footer-btn {
     padding: .75rem 1.25rem;
     background-color: rgba(0,0,0,.03);
@@ -95,6 +117,7 @@ body
 {
     display: none;
 }
+
 
 
 /* FORO */
