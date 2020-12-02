@@ -53,6 +53,13 @@ body
 {
     padding:2rem;
 }
+.texto-modal
+{
+    margin-top: 1rem;
+    text-align: center;
+    font-size: 1.5rem;
+    color: #085375;
+}
 #seccion
 {
     padding: 0.7rem;
@@ -84,6 +91,10 @@ body
     border-bottom: 1px solid rgba(0,0,0,.125);
 }
 
+.hidden
+{
+    display: none;
+}
 
 
 /* FORO */

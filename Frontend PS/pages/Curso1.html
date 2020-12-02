@@ -23,7 +23,7 @@
             <nav class="navbar navbar-expand-lg navbar-light row" id="nav_bar">
                 <div class="barra col-xl-3 col-lg-3 col-md-3 col-sm-12">
                     <div class="nav">
-                        <a class="ins" href="index.html">Aprendiendo.com</a>
+                        <a class="ins" href="Inscripcion.html">Aprendiendo.com</a>
                     </div>
 
                 </div>
@@ -41,8 +41,33 @@
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav mr-auto" id="curso">
                             <li class="nav-item">
-                                <a class="nav-link" href="#"> Dar Baja </span></a>
+                                <a class="nav-link hidden" data-toggle="modal" data-target="#modalDarBaja"
+                                    id="btnDarBaja"> Dar Baja
+                                    </span></a>
                             </li>
+
+                            <div class="modal fade" id="modalDarBaja" tabindex="-1" aria-labelledby="modalDarBajaLabel"
+                                aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="modalReservarLabel">Dar de Baja</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body" id="modalBajaBody">
+                                            Se dará de baja del siguiente curso:
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary"
+                                                data-dismiss="modal">Cerrar</button>
+                                            <button type="button" id="confirmarBaja"
+                                                class="btn btn-primary">Confirmar</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                             <!--<li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Cursos</a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown" id="cursos">
@@ -244,6 +269,7 @@
     <script src="/js/bootstrap/js/bootstrap.min.js"></script>
     <script src="/js/pages/usuario.js"></script>
     <script src="/js/pages/curso.js"></script>
+    <script src="/js/pages/darBaja.js"></script>
 
 </body>
 

@@ -260,7 +260,7 @@ async function traerDatos_del_profesor() {
 
 
 $(document).on('click', '.Nclases', function () {
-
+    $('#btnDarBaja').show();
     var cursos = JSON.parse(localStorage.getItem('datos'));
     var encontrado = false;
     var i = 0;

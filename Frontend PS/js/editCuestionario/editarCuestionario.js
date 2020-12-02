@@ -17,11 +17,11 @@ window.onload = () => {
     /* COMPROBAR SI EL PROFESOR TIENE A ESE CURSO*/
 
 
-    debugger
+    /* debugger */
 
     var id = 0;
     if (localStorage.getItem("claseU") != null) {
-        id = JSON.parse( localStorage.getItem("claseU")).claseId;
+        id = JSON.parse(localStorage.getItem("claseU")).claseId;
     } else {
         /*DeshabilitarCuestionario();
         window.location.href='./index.html'*/
@@ -57,46 +57,46 @@ function LoadCuestionario(CuestionarioTodoDTO) {
     CuestionarioTodoDTO.preguntas.forEach(preguntas => {
 
         var text = `
-        <div class="bloque-pregunta" id=${"bloque-pregunta"+i}>
+        <div class="bloque-pregunta" id=${"bloque-pregunta" + i}>
         <div class="pregunta">
-        <label for="pregunta" required>${"Pregunta "+i+":"}</label>
+        <label for="pregunta" required>${"Pregunta " + i + ":"}</label>
         </div>
         <div class="input-pregunta">
-        <input type="text" placeholder="pregunta" class="input-preg" id=${"input-pregunta"+i} value='${preguntas.descripcion}' required />
+        <input type="text" placeholder="pregunta" class="input-preg" id=${"input-pregunta" + i} value='${preguntas.descripcion}' required />
         </div>
         <div class="detalles">
         <div class="calificacion">
         <label for="calificacion" required>Calificacion</label>
-        <input type="number" class="input-calificacion" id=${"input-calificacion"+i} value=${preguntas.calificacionParcial} required />
+        <input type="number" class="input-calificacion" id=${"input-calificacion" + i} value=${preguntas.calificacionParcial} required />
         </div>
         </div>
         <div class="respuesta">
         <label for="respuesta">Respuestas:</label>
         </div>
-        <div class=${"conjunto-respuestas"+i} id=${"conjunto-respuestas"+i}>
+        <div class=${"conjunto-respuestas" + i} id=${"conjunto-respuestas" + i}>
         `;
         contenido.append(text);
         var j = 1;
-        var contenido2 = $("#conjunto-respuestas"+i);
+        var contenido2 = $("#conjunto-respuestas" + i);
         preguntas.respuestas.forEach(respuestas => {
-            
+
             var text2 = `
-            <div class="respuestas" id=${"respuesta"+j+"-p"+i}>
-            <div class="radio-button"><input type="radio" name=${"estado"+i} id=${"radio"+i+"-"+j} value=${""+j}
+            <div class="respuestas" id=${"respuesta" + j + "-p" + i}>
+            <div class="radio-button"><input type="radio" name=${"estado" + i} id=${"radio" + i + "-" + j} value=${"" + j}
             ></div>
-            <label for="respuesta" class="num-resp" required>${j+"."}</label>
-            <input type="text" class="input-resp" placeholder="respuesta" id=${"input-respuesta"+i+j}
+            <label for="respuesta" class="num-resp" required>${j + "."}</label>
+            <input type="text" class="input-resp" placeholder="respuesta" id=${"input-respuesta" + i + j}
             value='${respuestas.descripcion}' required />
             </div>
             `;
 
             contenido2.append(text2);
-            if(respuestas.flag){
-                var id = "radio"+i+"-"+j;
+            if (respuestas.flag) {
+                var id = "radio" + i + "-" + j;
                 document.getElementById(id).checked = true
             }
 
-            sessionStorage.setItem("respuestas"+i, j);
+            sessionStorage.setItem("respuestas" + i, j);
             j++;
         })
         text = `
@@ -104,16 +104,16 @@ function LoadCuestionario(CuestionarioTodoDTO) {
         `
         contenido2.append(text);
 
-        contenido = $("#bloque-pregunta"+i);
+        contenido = $("#bloque-pregunta" + i);
 
         text = `
         <div class="botones">
         <div class="boton-add">
-        <button type="submit" class="mas-respuestas btn btn-primary" id=${"mas-respuestas"+i} value=${i}>
+        <button type="submit" class="mas-respuestas btn btn-primary" id=${"mas-respuestas" + i} value=${i}>
         Agregar Respuesta </button>
         </div>
         <div class="boton-del">
-        <button type="submit" class="menos-respuestas btn btn-danger" id=${"menos-respuestas"+i} value=${i} >
+        <button type="submit" class="menos-respuestas btn btn-danger" id=${"menos-respuestas" + i} value=${i} >
         - </button>
         </div>
         </div>
@@ -126,14 +126,14 @@ function LoadCuestionario(CuestionarioTodoDTO) {
 
         sessionStorage.setItem("preguntas", i);
 
-        if(sessionStorage.getItem("respuestas"+i)<=2 || sessionStorage.getItem("respuestas"+i)==10){
-            document.getElementById("menos-respuestas"+i).disabled = true;
+        if (sessionStorage.getItem("respuestas" + i) <= 2 || sessionStorage.getItem("respuestas" + i) == 10) {
+            document.getElementById("menos-respuestas" + i).disabled = true;
         }
 
         i++;
 
     })
-    if (sessionStorage.getItem("preguntas")<=1 || sessionStorage.getItem("preguntas") == 120) {
+    if (sessionStorage.getItem("preguntas") <= 1 || sessionStorage.getItem("preguntas") == 120) {
         document.getElementById("menos-preguntas").disabled = true;
     }
 }
@@ -143,12 +143,12 @@ $(document).on('click', '#enviar-cuestionario', function () {
     var preguntas = [];
     var calificacionTotal = 0;
     for (var i = 1; i <= JSON.parse(sessionStorage.getItem("preguntas")); i++) {
-        
+
         var respuesta;
         var respuestas = [];
         calificacionTotal += parseFloat(document.getElementById("input-calificacion" + i).value);
         for (var j = 1; j <= JSON.parse(sessionStorage.getItem("respuestas" + i)); j++) {
-            if ($(`input[name=${"estado"+i}]:checked`).val() == j) {
+            if ($(`input[name=${"estado" + i}]:checked`).val() == j) {
                 respuesta = new RespuestaDescripcionDTO(document.getElementById("input-respuesta" + i + j).value, true);
 
             } else {
@@ -176,7 +176,7 @@ $(document).on('click', '#enviar-cuestionario', function () {
 
 function ActualizarCuestionario(cuestionario) {
 
-    debugger
+    /* debugger */
     var options = {
         method: 'PUT',
         headers: {
@@ -185,7 +185,7 @@ function ActualizarCuestionario(cuestionario) {
         body: JSON.stringify(cuestionario),
         mode: 'cors'
     };
-     fetch("https://localhost:44326/api/Cuestionario", options)
+    fetch("https://localhost:44326/api/Cuestionario", options)
         .then(response => {
             if (response.status == 200) {
                 alert("El cuestionario se actualizó correctamente");
@@ -199,6 +199,6 @@ function ActualizarCuestionario(cuestionario) {
         .catch(err => console.log('ERROR: ' + err))
 }
 
-$('#atras').on('click', function(){
+$('#atras').on('click', function () {
     window.location.href = "./cuestionario.html";
 });
