@@ -38,7 +38,7 @@ $(document).on('click', '#editar', function(){
 function CargarCuestionario() {
     if (localStorage.getItem('claseU')) {
         var idClase = JSON.parse(localStorage.getItem('claseU')).claseId;
-        idClase = 1;
+        //idClase = 1;
     } else {
         var idClase = 1;
     }

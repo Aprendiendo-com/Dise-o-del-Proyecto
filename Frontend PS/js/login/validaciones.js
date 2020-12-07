@@ -45,12 +45,12 @@ function validarTexto(string){
 }
 
 function validarContrasenia(string){
-    if (string.length > 5) {
+    if (string.length > 4) {
         return true;
     }
     $('#mensaje').empty();
     var contenido = $('#mensaje');
-    var text = `<label for="msg" id="incorrecto">Use más de 6 caracteres para la contraseña</label>`;
+    var text = `<label for="msg" id="incorrecto">Use más de 4 caracteres para la contraseña</label>`;
     contenido.append(text);
     return false;
 }

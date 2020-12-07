@@ -224,7 +224,11 @@ $(document).on('click', '.alta', function(){
 });
 
 $(document).on('click', '#ACursos', function(){
-    
+
+    localStorage.removeItem('datos');
+    localStorage.removeItem('clases');
+    localStorage.removeItem('cursos');
+    localStorage.removeItem('claseU');
     window.location.href = "./Curso1.html";
 })
 
