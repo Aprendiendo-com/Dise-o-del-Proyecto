@@ -1,47 +1,46 @@
-$(document).ready(function () {
 
-    $('.texto-modal').empty();
-    if (localStorage.getItem('cursos') != null) {
+var ID = 0;
 
-        let datoCurso = JSON.parse(localStorage.getItem('cursos'));
+$("#confirmarBaja").on("click", function () {
 
-        let cursoDesc = $('#modalBajaBody');
+    var estudianteId = parseInt(localStorage.getItem('UsuarioId'));
 
-        let htmlBase = `<p class="texto-modal"> ${datoCurso.nombre} </p>`;
 
-        cursoDesc.append(htmlBase);
+    $.ajax({
+        headers: {
+            'Content-Type': 'application/json',
+            "Authorization": "Bearer " + localStorage.getItem("Token")
+            },
+        mode: 'cors',
+        url: `https://localhost:44302/api/EstudianteCurso?estudianteId=${estudianteId}&cursoId=${parseInt(ID)}`,
+        type: "DELETE",
 
-        var estudianteId = parseInt(localStorage.getItem('UsuarioId'));
 
-        let Bodycomentario = {
-            "estudianteId": estudianteId,
-            "cursoId": datoCurso.cursoId
+        success: function (data) {
+        localStorage.removeItem('cursos');
+        localStorage.removeItem('clases');
+        localStorage.removeItem('datos'); //corregir el setitem de datos
+        location.reload();
+
         }
+    });
+});
 
+$(document).on('click', '#btnDarBaja', function(){
+    
+    var select = $('#lista');
 
-        $("#confirmarBaja").on("click", function () {
+    select.empty();
 
-            $.ajax({
-                headers: {
-                    'Content-Type': 'application/json',
-                    "Authorization": "Bearer " + localStorage.getItem("Token")
-                },
-                mode: 'cors',
-                url: `https://localhost:44302/api/EstudianteCurso?estudianteId=${estudianteId}&cursoId=${datoCurso.cursoId}`,
-                type: "DELETE",
+    $.each(JSON.parse(localStorage.getItem('datos')), function (index, curso) {
 
+        var text = `<option id = "${curso.nombre}" value="${curso.cursoId}"> ${curso.nombre} </option>`;
 
-                success: function (data) {
-                    localStorage.removeItem('cursos');
-                    localStorage.removeItem('clases');
-                    localStorage.removeItem('datos'); //corregir el setitem de datos
-                    location.reload();
+        select.append(text);
+    });
+});
 
-                }
-            });
+$(document).on('click', '.form-control', function(){
 
-
-        });
-    }
-
+    ID = this.value;
 });

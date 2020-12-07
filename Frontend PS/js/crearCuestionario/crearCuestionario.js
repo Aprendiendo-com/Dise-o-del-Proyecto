@@ -4,15 +4,18 @@ import {
     RespuestaDescripcionDTO
 } from "./Constant.js";
 
-const CLASEID = 11;
+var CLASEID = 11;
 
 window.onload = () => {
+
+debugger
+
     sessionStorage.setItem("respuestas1", 2);
     sessionStorage.setItem("preguntas", 1);
     /* COMPROBAR SI YA TIENE ESTA UN CUESTIONARIO*/
     /* COMPROBAR SI EL PROFESOR TIENE A ESE CURSO*/
-    if (sessionStorage.getItem("ClaseId")) {
-        CLASEID = sessionStorage.getItem("ClaseId");
+    if (localStorage.getItem('ClaseCreadaId') != null) {
+        CLASEID = parseInt( localStorage.getItem('ClaseCreadaId') );
     } else {
         /*DeshabilitarCuestionario();
         window.location.href='./index.html'*/
@@ -52,6 +55,13 @@ $(document).on('click', '#enviar-cuestionario', function () {
     if (calificacionTotal == 10) {
         DeshabilitarCuestionario();
         RegistrarCuestionario(cuestionario);
+
+        localStorage.removeItem('datos');
+        localStorage.removeItem('clases');
+        localStorage.removeItem('cursos');
+        localStorage.removeItem('claseU');
+
+        window.location.href = "./Curso1.html";
     } else {
         alert("la suma de las calificaciones debe dar como resultado 10.")
     }

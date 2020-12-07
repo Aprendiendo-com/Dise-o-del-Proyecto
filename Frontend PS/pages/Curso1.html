@@ -41,16 +41,6 @@
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav mr-auto" id="curso">
 
-                            <li class="nav-item">
-                                <a class="nav-link" href="Inscripcion.html"> Más Cursos
-                                </a>
-                            </li>
-
-                            <li class="nav-item">
-                                <a class="nav-link hidden" href="#" data-toggle="modal" data-target="#modalDarBaja"
-                                    id="btnDarBaja"> Dar Baja
-                                </a>
-                            </li>
 
                             <div class="modal fade" id="modalDarBaja" tabindex="-1" aria-labelledby="modalDarBajaLabel"
                                 aria-hidden="true">
@@ -63,7 +53,14 @@
                                             </button>
                                         </div>
                                         <div class="modal-body" id="modalBajaBody">
-                                            Se dará de baja del siguiente curso:
+
+                                            <p style="margin-top: 3%;"> Se dará de baja del siguiente curso: </p>
+
+                                            <select class="form-control" id="lista"
+                                                style="margin-top: 4%; margin-bottom: 3%;">
+                                                <!--<option> Selecciona un curso</option>-->
+                                            </select>
+
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-warning"
@@ -90,7 +87,7 @@
 
                                 </button>
                                 <div class="dropdown-menu dropdown-menu-right">
-                                    <button class="dropdown-item" type="button">Account Settings<i
+                                    <button class="dropdown-item" type="button" disabled>Account Settings<i
                                             class="fas fa-users-cog" style="margin-left: 10%;"></i></button>
                                     <button class="dropdown-item" type="button" id="cerrar_sesion">Sign Out<i
                                             class="fas fa-sign-out-alt" style="margin-left: 10%;"></i></button>

@@ -17,7 +17,7 @@ $(document).ready(function () {
                         <a class="nav-link text-dark" href="listadoEstudiantes.html"> <i class="fas fa-list"></i> Mis alumnos</a>
                     </li>
                     <li class="secciones nav-item">
-                        <button type="button" id = "crearClase" class="btn btn-light btn-sm" style="margin-top: 5%;"> <i class="fas fa-plus"></i> Añadir clase</button>
+                        <button type="button" id = "crearClase" class="btn btn-sm" style="margin-top: 10%;"> <i id = "mas" class="fas fa-plus"></i></button>
                     </li>`;
 
         elment.append(text);
@@ -31,6 +31,19 @@ $(document).ready(function () {
         }
     }
     else {
+
+        var nav = $('#curso');
+
+        var text = `<li class="nav-item">
+                        <a class="nav-link" href="Inscripcion.html"> Más Cursos </a>
+                    </li>
+                    
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="modal" data-target="#modalDarBaja" id="btnDarBaja"> Dar Baja </a>
+                    </li>`;
+
+        nav.append(text);
+
         if (localStorage.getItem('datos') == null) {
             traerDatos_del_alumno();
         }
@@ -264,7 +277,17 @@ $(document).on('click', '.Nclases', function () {
 
 
     var token = DecodeToken(localStorage.getItem('Token'));
+
     if (token.Rol == "2") {
+
+        //var ul = $('#curso');
+
+        //var text = `<li class="nav-item">
+                        //<a class="nav-link" data-toggle="modal" data-target="#modalDarBaja"
+                          //  id="btnDarBaja"> Dar Baja
+                        //</a>
+                    //</li>`;
+        //ul.append(text);
         $('#btnDarBaja').css('display', 'inline-block');
     }
 
@@ -444,5 +467,13 @@ function mostrarCargado() {
 }
 
 $(document).on('click', '#crearClase', function () {
-    alert("En proceso");
+
+    if(localStorage.getItem('claseU') == null)
+    {
+        alert('Primero seleccione una clase');
+    }
+    else
+    {
+        window.location.href = "./CrearClase.html";
+    }
 });
