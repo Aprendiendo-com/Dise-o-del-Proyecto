@@ -22,6 +22,8 @@ async function Ingresar() {
     /*console.log(validarDNI(correo));
     console.log(validarEmail(correo));*/
     if (validarEmail(correo) && validarContrasenia(contrasenia)) {
+
+        cargando();
         $('#mensaje').empty();
 
         var options = {
@@ -89,6 +91,16 @@ async function Ingresar() {
 
 
 }
+
+
+function cargando() {
+    return Swal.fire({
+      title: "Cargando...",
+      showConfirmButton: false,
+      allowOutsideClick: false,
+      imageUrl: "../imagenes/load.gif"
+    });
+  }
 
 function DecodeToken(token) {
     var base64Url = (token).split('.')[1];

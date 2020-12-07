@@ -1,18 +1,13 @@
 
-$(document).ready(function () {
 
 
-    if (localStorage.getItem('Token_profesor') != null) {
         //cargaCategorias();  //por si no queremos mockear las categorias (?) (hay que tocar backend creoD:)
 
-        $("#form-curso-id").on("submit", function (e) {
-            e.preventDefault();
-            crearCurso();
-        })
-    }
-    else {
-        console.log("No tiene el permiso necesario para realizar el proceso. Si considera que es un error contacte al administrador. Gracias");
-    }
+$("#EnviarCurso").on("click", function () {
+    debugger
+    crearCurso();
+})
+    
 
 
     /* function cargaCategorias(){
@@ -39,7 +34,7 @@ $(document).ready(function () {
         let descripcion = $("#inputDescripcion").val();
         let imagen = $("#inputImagen").val();
         let cantidad = $("#inputCantidad").val();
-        let profesorId = parseInt(localStorage.getItem('ProfesorId'));
+        let profesorId = parseInt(localStorage.getItem('UsuarioId'));
 
         let bodyCurso = {
             "Nombre": nombreCurso,
@@ -60,15 +55,17 @@ $(document).ready(function () {
         };
 
         fetch('https://localhost:44308/api/Curso', options)
-            .then(
-                window.location.href = '/pages/VistaProfesorCurso.html'
-            )
+            .then(response => response.json())
+            .then( data =>{
+
+                localStorage.removeItem('datos');
+                localStorage.removeItem('clases');
+                localStorage.removeItem('cursos');
+                localStorage.removeItem('claseU');
+                window.location.href = '/pages/Curso1.html';
+            })
             .catch(err => console.log('ERROR:' + err));
 
         return false;
 
     }
-
-
-
-})
