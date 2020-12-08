@@ -5,7 +5,7 @@ $("#EnviarClase").on("click", function () {
 })
 
 
-    function crearClase() {
+   async function crearClase() {
 
         var video = {
             "descripcion": $('#inputDescVideo').val(),
@@ -13,14 +13,25 @@ $("#EnviarClase").on("click", function () {
         }
 
         var foro = {
-            "foroId": JSON.parse(localStorage.getItem('claseU')).foro.foroId,
+            //"foroId": JSON.parse(localStorage.getItem('claseU')).foro.foroId,
             "texto": $('#inputForo').val()
+        }
+
+        var CursoId = 0;
+
+        if( (localStorage.getItem('claseU')) == null )
+        {
+            CursoId = parseInt( localStorage.getItem('cursoCreadoId'));
+        }
+        else
+        {
+            CursoId = JSON.parse(localStorage.getItem('claseU')).cursoId;
         }
 
         let bodyClase = {
 
             "descripcion": $("#inputDescripcion").val(),
-            "cursoId": JSON.parse(localStorage.getItem('claseU')).cursoId,
+            "cursoId": CursoId,
             "tema": $("#inputTema").val(),
             "video": video,
             "foro": foro
@@ -35,7 +46,7 @@ $("#EnviarClase").on("click", function () {
             mode: 'cors'
         };
 
-        fetch('https://localhost:44308/api/Clase', options)
+       await fetch('https://localhost:44308/api/Clase', options)
             .then( response => response.json())
             .then( data => {
                 localStorage.setItem('ClaseCreadaId', data.claseId);

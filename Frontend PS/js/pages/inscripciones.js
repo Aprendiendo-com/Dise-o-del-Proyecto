@@ -122,6 +122,7 @@ function CargarCursos(profesores) {
     });
 }
 function ComprobarIncripciones(){
+    debugger
     var alumnoId = parseInt(localStorage.getItem('UsuarioId'));
     let url = "https://localhost:44302/api/EstudianteCurso/cursos/" + alumnoId;
     return fetch(url, {
@@ -134,6 +135,7 @@ function ComprobarIncripciones(){
                 return response.json()
             })
             .then(json => {
+                
                 DeshabilitarBotones(json,alumnoId);
                 return json;
             })
@@ -191,7 +193,6 @@ $(document).on('click', '.alta', function(){
     
 
     document.getElementById("inscripcion" + (this.value-1)).disabled = true;
-
     
     let objeto = {
         "cursoID": parseInt( this.value), //valor preseteado

@@ -1,5 +1,5 @@
 $(document).ready(function () {
-
+    debugger
     var token = DecodeToken(localStorage.getItem('Token'));
 
     if (token.Rol == "1") {
