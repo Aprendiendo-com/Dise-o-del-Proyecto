@@ -84,6 +84,7 @@ async function Registrar() {
       "apellido": $('#apellido').val(),
       "email": $('#correo').val(),
       "usuarioId": parseInt(token.UsuarioId),
+      "dni": $('#dni').val(),
     };
     var options = {
       method: 'POST',
