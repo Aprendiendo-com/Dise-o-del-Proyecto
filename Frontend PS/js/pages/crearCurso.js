@@ -55,14 +55,26 @@ $("#EnviarCurso").on("click", function () {
         };
 
         fetch('https://localhost:44308/api/Curso', options)
-            .then(response => response.json())
+        .then(response => {
+            if (response.status == 201) {
+                Swal.fire({
+                    type: 'success',
+                    title: 'El curso se creo correctamente. Ahora cree la clase.',
+                    showConfirmButton: true,
+                    confirmButtonColor: '#48D1CC'
+                })
+            }
+            return response.json();
+        })
             .then( data =>{
+
+                localStorage.setItem('cursoCreadoId', data.cursoId);
 
                 localStorage.removeItem('datos');
                 localStorage.removeItem('clases');
                 localStorage.removeItem('cursos');
                 localStorage.removeItem('claseU');
-                window.location.href = '/pages/Curso1.html';
+                window.location.href = '/pages/CrearClase.html';
             })
             .catch(err => console.log('ERROR:' + err));
 

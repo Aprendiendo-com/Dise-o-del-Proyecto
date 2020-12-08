@@ -1,6 +1,7 @@
 
 
 const GetProfesores = () => {
+    debugger
     let url = "https://localhost:44302/api/Profesor";
     return fetch(url, {
         method:"GET",

@@ -27,6 +27,8 @@ $(document).ready(function () {
         }
 
         let cursoId = JSON.parse(localStorage.getItem('cursos')).cursoId;
+
+        debugger
         
         $('#listaAlumnos').DataTable( {
             "ajax": {
@@ -40,7 +42,7 @@ $(document).ready(function () {
                 { title: "Apellido",data: "apellido" },
                 { title: "Mail",data: "email" },
                 { title: "Estado",data: "estado" },
-                { title: "Dni",data: "Dni" }
+                { title: "Dni",data: "dni" }
             ]
         })
     

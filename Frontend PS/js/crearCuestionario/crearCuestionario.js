@@ -25,7 +25,7 @@ debugger
 
 }
 
-$(document).on('click', '#enviar-cuestionario', function () {
+$(document).on('click', '#enviar-cuestionario', async function () {
     var cuestionario;
     var preguntas = [];
     var calificacionTotal = 0;
@@ -54,12 +54,43 @@ $(document).on('click', '#enviar-cuestionario', function () {
     console.log(calificacionTotal);
     if (calificacionTotal == 10) {
         DeshabilitarCuestionario();
-        RegistrarCuestionario(cuestionario);
+
+        var options = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(cuestionario),
+            mode: 'cors'
+        };
+        await fetch("https://localhost:44326/api/Cuestionario", options)
+            .then(response => {
+                if (response.status == 201) {
+                    Swal.fire({
+                        type: 'success',
+                        title: 'Cuestionario creado exitosamente!',
+                        showConfirmButton: true,
+                        confirmButtonColor: '#48D1CC'
+                    })
+                }
+                return response.json();
+            })
+            .then(json => {
+                console.log("Registrado");
+                return json;
+            })
+            .catch(err => console.log('ERROR: ' + err))
+
+
+
+
 
         localStorage.removeItem('datos');
         localStorage.removeItem('clases');
         localStorage.removeItem('cursos');
         localStorage.removeItem('claseU');
+        localStorage.removeItem('cursoCreadoId');
+        localStorage.removeItem('ClaseCreadaId');
 
         window.location.href = "./Curso1.html";
     } else {
@@ -67,7 +98,7 @@ $(document).on('click', '#enviar-cuestionario', function () {
     }
 });
 
-function RegistrarCuestionario(cuestionario) {
+async function RegistrarCuestionario(cuestionario) {
     var options = {
         method: 'POST',
         headers: {
@@ -76,7 +107,7 @@ function RegistrarCuestionario(cuestionario) {
         body: JSON.stringify(cuestionario),
         mode: 'cors'
     };
-    return fetch("https://localhost:44326/api/Cuestionario", options)
+    await fetch("https://localhost:44326/api/Cuestionario", options)
         .then(response => {
             if (response.status === 201) {
                 Swal.fire({
