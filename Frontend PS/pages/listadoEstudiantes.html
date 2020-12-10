@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="/css/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css">
     <link rel="stylesheet" href="/css/pages/curso.css">
+    <link rel="stylesheet" href="/css/pages/listadoEst.css">
     <link rel="stylesheet" href="/css/pages/footer.css">
     <script src="https://kit.fontawesome.com/3dc5764727.js" crossorigin="anonymous"></script>
 </head>
@@ -29,37 +30,27 @@
                 </div>
 
                 <div class="col-xl-9 col-lg-9 col-md-9 col-sm-12">
-                    <!--<ul class="nav">
-                    <li class="secciones nav-item">
-                        <a class="nav-link text-dark" href="#">Dar baja</a>
-                    </li>
-                    <li class="secciones nav-item">
-                        <a class="nav-link text-dark" href="#">Cursos</a>
-                    </li>
-                </ul>-->
+
 
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav mr-auto">
-
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Cursos</a>
-                                <div class="dropdown-menu" aria-labelledby="navbarDropdown" id="cursos">
-
-                                </div>
+                            <li class="nav-item">
+                                <a class="nav-link" href="Inscripcion.html"> Más Cursos
+                                </a>
                             </li>
                         </ul>
                         <ul class="nav navbar-nav navbar-right">
 
                             <div class="btn-group">
-                                <button type="button" id="usuario" class="btn btn-light dropdown-toggle"
-                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <button type="button" id="usuario" class="btn dropdown-toggle" data-toggle="dropdown"
+                                    aria-haspopup="true" aria-expanded="false">
 
                                 </button>
                                 <div class="dropdown-menu dropdown-menu-right">
-                                    <button class="dropdown-item" type="button">Account Settings<i
-                                            class="fas fa-users-cog" style="margin-left: 10%;"></i></button>
-                                    <button class="dropdown-item" type="button" id="cerrar_sesion">Sign Out<i
+                                    <button class="dropdown-item" id="drp-nombre" type="button" disabled>
+
+                                    </button>
+                                    <button class="dropdown-item" type="button" id="cerrar_sesion">Salir<i
                                             class="fas fa-sign-out-alt" style="margin-left: 10%;"></i></button>
                                 </div>
                             </div>
@@ -94,7 +85,7 @@
 
                     <div class="col-xl-10 col-lg-10 col-md-10 col-sm-12" id="main">
 
-                        <div id="seccionListados" style="margin-top: 2rem; background-color: #48D1CC;">
+                        <div id="seccion" style="margin-top: 2rem; background-color: #48D1CC;">
                             <ul class="nav">
                                 <li class="secciones nav-item">
                                     <a class="nav-link text-dark" href="Curso1.html"><i class="fas fa-book"></i>
@@ -117,8 +108,7 @@
 
                             <div class="centro" style="box-sizing: border-box">
                                 <br>
-                                <div class="texto"
-                                    style="margin-top: 1rem !important; margin: 1rem; border-bottom-style: double; border-width: 1px;">
+                                <div class="texto" style="border-bottom-style: double; border-width: 1px;">
 
                                     <h4>Listado de Estudiantes</h4>
                                 </div>

@@ -17,7 +17,7 @@ $(document).ready(function () {
                         <a class="nav-link text-dark" href="listadoEstudiantes.html"> <i class="fas fa-list"></i> Mis alumnos</a>
                     </li>
                     <li class="secciones nav-item">
-                        <button type="button" id = "crearClase" class="btn btn-sm" style="margin-top: 10%;"> <i id = "mas" class="fas fa-plus"></i></button>
+                        <button type="button" id = "crearClase" class="btn btn-sm" style="margin-top: 30%;"> <i id = "mas" class="fas fa-plus"></i></button>
                     </li>`;
 
         elment.append(text);
@@ -283,10 +283,10 @@ $(document).on('click', '.Nclases', function () {
         //var ul = $('#curso');
 
         //var text = `<li class="nav-item">
-                        //<a class="nav-link" data-toggle="modal" data-target="#modalDarBaja"
-                          //  id="btnDarBaja"> Dar Baja
-                        //</a>
-                    //</li>`;
+        //<a class="nav-link" data-toggle="modal" data-target="#modalDarBaja"
+        //  id="btnDarBaja"> Dar Baja
+        //</a>
+        //</li>`;
         //ul.append(text);
         $('#btnDarBaja').css('display', 'inline-block');
     }
@@ -468,12 +468,10 @@ function mostrarCargado() {
 
 $(document).on('click', '#crearClase', function () {
 
-    if(localStorage.getItem('claseU') == null)
-    {
+    if (localStorage.getItem('claseU') == null) {
         alert('Primero seleccione una clase');
     }
-    else
-    {
+    else {
         window.location.href = "./CrearClase.html";
     }
 });

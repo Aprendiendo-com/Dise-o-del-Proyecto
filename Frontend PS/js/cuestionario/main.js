@@ -13,23 +13,39 @@ window.onload = () => {
 
     var token = DecodeToken(localStorage.getItem('Token'));
 
-    if(token.Rol == "1")
-    {
+    if (token.Rol == "1") {
+
+        var nav = $('#curso');
+
+        var html = `<li class="nav-item">
+                        <a class="nav-link" href="crearCurso.html"> Nuevo Curso </span></a>
+                    </li>`;
+
+        nav.append(html);
+
+        var elment = $('#cambiante');
+
+        var text = `<li class="secciones nav-item">
+                        <a class="nav-link text-dark" href="listadoEstudiantes.html"> <i class="fas fa-list"></i> Mis alumnos</a>
+                    </li>`;
+
+        elment.append(text);
+
         var element = $('#cambiante');
 
         var text = `<li class="secciones nav-item">
-                        <button type="button"  style="margin-top: 3%;" id = "editar" class="btn btn-light btn-sm" style="margin-top: 5%;"> <i class="fas fa-plus"></i> Editar cuestionario </button>
+                        <button type="button"  style="margin-top: 10%; float=right" id = "editar" class="btn btn-light btn-sm" style="margin-top: 10%;"> <i class="fas fa-pencil-alt"></i> Editar </button>
                     </li>`;
 
         element.append(text);
     }
-    
+
 
     CargarCuestionario();
     $('#enviar-cuestionario').on("click", EnviarCuestionario); //CUANDO RECIBE POR PARÁMETRO ENTRA DIRECTO
 }
 
-$(document).on('click', '#editar', function(){
+$(document).on('click', '#editar', function () {
     window.location.href = "./editCuestionario.html";
 });
 
@@ -43,7 +59,7 @@ function CargarCuestionario() {
         var idClase = 1;
     }
     console.log(parseInt(localStorage.getItem('UsuarioId')));
-    
+
     CuestionarioService.default(idClase).then(x => LoadCuestionario(x));
 }
 
@@ -61,12 +77,12 @@ function LoadCuestionario(CuestionarioTodoDTO) {
         lista_preguntas.push(preguntas);
         informacion.innerHTML += `<div class="filas">
        <div class="pregyresp-grid" id=${i}>
-       <div class="pregunta" id=${"preguntaId"+i}>
+       <div class="pregunta" id=${"preguntaId" + i}>
         <div class="info-valor">
-       <label for="preg" id="preguntaLabelInicio"> ${("Pregunta "+ i + "- ")} </label>
-       <label for="preg" id="preguntaLabelDescripcion"> ${(preguntas.descripcion)+" ("+preguntas.calificacionParcial+"Pts)"} </label>
+       <label for="preg" id="preguntaLabelInicio"> ${("Pregunta " + i + "- ")} </label>
+       <label for="preg" id="preguntaLabelDescripcion"> ${(preguntas.descripcion) + " (" + preguntas.calificacionParcial + "Pts)"} </label>
        </div>
-       <div class="estado" id=${"estado"+i}>
+       <div class="estado" id=${"estado" + i}>
         </div>
        </div>`;
         /*class="estado"
@@ -80,7 +96,7 @@ function LoadCuestionario(CuestionarioTodoDTO) {
             lista_respuestas.push(j);
             var informacion2 = document.getElementById(i);
             informacion2.innerHTML += `<div class="respuesta-grid" id="respuesta">
-            <div class="radio-button"><input type="radio" name=${"respuesta"+i} value="${respuestas.descripcion}"></div>
+            <div class="radio-button"><input type="radio" name=${"respuesta" + i} value="${respuestas.descripcion}"></div>
             <div class="respuesta"><label class="radio"> ${respuestas.descripcion}</label></div>
             </div>
             `;
@@ -108,7 +124,7 @@ function RevisarRegistro(registro, claseId, estudianteId) {
             DeshabilitarOpciones();
             DeshabilitarBoton();
             var informacion = document.getElementById("header-cuestionario");
-            informacion.innerHTML += `<div class="calificacion"> ${("COMPLETADO CON CALIFICACION: " + reg.calificacion+"/10")} </div>`;
+            informacion.innerHTML += `<div class="calificacion"> ${("COMPLETADO CON CALIFICACION: " + reg.calificacion + "/10")} </div>`;
 
         }
     })
@@ -123,8 +139,8 @@ function EnviarCuestionario() {
     var i = 1;
     var respondido = true;
     preguntas.forEach(pregunta => {
-        var respuesta_seleccion = new RespuestaAlumnoDTO($(`input[name=${"respuesta"+i}]:checked`).val())
-        if(respuesta_seleccion.descripcion == undefined){
+        var respuesta_seleccion = new RespuestaAlumnoDTO($(`input[name=${"respuesta" + i}]:checked`).val())
+        if (respuesta_seleccion.descripcion == undefined) {
             respondido = false;
         }
         var pregunta_con_respuesta = new PreguntaConRespuestaAlumnoDTO(
@@ -139,7 +155,7 @@ function EnviarCuestionario() {
 
 
     //MANDAR EL CUESTIONARIO A LA API
-    if(respondido) {
+    if (respondido) {
         var options = {
             method: 'POST',
             headers: {
@@ -149,7 +165,7 @@ function EnviarCuestionario() {
             body: JSON.stringify(cuestionario_respuestas),
             mode: 'cors'
         };
-    
+
         fetch('https://localhost:44326/api/Cuestionario/Resolucion', options)
             .then(response => {
                 return response.json()
@@ -162,7 +178,7 @@ function EnviarCuestionario() {
             })
             .catch(err => console.log('ERROR: ' + err))
     }
-    else{
+    else {
         Swal.fire({
             type: 'error',
             title: 'Responda a todas las preguntas',
@@ -176,7 +192,7 @@ function EnviarCuestionario() {
 
 function agregarCalificacion(resolucion) {
     var informacion = document.getElementById("header-cuestionario");
-    informacion.innerHTML += `<div class="calificacion"> ${("--> CALIFICACION: " + resolucion.calificacionTotal +"/10 <--")} </div>`;
+    informacion.innerHTML += `<div class="calificacion"> ${("--> CALIFICACION: " + resolucion.calificacionTotal + "/10 <--")} </div>`;
 
     //MODIFICADO
     var i = 1;
@@ -194,8 +210,8 @@ function agregarCalificacion(resolucion) {
     })
     //END
     RegistrarCalificacion(resolucion);
-    
-    
+
+
 
 }
 

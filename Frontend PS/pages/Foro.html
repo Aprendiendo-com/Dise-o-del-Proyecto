@@ -30,24 +30,26 @@
                 <div class="col-xl-9 col-lg-9 col-md-9 col-sm-12">
 
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                        <ul class="navbar-nav mr-auto">
+                        <ul class="navbar-nav mr-auto" id="curso">
                             <li class="nav-item">
                                 <a class="nav-link" href="Inscripcion.html"> Más Cursos
                                 </a>
                             </li>
+
                         </ul>
                         <ul class="nav navbar-nav navbar-right">
 
 
                             <div class="btn-group">
-                                <button type="button" id="usuario" class="btn btn-light dropdown-toggle"
-                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <i class="far fa-user"></i>
+                                <button type="button" id="usuario" class="btn dropdown-toggle" data-toggle="dropdown"
+                                    aria-haspopup="true" aria-expanded="false">
+
                                 </button>
                                 <div class="dropdown-menu dropdown-menu-right">
-                                    <button class="dropdown-item" type="button">Account Settings<i
-                                            class="fas fa-users-cog" style="margin-left: 10%;"></i></button>
-                                    <button class="dropdown-item" type="button" id="cerrar_sesion">Sign Out<i
+                                    <button class="dropdown-item" id="drp-nombre" type="button" disabled>
+
+                                    </button>
+                                    <button class="dropdown-item" type="button" id="cerrar_sesion">Salir<i
                                             class="fas fa-sign-out-alt" style="margin-left: 10%;"></i></button>
                                 </div>
                             </div>
@@ -66,7 +68,7 @@
         <section class="flex-fill">
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-xl-1 col-lg-1 col-md-1 col-sm-12" id="body">
+                    <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12" id="body">
 
                         <!--<div id="class">
                             <p style="text-align: center"> <i class="fas fa-book-open"></i> Clases</p>
@@ -79,17 +81,17 @@
 
                     </div>
 
-                    <div class="col-xl-10 col-lg-10 col-md-10 col-sm-12" id="main">
+                    <div class="col-xl-8 col-lg-8 col-md-8 col-sm-12" id="main">
 
                         <div id="seccion" style="margin-top: 3%; background-color: #48D1CC;">
-                            <ul class="nav">
+                            <ul class="nav" id="cambiante">
                                 <li class="secciones nav-item">
                                     <a class="nav-link text-dark" href="Curso1.html"><i
-                                            class="fas fa-book"></i>Contenido</a>
+                                            class="fas fa-book mr-2"></i>Contenido</a>
                                 </li>
                                 <li class="secciones nav-item">
                                     <a class="nav-link text-dark" href="cuestionario.html"><i
-                                            class="far fa-edit"></i>Actividades</a>
+                                            class="far fa-edit mr-2"></i>Actividades</a>
                                 </li>
                                 <!--<li class="secciones nav-item">
                                     <a class="nav-link text-dark" href="listadoEstudiantes.html">Listar Estudiantes</a>
@@ -104,7 +106,7 @@
                                         <div class="ibox-content m-b-sm border-bottom">
                                             <div class="p-xs">
                                                 <div class="pull-left m-r-md">
-                                                    <i class="fa fa-globe text-navy mid-icon"></i>
+                                                    <i class="fa fa-comments text-navy mid-icon"></i>
                                                 </div>
                                                 <h2>Bienvenido al Foro</h2>
                                                 <span>Sus mensajes seran respondidos a la brevedad por el
@@ -121,7 +123,7 @@
 
                                             <div class="forum-item active">
                                                 <div class="row">
-                                                    <div class="col-md-9">
+                                                    <div class="col-md-11">
                                                         <div id="forum-get-coment">
                                                             <table class="table table-hover" id="tb_comentarios">
                                                                 <tr>
@@ -135,15 +137,13 @@
 
                                             <div class="forum-item">
                                                 <div class="row">
-                                                    <div class="col-md-9">
-                                                        <div class="forum-icon">
-                                                            <i class="fa fa-pencil-alt"></i>
-                                                            <!--<img src="/imagenes/avatar.jpeg" class="img-rounded"
-                                                                alt="Cinque Terre" class="media-object"
-                                                                style="width:60px">-->
+                                                    <div class="col-md-11">
 
-                                                        </div>
-                                                        <p class="forum-title">Escribe tu comentario:</p>
+
+                                                        <p class="forum-title forum-icon"><i
+                                                                class="fa fa-pencil-alt"></i> Escribe
+                                                            tu
+                                                            comentario:</p>
                                                         <div id="forum-send-coment">
 
                                                         </div>
