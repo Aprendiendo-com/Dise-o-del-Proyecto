@@ -117,8 +117,7 @@ function LoadCuestionario(CuestionarioTodoDTO) {
 }
 
 function RevisarRegistro(registro, claseId, estudianteId) {
-    //TAMBIÉN DESHABILITAR SI NO HAY UN ESTUDIANTE
-
+    sessionStorage.setItem("registros", JSON.stringify(registro));
     registro.forEach(reg => {
         if (reg.claseId == claseId && reg.estudianteId == estudianteId) {
             DeshabilitarOpciones();
@@ -126,9 +125,63 @@ function RevisarRegistro(registro, claseId, estudianteId) {
             var informacion = document.getElementById("header-cuestionario");
             informacion.innerHTML += `<div class="calificacion"> ${("COMPLETADO CON CALIFICACION: " + reg.calificacion + "/10")} </div>`;
 
+
+            VerificarCondicionDeCurso();
         }
     })
 }
+function VerificarCondicionDeCurso() {
+    var estudianteId = parseInt(localStorage.getItem('UsuarioId'));
+
+
+    var options = {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            "Authorization": "Bearer" + localStorage.getItem("token")
+        },
+        mode: 'cors'
+    };
+
+    fetch('https://localhost:44302/api/EstudianteCurso/cursos/' + estudianteId, options)
+        .then(response => {
+            return response.json()
+        })
+        .then(json => {
+            ComprobarEstado(json, estudianteId);
+            return json;
+        })
+        .catch(err => console.log('ERROR: ' + err))
+}
+function ComprobarEstado(registros, estudianteId) {
+    var idCurso = parseInt(sessionStorage.getItem("CursoId"));
+    registros.forEach(registro => {
+
+        if (registro.cursoID == idCurso && registro.estudianteID == estudianteId) {
+            if (registro.estado == "Aprobado") {
+                var informacion = document.getElementById("header-cuestionario");
+                informacion.innerHTML += `<div class="estado-final" id="aprobado"> ${"Estado del curso: Aprobado"} </div>`;
+                Swal.fire({
+                    title: 'Curso aprobado!',
+                    showConfirmButton: true,
+                    confirmButtonColor: '#48D1CC',
+                    imageUrl: "../imagenes/APROBADO.jpg"
+                })
+            }
+            else if (registro.estado == "Desaprobado") {
+                var informacion = document.getElementById("header-cuestionario");
+                informacion.innerHTML += `<div class="estado-final" id="desaprobado"> ${"Estado del curso: Desaprobado"} </div>`;
+                Swal.fire({
+                    title: 'Curso desaprobado',
+                    showConfirmButton: true,
+                    confirmButtonColor: '#48D1CC',
+                    imageUrl: "../imagenes/DESAPROBADO.gif"
+                })
+            }
+        }
+    })
+}
+
 
 function EnviarCuestionario() {
     var cuestionario_respuestas = new CuestionarioACorregirDTO;
@@ -209,14 +262,119 @@ function agregarCalificacion(resolucion) {
         i++;
     })
     //END
-    RegistrarCalificacion(resolucion);
+    RevisarCalificaciones(resolucion);
 
 
 
 }
-
-function RegistrarCalificacion(resolucion) {
+function RevisarCalificaciones(resolucion) {
     var idClase = sessionStorage.getItem("idClase");
+
+    var options = {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            "Authorization": "Bearer" + localStorage.getItem("token")
+        },
+        mode: 'cors'
+    };
+
+    fetch('https://localhost:44308/api/Curso/GetClasesByIdClase?idClase=' + idClase, options)
+        .then(response => {
+            return response.json()
+        })
+        .then(json => {
+            RegistrarCalificacion(resolucion, json);
+            return json;
+        })
+        .catch(err => console.log('ERROR: ' + err))
+
+}
+function EvaluarCondicion(resolucion, clases) {
+    var estudiante = parseInt(localStorage.getItem('UsuarioId'));
+
+    var idClase = sessionStorage.getItem("idClase");
+    var registros = JSON.parse(sessionStorage.getItem("registros"));
+
+    var dicc = {}
+    registros.forEach(registro => {
+        if (registro.estudianteId == estudiante) {
+            dicc[registro.claseId] = registro.calificacion
+        }
+    });
+    var clasesTotales = clases.length;
+    var clasesCalificadas = 0;
+    var calificacionTotal = resolucion.calificacionTotal;
+    var NoCalificadaLaActual = false;
+    var cursoId;
+
+    clases.forEach(clase => {
+        cursoId = clase.cursoId;
+        if (dicc[clase.claseId] != undefined) {
+            calificacionTotal = calificacionTotal + dicc[clase.claseId];
+            clasesCalificadas++;
+        }
+        else if (clase.claseId == idClase) {
+            NoCalificadaLaActual = true;
+        }
+
+    })
+    if (clasesTotales == (clasesCalificadas + 1) && NoCalificadaLaActual == true) {
+        if (calificacionTotal / clasesTotales >= 5) {
+            ActualizarEstado(cursoId, "Aprobado");
+            var informacion = document.getElementById("header-cuestionario");
+            informacion.innerHTML += `<div class="estado-final" id="aprobado"> ${"Promedio total: " + Math.round(calificacionTotal / clasesTotales * 100) / 100 + " Curso aprobado!"} </div>`;
+
+            Swal.fire({
+                type: 'success',
+                title: 'Curso aprobado!',
+                text: 'Tu promedio de calificaciones es de ' + (Math.round(calificacionTotal / clasesTotales * 100) / 100),
+                showConfirmButton: true,
+                confirmButtonColor: '#48D1CC'
+            })
+        }
+        else {
+            ActualizarEstado(cursoId, "Desaprobado");
+            var informacion = document.getElementById("header-cuestionario");
+            informacion.innerHTML += `<div class="estado-final" id="desaprobado"> ${"Promedio total: " + Math.round(calificacionTotal / clasesTotales * 100) / 100 + " Curso desaprobado"} </div>`;
+            Swal.fire({
+                type: 'error',
+                title: 'Curso desaprobado',
+                text: 'Tu promedio de calificaciones es de ' + (Math.round(calificacionTotal / clasesTotales * 100) / 100) + ". Es menor a 5",
+                showConfirmButton: true,
+                confirmButtonColor: '#48D1CC'
+            })
+        }
+    }
+}
+//success", "error", "warning", "info" or "question", got "successs"
+
+function ActualizarEstado(cursoId, estado) {
+    var estudiante = parseInt(localStorage.getItem('UsuarioId'));
+
+    var options = {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+            "Authorization": "Bearer" + localStorage.getItem("token")
+        },
+        mode: 'cors'
+    };
+
+    fetch('https://localhost:44302/api/EstudianteCurso?idCurso=' + cursoId + '&idEstudiante=' + estudiante + '&estado=' + estado, options)
+        .then(response => {
+            return response.json()
+        })
+        .catch(err => console.log('ERROR: ' + err))
+}
+
+function RegistrarCalificacion(resolucion, clases) {
+
+
+    var idClase = sessionStorage.getItem("idClase");
+    var registros = JSON.parse(sessionStorage.getItem("registros"));
+
+
     var registro = new Registro(parseInt(localStorage.getItem('UsuarioId')), idClase, resolucion.calificacionTotal);
 
     var options = {
@@ -234,9 +392,11 @@ function RegistrarCalificacion(resolucion) {
             return response.json()
         })
         .then(json => {
+            EvaluarCondicion(resolucion, clases);
             return json;
         })
         .catch(err => console.log('ERROR: ' + err))
+
 }
 
 function DeshabilitarBoton() {
