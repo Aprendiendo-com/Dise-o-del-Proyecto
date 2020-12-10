@@ -18,7 +18,7 @@
 }
 body
 {
-    background-color: #d3dfd4;
+    background-color: #deebe7;
 }
 .fab
 {
@@ -118,7 +118,18 @@ body
     display: none;
 }
 
-
+.fas
+{
+    margin-right: 0.5rem;
+}
+.far
+{
+    margin-right: 0.5rem;
+}
+.fa
+{
+    margin-right: 0.5rem;
+}
 
 /* FORO */
 .container-foro{
@@ -172,13 +183,13 @@ body
     }
     .forum-icon {
       float: left;
-      width: 30px;
-      margin-right: 20px;
+      margin-left: 20px;
       text-align: center;
     }
     .forum-icon .fa {
-      font-size: 30px;
+      font-size: 22px;
       margin-top: 8px;
+      margin-right: 10px;
       color: #9b9b9b;
     }
     #tb_comentarios {

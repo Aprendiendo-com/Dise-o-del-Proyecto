@@ -1,6 +1,28 @@
 $(document).ready(function () {
     /* debugger */
     let foroID = 2;
+    var token = DecodeToken(localStorage.getItem('Token'));
+    if (token.Rol == "1") {
+        var nav = $('#curso');
+
+        var html = `<li class="nav-item">
+                        <a class="nav-link" href="crearCurso.html"> Nuevo Curso </span></a>
+                    </li>`;
+
+        nav.append(html);
+
+        var elment = $('#cambiante');
+
+        var text = `<li class="secciones nav-item">
+                        <a class="nav-link text-dark" href="listadoEstudiantes.html"> <i class="fas fa-list"></i> Mis alumnos</a>
+                    </li>
+                    <li class="secciones nav-item">
+                        <button type="button" id = "crearClase" class="btn btn-sm" style="margin-top: 30%;"> <i id = "mas" class="fas fa-plus"></i></button>
+                    </li>`;
+
+        elment.append(text);
+    }
+
 
     var json = JSON.parse(localStorage.getItem('claseU'));
 

@@ -1,7 +1,7 @@
 
 login();
 
-$('#cerrar_sesion').on("click", function(){
+$('#cerrar_sesion').on("click", function () {
 
     localStorage.removeItem('Token');
     localStorage.removeItem('datos');
@@ -15,13 +15,14 @@ $('#cerrar_sesion').on("click", function(){
 });
 
 function login() {
-    
+
     var token = DecodeToken(localStorage.getItem('Token'));
-    
+
 
     $('#usuario').empty();
     $('#usuario').append(`<i class="far fa-user"></i>`);
-   
+    $('#drp-nombre').append(`${token.Nombre + " " + token.Apellido} `);
+
 }
 
 
