@@ -304,9 +304,10 @@ $(document).on('click', '.Nclases', function () {
             i++;
         }
     }
-
     var listaClases = JSON.parse(localStorage.getItem('clases')).find(x => x.descripcion == this.id);
     localStorage.setItem('claseU', JSON.stringify(listaClases));
+    sessionStorage.setItem('CursoId',listaClases.cursoId);
+
     var contenido = $('.centro');
 
     contenido.empty();
