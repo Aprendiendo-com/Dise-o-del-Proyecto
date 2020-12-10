@@ -217,3 +217,15 @@ section{
 #enviar-cuestionario{
     margin-bottom: 10px;
 }
+
+
+
+#aprobado{
+    color: green;
+    font-weight: bold;
+}
+
+#desaprobado{
+    color: red;
+    font-weight: bold;
+}
